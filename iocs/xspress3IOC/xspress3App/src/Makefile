@@ -20,7 +20,6 @@ xspress3App_DBD += NDPluginAttribute.dbd
 xspress3App_DBD += devIocStats.dbd
 xspress3App_SRCS += xspress3_registerRecordDeviceDriver.cpp
 xspress3App_LIBS += devIocStats
-xspress3App_LIBS += spectraPlugins
 xspress3App_LIBS += xspress3Epics
 xspress3App_LIBS += xspress3
 xspress3App_LIBS += img_mod
