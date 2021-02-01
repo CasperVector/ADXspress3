@@ -1,0 +1,20 @@
+XSPRESS3_PREFIX=XSPRESS3-EXAMPLE
+XSPRESS3_CONFIG:=$(abspath $(ADXSPRESS3))/xspress3_settings
+XSPRESS3_SAVE:=$(abspath $(TOP))/save
+XSPRESS3_DATA=/home/xspress3/data
+
+SYS_BOOT_FLAGS+=-MXSPRESS3=$(abspath $(ADXSPRESS3))
+SYS_BOOT_FLAGS+=-MXSPRESS3_PREFIX=$(XSPRESS3_PREFIX)
+
+USR_BOOT_FLAGS+=-MXSPRESS3_CONFIG=$(abspath $(XSPRESS3_CONFIG))
+USR_BOOT_FLAGS+=-MXSPRESS3_SAVE=$(abspath $(XSPRESS3_SAVE))
+USR_BOOT_FLAGS+=-MXSPRESS3_DATA=$(abspath $(XSPRESS3_DATA))
+USR_BOOT_FLAGS+=-MXSPRESS3_ABSPATH=$(abspath $(ADXSPRESS3))
+USR_BOOT_FLAGS+=-MINSTALL=$(abspath $(TOP))
+
+%.boot: %.src $(wildcard $(TOP)/configure/RELEASE $(TOP)/configure/RELEASE.private)
+	$(MSI3_15) $(SYS_BOOT_FLAGS) $(USR_BOOT_FLAGS) $< > $@
+
+%.sh: %.src
+	$(MSI3_15) $(SYS_BOOT_FLAGS) $< | sed 's/\\\$$/$$/g' > $@
+

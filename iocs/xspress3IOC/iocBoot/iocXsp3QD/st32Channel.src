@@ -3167,7 +3167,7 @@ dbpf("$(XSPRESS3_PREFIX):C32_PluginControlValExtraROI", "0")
 
 dbpf("$(XSPRESS3_PREFIX):C32_PluginControlVal", "0")
 
-dbpf $(XSPRESS3_PREFIX):NDAttributesFile, xspress3App/data/XSP3-32Channel.xml
+dbpf $(XSPRESS3_PREFIX):NDAttributesFile, iocBoot/iocXsp3QD/XSP3-32Channel.xml
 
 # disable DTC by default
 dbpf("$(XSPRESS3_PREFIX):CTRL_DTC", "0")
