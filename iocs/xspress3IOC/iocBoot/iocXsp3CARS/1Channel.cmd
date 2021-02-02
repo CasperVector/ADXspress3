@@ -17,19 +17,19 @@ epicsEnvSet("MAXFRAMES", "16384")
 # Number of Energy bins
 epicsEnvSet("NUM_BINS",  "4096")
 
-< ../common/DefineXSP3Driver.cmd
+< DefineXSP3Driver.cmd
 
 ###############################
 # DEFINE CHANNELS
 #Channel 1
 epicsEnvSet("CHAN",   "1")
 epicsEnvSet("CHM1",   "0")
-< ../common/DefineSCAROI.cmd
+< DefineSCAROI.cmd
 ###############################
 
 dbLoadRecords("xspress3Deadtime_1Channel.template",   "P=$(PREFIX)")
 
-< ../common/AutoSave.cmd
+< AutoSave.cmd
 
 ###############################
 # start IOC
@@ -40,18 +40,19 @@ iocInit
 #Configure and connect to Xspress3
 dbpf("$(PREFIX)det1:CONFIG_PATH", "/home/xspress3/xspress3_settings/current/")
 
-< ../common/SetMainValues.cmd
+< SetMainValues.cmd
+dbpf("$(PREFIX)det1:NDAttributesFile", "XSP3-1Channel.xml")
 
 ###############################
 # SET UP CHANNELS
 #Channel 1
 epicsEnvSet("CHAN",   "1")
 epicsEnvSet("CHM1",   "0")
-< ../common/SetChannelValues.cmd
+< SetChannelValues.cmd
 ###############################
 
 # save settings every thirty seconds
-create_monitor_set("auto_settings.req",30,"P=$(PREFIX)")
+create_monitor_set("1Channel-settings.req",30,"P=$(PREFIX)")
 
 epicsThreadSleep(5.)
 

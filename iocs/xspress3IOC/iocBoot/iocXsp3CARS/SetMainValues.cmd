@@ -9,7 +9,6 @@ dbpf("$(PREFIX)det1:TriggerMode",  "Internal")
 
 #Enable Array Callbacks, set Attributes file
 dbpf("$(PREFIX)det1:ArrayCallbacks",   "Enable")
-dbpf("$(PREFIX)det1:NDAttributesFile", "XSP3.xml")
 
 #Configure HDF Plugin
 dbpf("$(PREFIX)HDF1:FileTemplate",     "%s%s%d.hdf5")

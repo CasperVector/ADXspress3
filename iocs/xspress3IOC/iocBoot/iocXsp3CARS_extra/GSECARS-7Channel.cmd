@@ -13,16 +13,15 @@ dbLoadDatabase("$(TOP)/dbd/xspress3App.dbd")
 # but I'm not really sure why this happens
 callbackSetQueueSize(8000)
 
-
 xspress3App_registerRecordDeviceDriver(pdbbase) 
 
-epicsEnvSet("PREFIX", "13QX4:")
+epicsEnvSet("PREFIX", "13QX7:")
 epicsEnvSet("PORT",   "XSP3")
 epicsEnvSet("QSIZE",  "128")
 
 epicsEnvSet("XSIZE",  "4096")
 # Number of xspress3 channels
-epicsEnvSet("YSIZE",  "4")            
+epicsEnvSet("YSIZE",  "7")            
 
 epicsEnvSet("$(PORT)CARDS", "1")
 
@@ -30,7 +29,7 @@ epicsEnvSet("NCHANS", "16384")
 
 epicsEnvSet("MAXFRAMES", "16384")
 # The maximum number of frames buffered in the NDPluginCircularBuff plugin
-epicsEnvSet("CBUFFS", "500")
+epicsEnvSet("CBUFFS", "4096")
 # The search path for database files
 epicsEnvSet("EPICS_DB_INCLUDE_PATH", "$(ADCORE)/db:$(ADXSPRESS3)/db:.")
 
@@ -76,52 +75,75 @@ dbLoadRecords("xspress3.template","P=$(PREFIX),R=det1:,PORT=$(PORT), ADDR=0, TIM
 #Channel 1
 epicsEnvSet("CHAN",   "1")
 epicsEnvSet("XADDR",  "0")
-<SCAROI.cmd
+<SCAROI-GSECARS-7Channel.cmd
 
 #########################################
 #Channel 2
 epicsEnvSet("CHAN",   "2")
 epicsEnvSet("XADDR",  "1")
-<SCAROI.cmd
+<SCAROI-GSECARS-7Channel.cmd
 
 #########################################
 #Channel 3
 epicsEnvSet("CHAN",   "3")
 epicsEnvSet("XADDR",  "2")
-<SCAROI.cmd
+<SCAROI-GSECARS-7Channel.cmd
 
 #########################################
 #Channel 4
 epicsEnvSet("CHAN",   "4")
 epicsEnvSet("XADDR",  "3")
-<SCAROI.cmd
+<SCAROI-GSECARS-7Channel.cmd
+
+#########################################
+#Channel 5
+epicsEnvSet("CHAN",   "5")
+epicsEnvSet("XADDR",  "4")
+<SCAROI-GSECARS-7Channel.cmd
+
+#########################################
+#Channel 6
+epicsEnvSet("CHAN",   "6")
+epicsEnvSet("XADDR",  "5")
+<SCAROI-GSECARS-7Channel.cmd
+
+#########################################
+#Channel 7
+epicsEnvSet("CHAN",   "7")
+epicsEnvSet("XADDR",  "6")
+<SCAROI-GSECARS-7Channel.cmd
 
 # Optional: load scan records
 # dbLoadRecords("$(SSCAN)/sscanApp/Db/scan.db", "P=$(PREFIX),MAXPTS1=2000,MAXPTS2=200,MAXPTS3=20,MAXPTS4=10,MAXPTSH=10")
 # Optional: load sseq record for acquisition sequence
 # dbLoadRecords("$(CALC)/calcApp/Db/yySseq.db", "P=$(PREFIX), S=AcquireSequence")
 
-dbLoadRecords("xspress3Deadtime_4Channel.template",   "P=$(PREFIX)")
+dbLoadRecords("xspress3Deadtime_7Channel.template",   "P=$(PREFIX)")
 
 < AutoSave.cmd
+set_pass0_restoreFile("GSECARS-7Channel-settings.sav")
+set_pass1_restoreFile("GSECARS-7Channel-settings.sav")
 
 #########################################
 # ioc initialization
 
 iocInit
 
-< defaultValueLoad.cmd
+< ValueLoad-GSECARS-7Channel.cmd
 
 # save settings every thirty seconds
-create_monitor_set("auto_settings.req",30,"P=$(PREFIX)")
+create_monitor_set("GSECARS-7Channel-settings.req",30,"P=$(PREFIX)")
 
 epicsThreadSleep(5.)
 
 # Set default event widths for deadtime correction
 # note that these should be tuned for each detector:
-dbpf("$(PREFIX)C1:EventWidth",    "8")
-dbpf("$(PREFIX)C2:EventWidth",    "8")
-dbpf("$(PREFIX)C3:EventWidth",    "7")
-dbpf("$(PREFIX)C4:EventWidth",    "6")
+# dbpf("$(PREFIX)C1:EventWidth",    "7")
+# dbpf("$(PREFIX)C2:EventWidth",    "7")
+# dbpf("$(PREFIX)C3:EventWidth",    "7")
+# dbpf("$(PREFIX)C4:EventWidth",    "7")
+# dbpf("$(PREFIX)C5:EventWidth",    "7")
+# dbpf("$(PREFIX)C6:EventWidth",    "7")
+# dbpf("$(PREFIX)C7:EventWidth",    "7")
 
 # Xspress3 is now ready to use!

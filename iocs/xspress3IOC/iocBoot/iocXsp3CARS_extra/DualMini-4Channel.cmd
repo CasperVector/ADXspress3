@@ -16,16 +16,16 @@ callbackSetQueueSize(8000)
 
 xspress3App_registerRecordDeviceDriver(pdbbase) 
 
-### epicsEnvSet("PREFIX", "XSPRESS3:")
-epicsEnvSet("PREFIX", "XF:05IDD-ES{Xsp:1}:")
+epicsEnvSet("PREFIX", "S4QX4:")
 epicsEnvSet("PORT",   "XSP3")
 epicsEnvSet("QSIZE",  "128")
 
 epicsEnvSet("XSIZE",  "4096")
 # Number of xspress3 channels
-epicsEnvSet("YSIZE",  "4")            
+epicsEnvSet("YSIZE",  "4")
 
-epicsEnvSet("$(PORT)CARDS", "1")
+epicsEnvSet("$(PORT)CARDS", "2")
+## epicsEnvSet("XSP3CARDS", "1")
 
 epicsEnvSet("NCHANS", "16384")
 
@@ -37,7 +37,7 @@ epicsEnvSet("EPICS_DB_INCLUDE_PATH", "$(ADCORE)/db:$(ADXSPRESS3)/db:.")
 
 
 #DevIOCStats
-dbLoadRecords("$(DEVIOCSTATS)/db/iocAdminSoft.db", "IOC=$(IOC)")
+# dbLoadRecords("$(DEVIOCSTATS)/db/iocAdminSoft.db", "IOC=$(IOC)")
 
 
 ##################################################
@@ -77,41 +77,54 @@ dbLoadRecords("xspress3.template","P=$(PREFIX),R=det1:,PORT=$(PORT), ADDR=0, TIM
 #Channel 1
 epicsEnvSet("CHAN",   "1")
 epicsEnvSet("XADDR",  "0")
-<SCAROI.cmd
+<SCAROI-DualMini-4Channel.cmd
 
 #########################################
 #Channel 2
 epicsEnvSet("CHAN",   "2")
 epicsEnvSet("XADDR",  "1")
-<SCAROI.cmd
+<SCAROI-DualMini-4Channel.cmd
 
 #########################################
-#Channel 3
+# #Channel 3
 epicsEnvSet("CHAN",   "3")
 epicsEnvSet("XADDR",  "2")
-<SCAROI.cmd
+<SCAROI-DualMini-4Channel.cmd
 
 #########################################
-#Channel 4
+# #Channel 4
 epicsEnvSet("CHAN",   "4")
 epicsEnvSet("XADDR",  "3")
-<SCAROI.cmd
+<SCAROI-DualMini-4Channel.cmd
 
 # Optional: load scan records
 # dbLoadRecords("$(SSCAN)/sscanApp/Db/scan.db", "P=$(PREFIX),MAXPTS1=2000,MAXPTS2=200,MAXPTS3=20,MAXPTS4=10,MAXPTSH=10")
 # Optional: load sseq record for acquisition sequence
 # dbLoadRecords("$(CALC)/calcApp/Db/yySseq.db", "P=$(PREFIX), S=AcquireSequence")
 
+dbLoadRecords("xspress3Deadtime_4Channel.template",   "P=$(PREFIX)")
+
 < AutoSave.cmd
+set_pass0_restoreFile("DualMini-4Channel-settings.sav")
+set_pass1_restoreFile("DualMini-4Channel-settings.sav")
 
 #########################################
 # ioc initialization
 
 iocInit
 
-< defaultValueLoad.cmd
+< ValueLoad-DualMini-4Channel.cmd
 
 # save settings every thirty seconds
-create_monitor_set("auto_settings.req",30,"P=$(PREFIX)")
+create_monitor_set("DualMini-4Channel-settings.req",30,"P=$(PREFIX)")
 
+epicsThreadSleep(5.)
 
+# Set default event widths for deadtime correction
+# note that these should be tuned for each detector:
+dbpf("$(PREFIX)C1:EventWidth",    "8")
+dbpf("$(PREFIX)C2:EventWidth",    "8")
+dbpf("$(PREFIX)C3:EventWidth",    "8")
+dbpf("$(PREFIX)C4:EventWidth",    "8")
+
+# Xspress3 is now ready to use!

@@ -17,50 +17,50 @@ epicsEnvSet("MAXFRAMES", "16384")
 # Number of Energy bins
 epicsEnvSet("NUM_BINS",  "4096")
 
-< ../common/DefineXSP3Driver.cmd
+< DefineXSP3Driver.cmd
 
 ###############################
 # DEFINE CHANNELS
 #Channel 1
 epicsEnvSet("CHAN",   "1")
 epicsEnvSet("CHM1",   "0")
-< ../common/DefineSCAROI.cmd
+< DefineSCAROI.cmd
 
 #Channel 2
 epicsEnvSet("CHAN",   "2")
 epicsEnvSet("CHM1",   "1")
-< ../common/DefineSCAROI.cmd
+< DefineSCAROI.cmd
 
 #Channel 3
 epicsEnvSet("CHAN",   "3")
 epicsEnvSet("CHM1",   "2")
-< ../common/DefineSCAROI.cmd
+< DefineSCAROI.cmd
 
 #Channel 4
 epicsEnvSet("CHAN",   "4")
 epicsEnvSet("CHM1",   "3")
-< ../common/DefineSCAROI.cmd
+< DefineSCAROI.cmd
 
 #Channel 5
 epicsEnvSet("CHAN",   "5")
 epicsEnvSet("CHM1",   "4")
-< ../common/DefineSCAROI.cmd
+< DefineSCAROI.cmd
 
 #Channel 6
 epicsEnvSet("CHAN",   "6")
 epicsEnvSet("CHM1",   "5")
-< ../common/DefineSCAROI.cmd
+< DefineSCAROI.cmd
 
 #Channel 7
 epicsEnvSet("CHAN",   "7")
 epicsEnvSet("CHM1",   "6")
-< ../common/DefineSCAROI.cmd
+< DefineSCAROI.cmd
 
 ###############################
 
 dbLoadRecords("xspress3Deadtime_7Channel.template",   "P=$(PREFIX)")
 
-< ../common/AutoSave.cmd
+< AutoSave.cmd
 
 ###############################
 # start IOC
@@ -71,48 +71,49 @@ iocInit
 #Configure and connect to Xspress3
 dbpf("$(PREFIX)det1:CONFIG_PATH", "/home/xspress3/xspress3_settings/current/")
 
-< ../common/SetMainValues.cmd
+< SetMainValues.cmd
+dbpf("$(PREFIX)det1:NDAttributesFile", "XSP3-7Channel.xml")
 
 ###############################
 # SET UP CHANNELS
 #Channel 1
 epicsEnvSet("CHAN",   "1")
 epicsEnvSet("CHM1",   "0")
-< ../common/SetChannelValues.cmd
+< SetChannelValues.cmd
 
 #Channel 2
 epicsEnvSet("CHAN",   "2")
 epicsEnvSet("CHM1",   "1")
-< ../common/SetChannelValues.cmd
+< SetChannelValues.cmd
 
 #Channel 3
 epicsEnvSet("CHAN",   "3")
 epicsEnvSet("CHM1",   "2")
-< ../common/SetChannelValues.cmd
+< SetChannelValues.cmd
 
 #Channel 4
 epicsEnvSet("CHAN",   "4")
 epicsEnvSet("CHM1",   "3")
-< ../common/SetChannelValues.cmd
+< SetChannelValues.cmd
 
 #Channel 5
 epicsEnvSet("CHAN",   "5")
 epicsEnvSet("CHM1",   "4")
-< ../common/SetChannelValues.cmd
+< SetChannelValues.cmd
 
 #Channel 6
 epicsEnvSet("CHAN",   "6")
 epicsEnvSet("CHM1",   "5")
-< ../common/SetChannelValues.cmd
+< SetChannelValues.cmd
 
 #Channel 7
 epicsEnvSet("CHAN",   "7")
 epicsEnvSet("CHM1",   "6")
-< ../common/SetChannelValues.cmd
+< SetChannelValues.cmd
 ###############################
 
 # save settings every thirty seconds
-create_monitor_set("auto_settings.req",30,"P=$(PREFIX)")
+create_monitor_set("7Channel-settings.req",30,"P=$(PREFIX)")
 
 epicsThreadSleep(5.)
 
