@@ -5,7 +5,7 @@ file ADBase.template {
 }
 
 #Make MAX_SPECTRA 4095 to cut off last bin.
-file xspress3.template {
+file xspress3_QD.template {
 	pattern {P,     R,     PORT, ADDR, TIMEOUT, MAX_SPECTRA, MAX_FRAMES}
                 {$(XSPRESS3_PREFIX), :, XSP3, 0,    5,       4095,        4096}
 }

@@ -24,7 +24,7 @@ pattern { P, R, PORT, TIMEOUT, ADDR }
 #  TIMEOUT      Asyn timeout
 #  MAX_SPECTRA  The maximum number of frames that can be acquired in one acquisition (eg. 16384)
 #  MAX_FRAMES   The maximum size of each spectra (eg. 4096) in a scan.
-file $(ADXSPRESS3)/db/xspress3.template
+file $(ADXSPRESS3)/db/xspress3_QD.template
 {
 pattern { P, R, PORT, ADDR, TIMEOUT, MAX_SPECTRA, MAX_FRAMES }
     { "$(XSPRESS3_PREFIX)", ":", "XSP3", "0", "5", "4096", "16384" }

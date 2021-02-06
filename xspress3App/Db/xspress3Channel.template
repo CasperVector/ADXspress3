@@ -52,7 +52,7 @@ substitute "ROI16=ROI16"
 ##########################################################################
 
 include "xspress3_pluginControl.template"
-include "xspress3_AttrReset.template"
+include "xspress3_AttrReset_QD.template"
 include "xspress3_AttrUpdate.template"
 
 ##########################################################################

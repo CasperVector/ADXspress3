@@ -43,7 +43,7 @@
 //Xspress3 API header
 #include "xspress3.h"
 
-#include "xspress3Epics.h"
+#include "xspress3EpicsQD.h"
 
 using std::cout;
 using std::endl;
