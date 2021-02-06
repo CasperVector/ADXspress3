@@ -22,6 +22,11 @@ DB += xspress3_AttrUpdate.template
 DB += xspress3_pluginControl.template
 DB += xspress3Deadtime.template
 
+DB += xsp3.template
+DB += xsp3_chan.db
+REQ += xsp3.req
+REQ += xsp3_chan.req
+
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add
 # <anyname>_template = <templatename>
