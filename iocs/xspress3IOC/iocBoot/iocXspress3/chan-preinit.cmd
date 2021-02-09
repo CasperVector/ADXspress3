@@ -1,4 +1,4 @@
-dbLoadRecords("xsp3_chan.db", "P=$(PREFIX),R=,PORT=$(PORT),ADDR=$(ADDR),CHAN=$(CHAN),TIMEOUT=1")
+dbLoadRecords("xsp3_chan.db", "P=$(PREFIX),R=ch$(CHAN):,PORT=$(PORT),ADDR=$(ADDR),TIMEOUT=1")
 
 NDROIConfigure("ROI$(CHAN)", $(QSIZE), 0, "$(PORT)", 0, 0, 0, 0, 0, 1)
 dbLoadRecords("NDROI.template", "P=$(PREFIX),R=ROI$(CHAN):,PORT=ROI$(CHAN),ADDR=0,TIMEOUT=1,NDARRAY_PORT=$(PORT)")

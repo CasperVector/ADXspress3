@@ -13,76 +13,204 @@
 ##########################################################################
 
 ##########################################################################
-# Add in records to set SCA related parameters.
-##########################################################################
-
-#All good SCA
-substitute "SCA=4"
-include "xspress3ChannelSCAThreshold.template"
-
-#Window 1 SCA
-substitute "SCA=5"
-include "xspress3ChannelSCALimits.template"
-
-#Window 2 SCA
-substitute "SCA=6"
-include "xspress3ChannelSCALimits.template"
-
-##########################################################################
 # Dead Time Correction Parameters Read At Connection Time
 ##########################################################################
-include "xspress3Deadtime.template"
 
-include "xspress3ChannelDTC.template
+# ///
+# /// Set the event width.
+# ///
+record(ao, "$(P)$(R)EventWidth") {
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_EVENT_WIDTH")
+    field(VAL,  "6.0")
+    field(PREC, "1")
+}
+
+# ///
+# /// Read the event width.
+# ///
+record(ai, "$(P)$(R)EventWidth_RBV")
+{
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_EVENT_WIDTH")
+    field(SCAN, "I/O Intr")
+    field(VAL,  "0")
+    field(PREC, "1")
+}
+
+# ///
+# /// Read the dead time as % of frame time.
+# ///
+record(ai, "$(P)$(R)DeadTime_RBV")
+{
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTPERCENT")
+    field(SCAN, "I/O Intr")
+    field(VAL,  "0")
+    field(PREC, "5")
+}
+
+# ///
+# /// Read the dead time correction factor.
+# ///
+record(ai, "$(P)$(R)DTFactor_RBV")
+{
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTFACTOR")
+    field(SCAN, "I/O Intr")
+    field(VAL,  "1")
+    field(PREC, "5")
+}
+
+# ///
+# /// Read the dead time correction flags.
+# ///
+record(longin, "$(P)$(R)DTC_FLAGS_RBV")
+{
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTC_FLAGS")
+   field(SCAN, "I/O Intr")
+}
+
+# ///
+# /// Read the dead time correction All Event Grad parameter.
+# ///
+record(ai, "$(P)$(R)DTC_AEG_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTC_AEG")
+   field(SCAN, "I/O Intr")
+   field(PREC, "4")
+}
+
+# ///
+# /// Read the dead time correction All Event Offset parameter.
+# ///
+record(ai, "$(P)$(R)DTC_AEO_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTC_AEO")
+   field(SCAN, "I/O Intr")
+   field(PREC, "4")
+}
+
+# ///
+# /// Read the dead time correction In Window Grad parameter.
+# ///
+record(ai, "$(P)$(R)DTC_IWG_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTC_IWG")
+   field(SCAN, "I/O Intr")
+   field(PREC, "4")
+}
+
+# ///
+# /// Read the dead time correction In Window Offset parameter.
+# ///
+record(ai, "$(P)$(R)DTC_IWO_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTC_IWO")
+   field(SCAN, "I/O Intr")
+   field(PREC, "4")
+}
 
 ##########################################################################
-# Add in MCA ROI records.
+# Add in SCA related records
 ##########################################################################
-substitute "ROI=1"
-include "xspress3ChannelMCAROI.template"
 
-substitute "ROI=2"
-include "xspress3ChannelMCAROI.template"
+# ///
+# /// Read Live Time.
+# ///
+record(ai, "$(P)$(R)SCA0_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA0")
+   field(SCAN, "I/O Intr")
+}
+# ///
+# /// Read Reset Ticks.
+# ///
+record(ai, "$(P)$(R)SCA1_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA1")
+   field(SCAN, "I/O Intr")
+}
 
-substitute "ROI=3"
-include "xspress3ChannelMCAROI.template"
+# ///
+# /// Read Reset Count.
+# ///
+record(ai, "$(P)$(R)SCA2_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA2")
+   field(SCAN, "I/O Intr")
+}
 
-substitute "ROI=4"
-include "xspress3ChannelMCAROI.template"
+# ///
+# /// Read All Event.
+# ///
+record(ai, "$(P)$(R)SCA3_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA3")
+   field(SCAN, "I/O Intr")
+}
 
-substitute "ROI=5"
-include "xspress3ChannelMCAROI.template"
+# ///
+# /// Read All Good.
+# ///
+record(ai, "$(P)$(R)SCA4_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA4")
+   field(SCAN, "I/O Intr")
+}
 
-substitute "ROI=6"
-include "xspress3ChannelMCAROI.template"
+# ///
+# /// Read Window 1.
+# ///
+record(ai, "$(P)$(R)SCA5_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA5")
+   field(SCAN, "I/O Intr")
+}
 
-substitute "ROI=7"
-include "xspress3ChannelMCAROI.template"
+# ///
+# /// Read Window 2.
+# ///
+record(ai, "$(P)$(R)SCA6_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA6")
+   field(SCAN, "I/O Intr")
+}
 
-substitute "ROI=8"
-include "xspress3ChannelMCAROI.template"
+# ///
+# /// Read Pileup.
+# ///
+record(ai, "$(P)$(R)SCA7_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA7")
+   field(SCAN, "I/O Intr")
+}
 
-substitute "ROI=9"
-include "xspress3ChannelMCAROI.template"
+substitute "SCA=4,PARAM=THRESHOLD"
+include "xsp3_chan_scaparam.template"
 
-substitute "ROI=10"
-include "xspress3ChannelMCAROI.template"
+substitute "SCA=5,PARAM=HLM"
+include "xsp3_chan_scaparam.template"
 
-substitute "ROI=11"
-include "xspress3ChannelMCAROI.template"
+substitute "SCA=5,PARAM=LLM"
+include "xsp3_chan_scaparam.template"
 
-substitute "ROI=12"
-include "xspress3ChannelMCAROI.template"
+substitute "SCA=6,PARAM=HLM"
+include "xsp3_chan_scaparam.template"
 
-substitute "ROI=13"
-include "xspress3ChannelMCAROI.template"
-
-substitute "ROI=14"
-include "xspress3ChannelMCAROI.template"
-
-substitute "ROI=15"
-include "xspress3ChannelMCAROI.template"
-
-substitute "ROI=16"
-include "xspress3ChannelMCAROI.template"
+substitute "SCA=6,PARAM=LLM"
+include "xsp3_chan_scaparam.template"
 
