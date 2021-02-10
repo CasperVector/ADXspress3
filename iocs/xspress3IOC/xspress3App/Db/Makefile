@@ -19,6 +19,16 @@ DB += xspress3Deadtime_8Channel.template
 DB += xspress3Deadtime_14Channel.template
 DB += xspress3Deadtime_16Channel.template
 
+DB += example.db
+DB += 1Channel.db
+DB += 2Channel.db
+DB += 4Channel.db
+DB += 6Channel.db
+DB += 7Channel.db
+DB += 8Channel.db
+DB += 16Channel.db
+DB += 32Channel.db
+
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add
 # <anyname>_template = <templatename>

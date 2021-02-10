@@ -20,6 +20,13 @@ xspress3Epics_SRCS += xsp3Detector.cpp
 xspress3Epics_SRCS += xsp3Simulator.cpp
 xspress3Epics_SRCS += xsp3SimElement.cpp
 xspress3Epics_SRCS += xsp3TimeRegister.cpp
+LIBRARY_IOC_Linux += xspress3EpicsQD
+xspress3EpicsQD_SRCS += xspress3EpicsQD.cpp
+xspress3EpicsQD_SRCS += xsp3Api.cpp
+xspress3EpicsQD_SRCS += xsp3Detector.cpp
+xspress3EpicsQD_SRCS += xsp3Simulator.cpp
+xspress3EpicsQD_SRCS += xsp3SimElement.cpp
+xspress3EpicsQD_SRCS += xsp3TimeRegister.cpp
 endif
 
 DBD += xspress3Support.dbd
