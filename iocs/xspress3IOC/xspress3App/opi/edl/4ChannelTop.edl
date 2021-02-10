@@ -20,7 +20,7 @@ font "arial-medium-r-14.0"
 showGrid
 snapToGrid
 textColor index 14
-title "Device - example4ChannelTop"
+title "Device - 4ChannelTop"
 topShadowColor index 1
 endScreenProperties
 
@@ -111,7 +111,7 @@ fgColor index 14
 font "arial-bold-r-16.0"
 fontAlign "center"
 value {
-  "example4Channel Top"
+  "4Channel Top"
 }
 endObjectProperties
 
@@ -229,7 +229,7 @@ bgColor index 3
 botShadowColor index 11
 buttonLabel ""
 displayFileName {
-  0 "XSP3.edl"
+  0 "XSP3-4Channel.edl"
 }
 fgColor index 43
 font "arial-bold-r-14.0"
@@ -384,7 +384,7 @@ font "arial-bold-r-14.0"
 fontAlign "center"
 useDisplayBg
 value {
-  "example4ChannelTop"
+  "4ChannelTop"
 }
 endObjectProperties
 
