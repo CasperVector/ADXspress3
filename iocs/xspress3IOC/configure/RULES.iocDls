@@ -1,5 +1,5 @@
 XSPRESS3_PREFIX=XSPRESS3-EXAMPLE
-XSPRESS3_CONFIG:=$(abspath $(ADXSPRESS3))/xspress3_settings
+XSPRESS3_CONFIG:=/etc/epics/xspress3/settings
 XSPRESS3_SAVE:=$(abspath $(TOP))/save
 XSPRESS3_DATA=/home/xspress3/data
 

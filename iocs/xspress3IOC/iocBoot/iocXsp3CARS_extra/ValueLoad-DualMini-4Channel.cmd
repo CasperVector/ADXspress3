@@ -20,7 +20,7 @@ dbpf("$(PREFIX)Proc1:FilterType", "Sum")
 dbpf("$(PREFIX)Proc1:EnableCallbacks", "Enable")
 
 #Configure and connect to Xspress3
-dbpf("$(PREFIX)det1:CONFIG_PATH", "/home/xspress3/xspress3_settings/")
+dbpf("$(PREFIX)det1:CONFIG_PATH", "/home/xspress3/xspress3_settings/current/")
 dbpf("$(PREFIX)det1:RUN_FLAGS","0")
 dbpf("$(PREFIX)det1:NUM_CHANNELS", "4")
 dbpf("$(PREFIX)det1:NumImages", 1)

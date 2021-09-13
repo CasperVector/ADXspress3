@@ -27,7 +27,7 @@ dbpf("$(PREFIX)Proc1:EnableCallbacks", "Enable")
 
 
 # Xspress 3 configuration
-dbpf("$(PREFIX)det1:CONFIG_PATH", "/home/xspress3/xspress3_settings/")
+dbpf("$(PREFIX)det1:CONFIG_PATH", "/home/xspress3/xspress3_settings/current/")
 dbpf("$(PREFIX)det1:RUN_FLAGS","0")
 dbpf("$(PREFIX)det1:NUM_CHANNELS","4")
 dbpf("$(PREFIX)det1:NumImages", 1)

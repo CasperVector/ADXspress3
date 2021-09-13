@@ -112,6 +112,9 @@ NDTimeSeriesConfigure("XSP3.C1_ROI15_TS", 4096, 0, "XSP3", 0, 1)
 NDAttrConfigure("XSP3.C1_ROI16", 4096, 0, "XSP3", 0, 1)
 NDTimeSeriesConfigure("XSP3.C1_ROI16_TS", 4096, 0, "XSP3", 0, 1)
 
+# NDProcessConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory)
+NDProcessConfigure("XSP3.PROC", 16, 0, "XSP3", 0, 50, 0)
+
 # NDROIConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory)
 NDROIConfigure("XSP3.ROI1", 4096, 0, "XSP3", 0, -1, -1)
 
@@ -627,9 +630,6 @@ NDStdArraysConfigure("XSP3.ARR7", 4096, 0, "XSP3.ROI7", 0, -1)
 
 # NDStdArraysConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxMemory)
 NDStdArraysConfigure("XSP3.ARRSUM7", 4096, 0, "XSP3.ROISUM7", 0, -1)
-
-# NDProcessConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory)
-NDProcessConfigure("XSP3.PROC", 16, 0, "XSP3", 0, 50, 0)
 
 # NDROIConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory)
 NDROIConfigure("XSP3.ROIDATA", 16, 0, "XSP3", 0, 50, 0)
