@@ -996,72 +996,72 @@ pattern { P, R, PORT, TIMEOUT, ADDR, NDARRAY_PORT, NDARRAY_ADDR, Enabled }
 #  ADDR     Asyn Port address
 file $(ADCORE)/db/NDROI.template
 {
-pattern { P, R, PORT, TIMEOUT, ADDR }
-    { "$(XSPRESS3_PREFIX):", "ROI1:", "XSP3.ROI1", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM1:", "XSP3.ROISUM1", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI2:", "XSP3.ROI2", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM2:", "XSP3.ROISUM2", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI3:", "XSP3.ROI3", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM3:", "XSP3.ROISUM3", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI4:", "XSP3.ROI4", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM4:", "XSP3.ROISUM4", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI5:", "XSP3.ROI5", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM5:", "XSP3.ROISUM5", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI6:", "XSP3.ROI6", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM6:", "XSP3.ROISUM6", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI7:", "XSP3.ROI7", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM7:", "XSP3.ROISUM7", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI8:", "XSP3.ROI8", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM8:", "XSP3.ROISUM8", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI9:", "XSP3.ROI9", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM9:", "XSP3.ROISUM9", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI10:", "XSP3.ROI10", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM10:", "XSP3.ROISUM10", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI11:", "XSP3.ROI11", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM11:", "XSP3.ROISUM11", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI12:", "XSP3.ROI12", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM12:", "XSP3.ROISUM12", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI13:", "XSP3.ROI13", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM13:", "XSP3.ROISUM13", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI14:", "XSP3.ROI14", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM14:", "XSP3.ROISUM14", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI15:", "XSP3.ROI15", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM15:", "XSP3.ROISUM15", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI16:", "XSP3.ROI16", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM16:", "XSP3.ROISUM16", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI17:", "XSP3.ROI17", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM17:", "XSP3.ROISUM17", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI18:", "XSP3.ROI18", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM18:", "XSP3.ROISUM18", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI19:", "XSP3.ROI19", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM19:", "XSP3.ROISUM19", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI20:", "XSP3.ROI20", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM20:", "XSP3.ROISUM20", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI21:", "XSP3.ROI21", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM21:", "XSP3.ROISUM21", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI22:", "XSP3.ROI22", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM22:", "XSP3.ROISUM22", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI23:", "XSP3.ROI23", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM23:", "XSP3.ROISUM23", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI24:", "XSP3.ROI24", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM24:", "XSP3.ROISUM24", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI25:", "XSP3.ROI25", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM25:", "XSP3.ROISUM25", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI26:", "XSP3.ROI26", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM26:", "XSP3.ROISUM26", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI27:", "XSP3.ROI27", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM27:", "XSP3.ROISUM27", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI28:", "XSP3.ROI28", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM28:", "XSP3.ROISUM28", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI29:", "XSP3.ROI29", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM29:", "XSP3.ROISUM29", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI30:", "XSP3.ROI30", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM30:", "XSP3.ROISUM30", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI31:", "XSP3.ROI31", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM31:", "XSP3.ROISUM31", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROI32:", "XSP3.ROI32", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM32:", "XSP3.ROISUM32", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROIDATA:", "XSP3.ROIDATA", "1", "0" }
+pattern { P, R, PORT, TIMEOUT, ADDR, NDARRAY_PORT }
+    { "$(XSPRESS3_PREFIX):", "ROI1:", "XSP3.ROI1", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM1:", "XSP3.ROISUM1", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI2:", "XSP3.ROI2", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM2:", "XSP3.ROISUM2", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI3:", "XSP3.ROI3", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM3:", "XSP3.ROISUM3", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI4:", "XSP3.ROI4", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM4:", "XSP3.ROISUM4", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI5:", "XSP3.ROI5", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM5:", "XSP3.ROISUM5", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI6:", "XSP3.ROI6", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM6:", "XSP3.ROISUM6", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI7:", "XSP3.ROI7", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM7:", "XSP3.ROISUM7", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI8:", "XSP3.ROI8", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM8:", "XSP3.ROISUM8", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI9:", "XSP3.ROI9", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM9:", "XSP3.ROISUM9", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI10:", "XSP3.ROI10", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM10:", "XSP3.ROISUM10", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI11:", "XSP3.ROI11", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM11:", "XSP3.ROISUM11", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI12:", "XSP3.ROI12", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM12:", "XSP3.ROISUM12", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI13:", "XSP3.ROI13", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM13:", "XSP3.ROISUM13", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI14:", "XSP3.ROI14", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM14:", "XSP3.ROISUM14", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI15:", "XSP3.ROI15", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM15:", "XSP3.ROISUM15", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI16:", "XSP3.ROI16", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM16:", "XSP3.ROISUM16", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI17:", "XSP3.ROI17", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM17:", "XSP3.ROISUM17", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI18:", "XSP3.ROI18", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM18:", "XSP3.ROISUM18", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI19:", "XSP3.ROI19", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM19:", "XSP3.ROISUM19", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI20:", "XSP3.ROI20", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM20:", "XSP3.ROISUM20", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI21:", "XSP3.ROI21", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM21:", "XSP3.ROISUM21", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI22:", "XSP3.ROI22", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM22:", "XSP3.ROISUM22", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI23:", "XSP3.ROI23", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM23:", "XSP3.ROISUM23", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI24:", "XSP3.ROI24", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM24:", "XSP3.ROISUM24", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI25:", "XSP3.ROI25", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM25:", "XSP3.ROISUM25", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI26:", "XSP3.ROI26", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM26:", "XSP3.ROISUM26", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI27:", "XSP3.ROI27", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM27:", "XSP3.ROISUM27", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI28:", "XSP3.ROI28", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM28:", "XSP3.ROISUM28", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI29:", "XSP3.ROI29", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM29:", "XSP3.ROISUM29", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI30:", "XSP3.ROI30", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM30:", "XSP3.ROISUM30", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI31:", "XSP3.ROI31", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM31:", "XSP3.ROISUM31", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROI32:", "XSP3.ROI32", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM32:", "XSP3.ROISUM32", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROIDATA:", "XSP3.ROIDATA", "1", "0", "XSP3" }
 }
 
 # Macros:
@@ -1075,71 +1075,71 @@ pattern { P, R, PORT, TIMEOUT, ADDR }
 #  NELEMENTS  Number of elements
 file $(ADCORE)/db/NDStdArrays.template
 {
-pattern { P, R, PORT, TIMEOUT, ADDR, TYPE, FTVL, NELEMENTS }
-    { "$(XSPRESS3_PREFIX):", "ARR1:", "XSP3.ARR1", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM1:", "XSP3.ARRSUM1", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR2:", "XSP3.ARR2", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM2:", "XSP3.ARRSUM2", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR3:", "XSP3.ARR3", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM3:", "XSP3.ARRSUM3", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR4:", "XSP3.ARR4", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM4:", "XSP3.ARRSUM4", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR5:", "XSP3.ARR5", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM5:", "XSP3.ARRSUM5", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR6:", "XSP3.ARR6", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM6:", "XSP3.ARRSUM6", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR7:", "XSP3.ARR7", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM7:", "XSP3.ARRSUM7", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR8:", "XSP3.ARR8", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM8:", "XSP3.ARRSUM8", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR9:", "XSP3.ARR9", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM9:", "XSP3.ARRSUM9", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR10:", "XSP3.ARR10", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM10:", "XSP3.ARRSUM10", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR11:", "XSP3.ARR11", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM11:", "XSP3.ARRSUM11", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR12:", "XSP3.ARR12", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM12:", "XSP3.ARRSUM12", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR13:", "XSP3.ARR13", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM13:", "XSP3.ARRSUM13", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR14:", "XSP3.ARR14", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM14:", "XSP3.ARRSUM14", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR15:", "XSP3.ARR15", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM15:", "XSP3.ARRSUM15", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR16:", "XSP3.ARR16", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM16:", "XSP3.ARRSUM16", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR17:", "XSP3.ARR17", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM17:", "XSP3.ARRSUM17", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR18:", "XSP3.ARR18", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM18:", "XSP3.ARRSUM18", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR19:", "XSP3.ARR19", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM19:", "XSP3.ARRSUM19", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR20:", "XSP3.ARR20", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM20:", "XSP3.ARRSUM20", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR21:", "XSP3.ARR21", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM21:", "XSP3.ARRSUM21", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR22:", "XSP3.ARR22", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM22:", "XSP3.ARRSUM22", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR23:", "XSP3.ARR23", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM23:", "XSP3.ARRSUM23", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR24:", "XSP3.ARR24", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM24:", "XSP3.ARRSUM24", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR25:", "XSP3.ARR25", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM25:", "XSP3.ARRSUM25", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR26:", "XSP3.ARR26", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM26:", "XSP3.ARRSUM26", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR27:", "XSP3.ARR27", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM27:", "XSP3.ARRSUM27", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR28:", "XSP3.ARR28", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM28:", "XSP3.ARRSUM28", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR29:", "XSP3.ARR29", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM29:", "XSP3.ARRSUM29", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR30:", "XSP3.ARR30", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM30:", "XSP3.ARRSUM30", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR31:", "XSP3.ARR31", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM31:", "XSP3.ARRSUM31", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARR32:", "XSP3.ARR32", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM32:", "XSP3.ARRSUM32", "1", "0", "Float64", "DOUBLE", "4096" }
+pattern { P, R, PORT, TIMEOUT, ADDR, TYPE, FTVL, NELEMENTS, NDARRAY_PORT }
+    { "$(XSPRESS3_PREFIX):", "ARR1:", "XSP3.ARR1", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI1" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM1:", "XSP3.ARRSUM1", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM1" }
+    { "$(XSPRESS3_PREFIX):", "ARR2:", "XSP3.ARR2", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI2" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM2:", "XSP3.ARRSUM2", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM2" }
+    { "$(XSPRESS3_PREFIX):", "ARR3:", "XSP3.ARR3", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI3" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM3:", "XSP3.ARRSUM3", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM3" }
+    { "$(XSPRESS3_PREFIX):", "ARR4:", "XSP3.ARR4", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI4" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM4:", "XSP3.ARRSUM4", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM4" }
+    { "$(XSPRESS3_PREFIX):", "ARR5:", "XSP3.ARR5", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI5" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM5:", "XSP3.ARRSUM5", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM5" }
+    { "$(XSPRESS3_PREFIX):", "ARR6:", "XSP3.ARR6", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI6" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM6:", "XSP3.ARRSUM6", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM6" }
+    { "$(XSPRESS3_PREFIX):", "ARR7:", "XSP3.ARR7", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI7" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM7:", "XSP3.ARRSUM7", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM7" }
+    { "$(XSPRESS3_PREFIX):", "ARR8:", "XSP3.ARR8", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI8" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM8:", "XSP3.ARRSUM8", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM8" }
+    { "$(XSPRESS3_PREFIX):", "ARR9:", "XSP3.ARR9", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI9" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM9:", "XSP3.ARRSUM9", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM9" }
+    { "$(XSPRESS3_PREFIX):", "ARR10:", "XSP3.ARR10", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI10" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM10:", "XSP3.ARRSUM10", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM10" }
+    { "$(XSPRESS3_PREFIX):", "ARR11:", "XSP3.ARR11", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI11" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM11:", "XSP3.ARRSUM11", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM11" }
+    { "$(XSPRESS3_PREFIX):", "ARR12:", "XSP3.ARR12", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI12" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM12:", "XSP3.ARRSUM12", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM12" }
+    { "$(XSPRESS3_PREFIX):", "ARR13:", "XSP3.ARR13", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI13" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM13:", "XSP3.ARRSUM13", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM13" }
+    { "$(XSPRESS3_PREFIX):", "ARR14:", "XSP3.ARR14", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI14" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM14:", "XSP3.ARRSUM14", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM14" }
+    { "$(XSPRESS3_PREFIX):", "ARR15:", "XSP3.ARR15", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI15" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM15:", "XSP3.ARRSUM15", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM15" }
+    { "$(XSPRESS3_PREFIX):", "ARR16:", "XSP3.ARR16", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI16" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM16:", "XSP3.ARRSUM16", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM16" }
+    { "$(XSPRESS3_PREFIX):", "ARR17:", "XSP3.ARR17", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI17" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM17:", "XSP3.ARRSUM17", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM17" }
+    { "$(XSPRESS3_PREFIX):", "ARR18:", "XSP3.ARR18", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI18" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM18:", "XSP3.ARRSUM18", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM18" }
+    { "$(XSPRESS3_PREFIX):", "ARR19:", "XSP3.ARR19", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI19" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM19:", "XSP3.ARRSUM19", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM19" }
+    { "$(XSPRESS3_PREFIX):", "ARR20:", "XSP3.ARR20", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI20" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM20:", "XSP3.ARRSUM20", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM20" }
+    { "$(XSPRESS3_PREFIX):", "ARR21:", "XSP3.ARR21", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI21" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM21:", "XSP3.ARRSUM21", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM21" }
+    { "$(XSPRESS3_PREFIX):", "ARR22:", "XSP3.ARR22", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI22" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM22:", "XSP3.ARRSUM22", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM22" }
+    { "$(XSPRESS3_PREFIX):", "ARR23:", "XSP3.ARR23", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI23" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM23:", "XSP3.ARRSUM23", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM23" }
+    { "$(XSPRESS3_PREFIX):", "ARR24:", "XSP3.ARR24", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI24" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM24:", "XSP3.ARRSUM24", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM24" }
+    { "$(XSPRESS3_PREFIX):", "ARR25:", "XSP3.ARR25", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI25" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM25:", "XSP3.ARRSUM25", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM25" }
+    { "$(XSPRESS3_PREFIX):", "ARR26:", "XSP3.ARR26", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI26" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM26:", "XSP3.ARRSUM26", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM26" }
+    { "$(XSPRESS3_PREFIX):", "ARR27:", "XSP3.ARR27", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI27" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM27:", "XSP3.ARRSUM27", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM27" }
+    { "$(XSPRESS3_PREFIX):", "ARR28:", "XSP3.ARR28", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI28" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM28:", "XSP3.ARRSUM28", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM28" }
+    { "$(XSPRESS3_PREFIX):", "ARR29:", "XSP3.ARR29", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI29" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM29:", "XSP3.ARRSUM29", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM29" }
+    { "$(XSPRESS3_PREFIX):", "ARR30:", "XSP3.ARR30", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI30" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM30:", "XSP3.ARRSUM30", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM30" }
+    { "$(XSPRESS3_PREFIX):", "ARR31:", "XSP3.ARR31", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI31" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM31:", "XSP3.ARRSUM31", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM31" }
+    { "$(XSPRESS3_PREFIX):", "ARR32:", "XSP3.ARR32", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI32" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM32:", "XSP3.ARRSUM32", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM32" }
 }
 
 # Macros:
@@ -1150,8 +1150,8 @@ pattern { P, R, PORT, TIMEOUT, ADDR, TYPE, FTVL, NELEMENTS }
 #  ADDR     Asyn Port address
 file $(ADCORE)/db/NDProcess.template
 {
-pattern { P, R, PORT, TIMEOUT, ADDR }
-    { "$(XSPRESS3_PREFIX):", "PROC:", "XSP3.PROC", "1", "0" }
+pattern { P, R, PORT, TIMEOUT, ADDR, NDARRAY_PORT }
+    { "$(XSPRESS3_PREFIX):", "PROC:", "XSP3.PROC", "1", "0", "XSP3" }
 }
 
 # Macros:
@@ -1172,8 +1172,8 @@ pattern { P, R, PORT, TIMEOUT, ADDR }
 #  PORT  Asyn Port name
 file $(ADCORE)/db/NDFileHDF5.template
 {
-pattern { P, R, PORT }
-    { "$(XSPRESS3_PREFIX):", "HDF5:", "XSP3.HDF5" }
+pattern { P, R, PORT, TIMEOUT, ADDR, NDARRAY_PORT }
+    { "$(XSPRESS3_PREFIX):", "HDF5:", "XSP3.HDF5", "1", "0", "XSP3" }
 }
 
 # Macros:
@@ -1192,6 +1192,6 @@ pattern { P, R, HDF, PROC }
 #  name     Object name and GUI association name
 file $(DEVIOCSTATS)/db/ioc.db
 {
-pattern { IOCNAME, name }
-    { "$(XSPRESS3_PREFIX)", "" }
+pattern { IOCNAME, TODFORMAT }
+    { "$(XSPRESS3_PREFIX)", "%m/%d/%Y %H:%M:%S" }
 }

@@ -97,10 +97,10 @@ pattern { P, R, PORT, TIMEOUT, ADDR, NDARRAY_PORT, NDARRAY_ADDR, Enabled }
 #  ADDR     Asyn Port address
 file $(ADCORE)/db/NDROI.template
 {
-pattern { P, R, PORT, TIMEOUT, ADDR }
-    { "$(XSPRESS3_PREFIX):", "ROI1:", "XSP3.ROI1", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROISUM1:", "XSP3.ROISUM1", "1", "0" }
-    { "$(XSPRESS3_PREFIX):", "ROIDATA:", "XSP3.ROIDATA", "1", "0" }
+pattern { P, R, PORT, TIMEOUT, ADDR, NDARRAY_PORT }
+    { "$(XSPRESS3_PREFIX):", "ROI1:", "XSP3.ROI1", "1", "0", "XSP3" }
+    { "$(XSPRESS3_PREFIX):", "ROISUM1:", "XSP3.ROISUM1", "1", "0", "XSP3.PROC" }
+    { "$(XSPRESS3_PREFIX):", "ROIDATA:", "XSP3.ROIDATA", "1", "0", "XSP3" }
 }
 
 # Macros:
@@ -114,9 +114,9 @@ pattern { P, R, PORT, TIMEOUT, ADDR }
 #  NELEMENTS  Number of elements
 file $(ADCORE)/db/NDStdArrays.template
 {
-pattern { P, R, PORT, TIMEOUT, ADDR, TYPE, FTVL, NELEMENTS }
-    { "$(XSPRESS3_PREFIX):", "ARR1:", "XSP3.ARR1", "1", "0", "Float64", "DOUBLE", "4096" }
-    { "$(XSPRESS3_PREFIX):", "ARRSUM1:", "XSP3.ARRSUM1", "1", "0", "Float64", "DOUBLE", "4096" }
+pattern { P, R, PORT, TIMEOUT, ADDR, TYPE, FTVL, NELEMENTS, NDARRAY_PORT }
+    { "$(XSPRESS3_PREFIX):", "ARR1:", "XSP3.ARR1", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROI1" }
+    { "$(XSPRESS3_PREFIX):", "ARRSUM1:", "XSP3.ARRSUM1", "1", "0", "Float64", "DOUBLE", "4096", "XSP3.ROISUM1" }
 }
 
 # Macros:
@@ -127,8 +127,8 @@ pattern { P, R, PORT, TIMEOUT, ADDR, TYPE, FTVL, NELEMENTS }
 #  ADDR     Asyn Port address
 file $(ADCORE)/db/NDProcess.template
 {
-pattern { P, R, PORT, TIMEOUT, ADDR }
-    { "$(XSPRESS3_PREFIX):", "PROC:", "XSP3.PROC", "1", "0" }
+pattern { P, R, PORT, TIMEOUT, ADDR, NDARRAY_PORT }
+    { "$(XSPRESS3_PREFIX):", "PROC:", "XSP3.PROC", "1", "0", "XSP3" }
 }
 
 # Macros:
@@ -149,8 +149,8 @@ pattern { P, R, PORT, TIMEOUT, ADDR }
 #  PORT  Asyn Port name
 file $(ADCORE)/db/NDFileHDF5.template
 {
-pattern { P, R, PORT }
-    { "$(XSPRESS3_PREFIX):", "HDF5:", "XSP3.HDF5" }
+pattern { P, R, PORT, TIMEOUT, ADDR, NDARRAY_PORT }
+    { "$(XSPRESS3_PREFIX):", "HDF5:", "XSP3.HDF5", "1", "0", "XSP3" }
 }
 
 # Macros:
@@ -169,6 +169,6 @@ pattern { P, R, HDF, PROC }
 #  name     Object name and GUI association name
 file $(DEVIOCSTATS)/db/ioc.db
 {
-pattern { IOCNAME, name }
-    { "$(XSPRESS3_PREFIX)", "" }
+pattern { IOCNAME, TODFORMAT }
+    { "$(XSPRESS3_PREFIX)", "%m/%d/%Y %H:%M:%S" }
 }
