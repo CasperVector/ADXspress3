@@ -192,6 +192,7 @@ dbpf("$(XSPRESS3_PREFIX):C1_PluginControlValExtraROI", "0")
 
 
 dbpf $(XSPRESS3_PREFIX):NDAttributesFile, iocBoot/iocXsp3QD/XSP3-1Channel.xml
+iocshLoad("iocBoot/iocXsp3QD/chanattr.boot", "CHAN=1")
 
 dbpf("$(XSPRESS3_PREFIX):C1_PluginControlValExtraROI", "0")
 

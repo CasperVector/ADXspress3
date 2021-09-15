@@ -864,6 +864,14 @@ dbpf("$(XSPRESS3_PREFIX):C8_PluginControlValExtraROI", "0")
 dbpf("$(XSPRESS3_PREFIX):C8_PluginControlVal", "0")
 
 dbpf $(XSPRESS3_PREFIX):NDAttributesFile, iocBoot/iocXsp3QD/XSP3-8Channel.xml
+iocshLoad("iocBoot/iocXsp3QD/chanattr.boot", "CHAN=1")
+iocshLoad("iocBoot/iocXsp3QD/chanattr.boot", "CHAN=2")
+iocshLoad("iocBoot/iocXsp3QD/chanattr.boot", "CHAN=3")
+iocshLoad("iocBoot/iocXsp3QD/chanattr.boot", "CHAN=4")
+iocshLoad("iocBoot/iocXsp3QD/chanattr.boot", "CHAN=5")
+iocshLoad("iocBoot/iocXsp3QD/chanattr.boot", "CHAN=6")
+iocshLoad("iocBoot/iocXsp3QD/chanattr.boot", "CHAN=7")
+iocshLoad("iocBoot/iocXsp3QD/chanattr.boot", "CHAN=8")
 
 # disable DTC by default
 dbpf("$(XSPRESS3_PREFIX):CTRL_DTC", "0")

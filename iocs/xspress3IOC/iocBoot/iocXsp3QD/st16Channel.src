@@ -1632,6 +1632,22 @@ dbpf("$(XSPRESS3_PREFIX):C16_PluginControlValExtraROI", "0")
 dbpf("$(XSPRESS3_PREFIX):C16_PluginControlVal", "0")
 
 dbpf $(XSPRESS3_PREFIX):NDAttributesFile, iocBoot/iocXsp3QD/XSP3-16Channel.xml
+iocshLoad("iocBoot/iocXsp3QD/chanattr.boot", "CHAN=1")
+iocshLoad("iocBoot/iocXsp3QD/chanattr.boot", "CHAN=2")
+iocshLoad("iocBoot/iocXsp3QD/chanattr.boot", "CHAN=3")
+iocshLoad("iocBoot/iocXsp3QD/chanattr.boot", "CHAN=4")
+iocshLoad("iocBoot/iocXsp3QD/chanattr.boot", "CHAN=5")
+iocshLoad("iocBoot/iocXsp3QD/chanattr.boot", "CHAN=6")
+iocshLoad("iocBoot/iocXsp3QD/chanattr.boot", "CHAN=7")
+iocshLoad("iocBoot/iocXsp3QD/chanattr.boot", "CHAN=8")
+iocshLoad("iocBoot/iocXsp3QD/chanattr.boot", "CHAN=9")
+iocshLoad("iocBoot/iocXsp3QD/chanattr.boot", "CHAN=10")
+iocshLoad("iocBoot/iocXsp3QD/chanattr.boot", "CHAN=11")
+iocshLoad("iocBoot/iocXsp3QD/chanattr.boot", "CHAN=12")
+iocshLoad("iocBoot/iocXsp3QD/chanattr.boot", "CHAN=13")
+iocshLoad("iocBoot/iocXsp3QD/chanattr.boot", "CHAN=14")
+iocshLoad("iocBoot/iocXsp3QD/chanattr.boot", "CHAN=15")
+iocshLoad("iocBoot/iocXsp3QD/chanattr.boot", "CHAN=16")
 
 # disable DTC by default
 dbpf("$(XSPRESS3_PREFIX):CTRL_DTC", "0")

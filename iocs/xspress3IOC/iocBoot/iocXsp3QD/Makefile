@@ -2,6 +2,7 @@ TOP = ../..
 include $(TOP)/configure/CONFIG
 ARCH = linux-x86_64
 TARGETS = envPaths
+TARGETS += chanattr.boot
 TARGETS += st1Channel.boot
 TARGETS += st2Channel.boot
 TARGETS += st4Channel.boot
