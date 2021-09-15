@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<Attributes>
+<Attribute addr="0" type="PARAM" datatype="DOUBLE" name="CHAN1SCA0" source="XSP3_CHAN_SCA0" description="Channel 1 Live Time"/>
+<Attribute addr="0" type="PARAM" datatype="DOUBLE" name="CHAN1SCA1" source="XSP3_CHAN_SCA1" description="Channel 1 Reset Ticks"/>
+<Attribute addr="0" type="PARAM" datatype="DOUBLE" name="CHAN1SCA2" source="XSP3_CHAN_SCA2" description="Channel 1 Reset Count"/>
+<Attribute addr="0" type="PARAM" datatype="DOUBLE" name="CHAN1SCA3" source="XSP3_CHAN_SCA3" description="Channel 1 All Event"/>
+<Attribute addr="0" type="PARAM" datatype="DOUBLE" name="CHAN1SCA4" source="XSP3_CHAN_SCA4" description="Channel 1 All Good"/>
+<Attribute addr="0" type="PARAM" datatype="DOUBLE" name="CHAN1SCA5" source="XSP3_CHAN_SCA5" description="Channel 1 Window 1"/>
+<Attribute addr="0" type="PARAM" datatype="DOUBLE" name="CHAN1SCA6" source="XSP3_CHAN_SCA6" description="Channel 1 Window 2"/>
+<Attribute addr="0" type="PARAM" datatype="DOUBLE" name="CHAN1SCA7" source="XSP3_CHAN_SCA7" description="Channel 1 Pileup"/>
+<Attribute addr="0" type="PARAM" datatype="DOUBLE" name="CHAN1DTFactor" source="XSP3_CHAN_DTFACTOR" description="Channel 1 DT Factor"/>
+<Attribute addr="0" type="PARAM" datatype="DOUBLE" name="CHAN1DTPercent" source="XSP3_CHAN_DTPERCENT" description="Channel 1 DT Percent"/>
+<Attribute addr="1" type="PARAM" datatype="DOUBLE" name="CHAN2SCA0" source="XSP3_CHAN_SCA0" description="Channel 2 Live Time"/>
+<Attribute addr="1" type="PARAM" datatype="DOUBLE" name="CHAN2SCA1" source="XSP3_CHAN_SCA1" description="Channel 2 Reset Ticks"/>
+<Attribute addr="1" type="PARAM" datatype="DOUBLE" name="CHAN2SCA2" source="XSP3_CHAN_SCA2" description="Channel 2 Reset Count"/>
+<Attribute addr="1" type="PARAM" datatype="DOUBLE" name="CHAN2SCA3" source="XSP3_CHAN_SCA3" description="Channel 2 All Event"/>
+<Attribute addr="1" type="PARAM" datatype="DOUBLE" name="CHAN2SCA4" source="XSP3_CHAN_SCA4" description="Channel 2 All Good"/>
+<Attribute addr="1" type="PARAM" datatype="DOUBLE" name="CHAN2SCA5" source="XSP3_CHAN_SCA5" description="Channel 2 Window 1"/>
+<Attribute addr="1" type="PARAM" datatype="DOUBLE" name="CHAN2SCA6" source="XSP3_CHAN_SCA6" description="Channel 2 Window 2"/>
+<Attribute addr="1" type="PARAM" datatype="DOUBLE" name="CHAN2SCA7" source="XSP3_CHAN_SCA7" description="Channel 2 Pileup"/>
+<Attribute addr="1" type="PARAM" datatype="DOUBLE" name="CHAN2DTFactor" source="XSP3_CHAN_DTFACTOR" description="Channel 2 DT Factor"/>
+<Attribute addr="1" type="PARAM" datatype="DOUBLE" name="CHAN2DTPercent" source="XSP3_CHAN_DTPERCENT" description="Channel 2 DT Percent"/>
+<Attribute addr="2" type="PARAM" datatype="DOUBLE" name="CHAN3SCA0" source="XSP3_CHAN_SCA0" description="Channel 3 Live Time"/>
+<Attribute addr="2" type="PARAM" datatype="DOUBLE" name="CHAN3SCA1" source="XSP3_CHAN_SCA1" description="Channel 3 Reset Ticks"/>
+<Attribute addr="2" type="PARAM" datatype="DOUBLE" name="CHAN3SCA2" source="XSP3_CHAN_SCA2" description="Channel 3 Reset Count"/>
+<Attribute addr="2" type="PARAM" datatype="DOUBLE" name="CHAN3SCA3" source="XSP3_CHAN_SCA3" description="Channel 3 All Event"/>
+<Attribute addr="2" type="PARAM" datatype="DOUBLE" name="CHAN3SCA4" source="XSP3_CHAN_SCA4" description="Channel 3 All Good"/>
+<Attribute addr="2" type="PARAM" datatype="DOUBLE" name="CHAN3SCA5" source="XSP3_CHAN_SCA5" description="Channel 3 Window 1"/>
+<Attribute addr="2" type="PARAM" datatype="DOUBLE" name="CHAN3SCA6" source="XSP3_CHAN_SCA6" description="Channel 3 Window 2"/>
+<Attribute addr="2" type="PARAM" datatype="DOUBLE" name="CHAN3SCA7" source="XSP3_CHAN_SCA7" description="Channel 3 Pileup"/>
+<Attribute addr="2" type="PARAM" datatype="DOUBLE" name="CHAN3DTFactor" source="XSP3_CHAN_DTFACTOR" description="Channel 3 DT Factor"/>
+<Attribute addr="2" type="PARAM" datatype="DOUBLE" name="CHAN3DTPercent" source="XSP3_CHAN_DTPERCENT" description="Channel 3 DT Percent"/>
+<Attribute addr="3" type="PARAM" datatype="DOUBLE" name="CHAN4SCA0" source="XSP3_CHAN_SCA0" description="Channel 4 Live Time"/>
+<Attribute addr="3" type="PARAM" datatype="DOUBLE" name="CHAN4SCA1" source="XSP3_CHAN_SCA1" description="Channel 4 Reset Ticks"/>
+<Attribute addr="3" type="PARAM" datatype="DOUBLE" name="CHAN4SCA2" source="XSP3_CHAN_SCA2" description="Channel 4 Reset Count"/>
+<Attribute addr="3" type="PARAM" datatype="DOUBLE" name="CHAN4SCA3" source="XSP3_CHAN_SCA3" description="Channel 4 All Event"/>
+<Attribute addr="3" type="PARAM" datatype="DOUBLE" name="CHAN4SCA4" source="XSP3_CHAN_SCA4" description="Channel 4 All Good"/>
+<Attribute addr="3" type="PARAM" datatype="DOUBLE" name="CHAN4SCA5" source="XSP3_CHAN_SCA5" description="Channel 4 Window 1"/>
+<Attribute addr="3" type="PARAM" datatype="DOUBLE" name="CHAN4SCA6" source="XSP3_CHAN_SCA6" description="Channel 4 Window 2"/>
+<Attribute addr="3" type="PARAM" datatype="DOUBLE" name="CHAN4SCA7" source="XSP3_CHAN_SCA7" description="Channel 4 Pileup"/>
+<Attribute addr="3" type="PARAM" datatype="DOUBLE" name="CHAN4DTFactor" source="XSP3_CHAN_DTFACTOR" description="Channel 4 DT Factor"/>
+<Attribute addr="3" type="PARAM" datatype="DOUBLE" name="CHAN4DTPercent" source="XSP3_CHAN_DTPERCENT" description="Channel 4 DT Percent"/>
+</Attributes>
+

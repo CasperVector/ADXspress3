@@ -74,41 +74,49 @@ tr, th, td { border: 1px solid; padding: 6px; }
 </table>
 
 <h3>Scaler Data and Window Settings</h3>
-<p>The following PVs provide access to the scalers over channel access, and allow the user to set scaler related parameters. The <code>ch1:</code> part of the PV name indicates channel 1. The list is duplicated for each channel: <code>ch2:</code>, <code>ch3:</code> etc.</p>
+<p>The following PVs provide access to the scalers over channel access, and allow the user to set scaler related parameters. The <code>ch1:</code> and <code>SCA1:</code> parts of the PV name respectively indicate channel 1 and the corresponding scalers. The list is duplicated for each channel: <code>ch2:</code> / <code>SCA2:</code>, <code>ch3:</code> / <code>SCA3:</code> etc.</p>
 <p>The first table shows the single value PVs that show the latest scaler value during an acqusition.</p>
 <table>
 <tr>
-<td><code>${P}ch1:SCA0_RBV</code></td>
+<td><code>${P}SCA1:0:Value_RBV</code><br><code>${P}SCA1:0:TSArrayValue</code></td>
 <td>The <em>Live Time</em> scaler. Duration of acquisition time of frame in 80MHz cycles. Copied to all channels.</td>
 </tr>
 <tr>
-<td><code>${P}ch1:SCA1_RBV</code></td>
+<td><code>${P}SCA1:1:Value_RBV</code><br><code>${P}SCA1:1:TSArrayValue</code></td>
 <td>The <em>Reset Ticks</em> scaler. Time in 80MHz cycles that the internal detector reset signal is high, including time in reset padding if enabled.
 </td>
 </tr>
 <tr>
-<td><code>${P}ch1:SCA2_RBV</code></td>
+<td><code>${P}SCA1:2:Value_RBV</code><br><code>${P}SCA1:2:TSArrayValue</code></td>
 <td>The <em>Reset Count</em> scaler. Number of detector resets.</td>
 </tr>
 <tr>
-<td><code>${P}ch1:SCA3_RBV</code></td>
+<td><code>${P}SCA1:3:Value_RBV</code><br><code>${P}SCA1:3:TSArrayValue</code></td>
 <td>The <em>All Event</em> scaler. This count every time the system triggers on an event.</td>
 </tr>
 <tr>
-<td><code>${P}ch1:SCA4_RBV</code></td>
+<td><code>${P}SCA1:4:Value_RBV</code><br><code>${P}SCA1:4:TSArrayValue</code></td>
 <td>The <em>All Good</em> scaler. This counts on all triggers which give an apparent energy above a "good event" threshold.</td>
 </tr>
 <tr>
-<td><code>${P}ch1:SCA5_RBV</code></td>
+<td><code>${P}SCA1:5:Value_RBV</code><br><code>${P}SCA1:5:TSArrayValue</code></td>
 <td>The <em>Window 1</em> scaler. The lower and upper window limits for this are set using <code>${P}ch1:SCA5_LLM</code> and <code>${P}ch1:SCA5_HLM</code>. The window limits are set using API function <code>xsp3_set_window</code>.</td>
 </tr>
 <tr>
-<td><code>${P}ch1:SCA6_RBV</code></td>
+<td><code>${P}SCA1:6:Value_RBV</code><br><code>${P}SCA1:6:TSArrayValue</code></td>
 <td>The <em>Window 2</em> scaler. The lower and upper window limits for this are set using <code>${P}ch1:SCA6_LLM</code> and <code>${P}ch1:SCA6_HLM</code>. The window limits are set using API function <code>xsp3_set_window</code>.</td>
 </tr>
 <tr>
-<td><code>${P}ch1:SCA7_RBV</code></td>
+<td><code>${P}SCA1:7:Value_RBV</code><br><code>${P}SCA1:7:TSArrayValue</code></td>
 <td>The <em>Pileup</em> scaler. Counts number of pileup events detected either in the event detector or from the event width.</td>
+</tr>
+<tr>
+<td><code>${P}SCA1:8:Value_RBV</code><br><code>${P}SCA1:8:TSArrayValue</code></td>
+<td>The <em>Deadtime Correction Factor</em> scaler. See "The Deadtime Correction Parameters".</td>
+</tr>
+<tr>
+<td><code>${P}SCA1:9:Value_RBV</code><br><code>${P}SCA1:9:TSArrayValue</code></td>
+<td>The <em>Percent Deadtime</em> scaler. See "The Deadtime Correction Parameters".</td>
 </tr>
 </table>
 <p>The following table shows the set and read parameters for the <em>All Good</em>, <em>Window 1</em> and <em>Window 2</em> scalers.</p>
@@ -201,7 +209,7 @@ DT_Percent = 100 * (N_Resets + N_AllEvents * EventWidth) / ClockTicks
 <td><code>${P}C${CHAN}_${POSTFIX}</code><br><code>${P}C${CHAN}_${POSTFIX}</code></td>
 </tr>
 <tr>
-<td><code>${P}ch${CHAN}:SCA${SCA}_RBV</code><br>N/A</td>
+<td><code>${P}SCA${CHAN}:${SCA}:Value_RBV</code><br><code>${P}SCA${CHAN}:${SCA}:TSArrayValue</code></td>
 <td><code>${P}C${CHAN}SCA:${SCA}:Value_RBV</code><br><code>${P}C${CHAN}SCA:${SCA}:TSArrayValue</code></td>
 <td><code>${P}C${CHAN}_SCA${SCA}:Value_RBV</code><br><code>${P}C${CHAN}_SCA${SCA}:ArrayData_RBV</code></td>
 </tr>

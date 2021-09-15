@@ -1,0 +1,10 @@
+<Attribute addr="${ADDR}" type="PARAM" datatype="DOUBLE" name="CHAN${CHAN}SCA0" source="XSP3_CHAN_SCA0" description="Channel ${CHAN} Live Time"/>
+<Attribute addr="${ADDR}" type="PARAM" datatype="DOUBLE" name="CHAN${CHAN}SCA1" source="XSP3_CHAN_SCA1" description="Channel ${CHAN} Reset Ticks"/>
+<Attribute addr="${ADDR}" type="PARAM" datatype="DOUBLE" name="CHAN${CHAN}SCA2" source="XSP3_CHAN_SCA2" description="Channel ${CHAN} Reset Count"/>
+<Attribute addr="${ADDR}" type="PARAM" datatype="DOUBLE" name="CHAN${CHAN}SCA3" source="XSP3_CHAN_SCA3" description="Channel ${CHAN} All Event"/>
+<Attribute addr="${ADDR}" type="PARAM" datatype="DOUBLE" name="CHAN${CHAN}SCA4" source="XSP3_CHAN_SCA4" description="Channel ${CHAN} All Good"/>
+<Attribute addr="${ADDR}" type="PARAM" datatype="DOUBLE" name="CHAN${CHAN}SCA5" source="XSP3_CHAN_SCA5" description="Channel ${CHAN} Window 1"/>
+<Attribute addr="${ADDR}" type="PARAM" datatype="DOUBLE" name="CHAN${CHAN}SCA6" source="XSP3_CHAN_SCA6" description="Channel ${CHAN} Window 2"/>
+<Attribute addr="${ADDR}" type="PARAM" datatype="DOUBLE" name="CHAN${CHAN}SCA7" source="XSP3_CHAN_SCA7" description="Channel ${CHAN} Pileup"/>
+<Attribute addr="${ADDR}" type="PARAM" datatype="DOUBLE" name="CHAN${CHAN}DTFactor" source="XSP3_CHAN_DTFACTOR" description="Channel ${CHAN} DT Factor"/>
+<Attribute addr="${ADDR}" type="PARAM" datatype="DOUBLE" name="CHAN${CHAN}DTPercent" source="XSP3_CHAN_DTPERCENT" description="Channel ${CHAN} DT Percent"/>
