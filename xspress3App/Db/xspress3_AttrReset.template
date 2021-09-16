@@ -16,7 +16,7 @@
 record(dfanout, "$(P)$(R)C$(CHAN)_AttrReset") {
   field(PINI, "YES")
   field(VAL, "1")
-  field(OUTA, "$(P)C$(CHAN)SCAs:Reset PP")
+  field(OUTA, "$(P)C$(CHAN)SCA:Reset PP")
   field(OUTB, "$(P)ROIStat$(CHAN):ResetAll PP")
 }
 

@@ -75,4 +75,49 @@ record(dfanout, "$(P)$(R)C$(CHAN)_PluginControl_4")
    field(OUTB, "$(P)$(R)C$(CHAN)_$(ROI14):EnableCallbacks PP")
    field(OUTC, "$(P)$(R)C$(CHAN)_$(ROI15):EnableCallbacks PP")
    field(OUTD, "$(P)$(R)C$(CHAN)_$(ROI16):EnableCallbacks PP")
+   field(OUTE, "$(P)$(R)C$(CHAN)_$(SCA0):TS:EnableCallbacks PP")
+   field(OUTF, "$(P)$(R)C$(CHAN)_$(SCA1):TS:EnableCallbacks PP")
+   field(OUTG, "$(P)$(R)C$(CHAN)_$(SCA2):TS:EnableCallbacks PP")
+   field(OUTH, "$(P)$(R)C$(CHAN)_$(SCA3):TS:EnableCallbacks PP")
+   field(FLNK, "$(P)$(R)C$(CHAN)_PluginControl_5.PROC")
+}
+
+record(dfanout, "$(P)$(R)C$(CHAN)_PluginControl_5")
+{
+   field(DOL, "$(P)$(R)C$(CHAN)_PluginControlValExtraROI.VAL")
+   field(OMSL, "closed_loop")
+   field(OUTA, "$(P)$(R)C$(CHAN)_$(SCA4):TS:EnableCallbacks PP")
+   field(OUTB, "$(P)$(R)C$(CHAN)_$(SCA5):TS:EnableCallbacks PP")
+   field(OUTC, "$(P)$(R)C$(CHAN)_$(SCA6):TS:EnableCallbacks PP")
+   field(OUTD, "$(P)$(R)C$(CHAN)_$(SCA7):TS:EnableCallbacks PP")
+   field(OUTE, "$(P)$(R)C$(CHAN)_$(ROI1):TS:EnableCallbacks PP")
+   field(OUTF, "$(P)$(R)C$(CHAN)_$(ROI2):TS:EnableCallbacks PP")
+   field(OUTG, "$(P)$(R)C$(CHAN)_$(ROI3):TS:EnableCallbacks PP")
+   field(OUTH, "$(P)$(R)C$(CHAN)_$(ROI4):TS:EnableCallbacks PP")
+   field(FLNK, "$(P)$(R)C$(CHAN)_PluginControl_6.PROC")
+}
+
+record(dfanout, "$(P)$(R)C$(CHAN)_PluginControl_6")
+{
+   field(DOL, "$(P)$(R)C$(CHAN)_PluginControlValExtraROI.VAL")
+   field(OMSL, "closed_loop")
+   field(OUTA, "$(P)$(R)C$(CHAN)_$(ROI5):TS:EnableCallbacks PP")
+   field(OUTB, "$(P)$(R)C$(CHAN)_$(ROI6):TS:EnableCallbacks PP")
+   field(OUTC, "$(P)$(R)C$(CHAN)_$(ROI7):TS:EnableCallbacks PP")
+   field(OUTD, "$(P)$(R)C$(CHAN)_$(ROI8):TS:EnableCallbacks PP")
+   field(OUTE, "$(P)$(R)C$(CHAN)_$(ROI9):TS:EnableCallbacks PP")
+   field(OUTF, "$(P)$(R)C$(CHAN)_$(ROI10):TS:EnableCallbacks PP")
+   field(OUTG, "$(P)$(R)C$(CHAN)_$(ROI11):TS:EnableCallbacks PP")
+   field(OUTH, "$(P)$(R)C$(CHAN)_$(ROI12):TS:EnableCallbacks PP")
+   field(FLNK, "$(P)$(R)C$(CHAN)_PluginControl_7.PROC")
+}
+
+record(dfanout, "$(P)$(R)C$(CHAN)_PluginControl_7")
+{
+   field(DOL, "$(P)$(R)C$(CHAN)_PluginControlValExtraROI.VAL")
+   field(OMSL, "closed_loop")
+   field(OUTA, "$(P)$(R)C$(CHAN)_$(ROI13):TS:EnableCallbacks PP")
+   field(OUTB, "$(P)$(R)C$(CHAN)_$(ROI14):TS:EnableCallbacks PP")
+   field(OUTC, "$(P)$(R)C$(CHAN)_$(ROI15):TS:EnableCallbacks PP")
+   field(OUTD, "$(P)$(R)C$(CHAN)_$(ROI16):TS:EnableCallbacks PP")
 }

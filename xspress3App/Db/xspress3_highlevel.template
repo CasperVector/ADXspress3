@@ -66,25 +66,3 @@ record(dfanout, "$(P)$(R)ERASE_AttrReset")
    field(MDEL, "-1" )
 }
 
-
-
-#########################################################################
-# Records to update the arrays in the NDAttribute plugins.
-# This is needed for high data rate collections at the end of a scan
-# due to the fact that the NDAttribute plugins only update the arrays
-# at a slow rate and may miss some points at the end of a scan.
-#########################################################################
-
-#Trigger an update of the NDAttribute arrays
-record(bo,"$(P)$(R)UPDATE") 
-{
-   field(FLNK, "$(P)$(R)UPDATE_AttrUpdate.PROC")
-}
-
-#On an erase, do a reset on the NDAttribute plugins. This has MDEL of 0, so channel access updates
-#are triggered every time, and there is a bo record for every channel that monitors its value.
-record(dfanout, "$(P)$(R)UPDATE_AttrUpdate")
-{
-   field(VAL, "1")
-   field(MDEL, "-1" )
-}
