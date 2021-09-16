@@ -4,16 +4,24 @@ pattern { P, R, PORT, ADDR, TIMEOUT }
 { "$(P_)", "ch$(CHAN):", "$(PORT_)", "$(ADDR_)", 1 }
 }
 
+file "xsp3_chan_plugins.template"
+{
+pattern { P, R, CH, ATTR, ROISTAT }
+{ "$(P_)", "cam1:", "ch$(CHAN):", "SCA$(CHAN):", "ROIStat$(CHAN):" }
+}
+
 file "NDROI.template"
 {
 pattern { P, R, PORT, ADDR, TIMEOUT, NDARRAY_PORT }
 { "$(P_)", "ROI$(CHAN):", "ROI$(CHAN)", 0, 1, "$(PORT_)" }
+{ "$(P_)", "ROISUM$(CHAN):", "ROISUM$(CHAN)", 0, 1, "PROC1" }
 }
 
 file "NDStdArrays.template"
 {
 pattern { P, R, PORT, ADDR, TIMEOUT, NDARRAY_PORT, TYPE, FTVL, NELEMENTS }
 { "$(P_)", "MCA$(CHAN):", "MCA$(CHAN)", 0, 1, "ROI$(CHAN)", Float64, DOUBLE, "$(NUMBINS)" }
+{ "$(P_)", "MCASUM$(CHAN):", "MCASUM$(CHAN)", 0, 1, "ROISUM$(CHAN)", Float64, DOUBLE, "$(NUMBINS)" }
 }
 
 file "NDAttribute.template"

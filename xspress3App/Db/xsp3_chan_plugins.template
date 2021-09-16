@@ -1,0 +1,14 @@
+record(bo, "$(P)$(CH)AttrResetFanIn") {
+  field(FLNK, "$(P)$(CH)AttrReset")
+  field(VAL, "1")
+  field(OMSL, "closed_loop")
+  field(DOL, "$(P)$(R)ERASE_AttrReset CPP")
+}
+
+record(dfanout, "$(P)$(CH)AttrReset") {
+  field(PINI, "YES")
+  field(VAL, "1")
+  field(OUTA, "$(P)$(ATTR)Reset PP")
+  field(OUTB, "$(P)$(ROISTAT)ResetAll PP")
+}
+

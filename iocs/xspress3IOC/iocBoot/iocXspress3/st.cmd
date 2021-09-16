@@ -1,5 +1,6 @@
 < envPaths
 errlogInit(20000)
+callbackSetQueueSize(8000)
 
 dbLoadDatabase "$(TOP)/dbd/xspress3App.dbd"
 xspress3App_registerRecordDeviceDriver(pdbbase)
@@ -18,6 +19,9 @@ xspress3Config("$(PORT)", "$(XSP3CHANS)", "$(XSP3CARDS)", "$(XSP3ADDR)", "$(MAXF
 dbLoadRecords("xsp3.template", "P=$(PREFIX),R=cam1:,PORT=$(PORT),ADDR=0,TIMEOUT=1")
 NDFileHDF5Configure("FileHDF1", $(QSIZE), 0, "$(PORT)", 0)
 dbLoadRecords("NDFileHDF5.template", "P=$(PREFIX),R=HDF1:,PORT=FileHDF1,ADDR=0,TIMEOUT=1,XMLSIZE=2048,NDARRAY_PORT=$(PORT)")
+NDProcessConfigure("PROC1", $(QSIZE), 0, "$(PORT)", 0, 0, 0)
+dbLoadRecords("NDProcess.template", "P=$(PREFIX),R=Proc1:,PORT=PROC1,ADDR=0,TIMEOUT=1,NDARRAY_PORT=$(PORT)")
+dbLoadRecords("xsp3_plugins.template", "P=$(PREFIX),R=cam1:,PROC=Proc1:")
 
 set_requestfile_path("./")
 set_requestfile_path("$(ADCORE)/ADApp/Db")
@@ -34,7 +38,14 @@ iocInit()
 #create_monitor_set("xsp3-$(XSP3CHANS)ch.req", 30, "P=$(PREFIX)")
 dbpf("$(PREFIX)cam1:CONFIG_PATH", "cfg-$(XSP3CHANS)ch")
 dbpf("$(PREFIX)cam1:NDAttributesFile", "xsp3-$(XSP3CHANS)ch.xml")
+dbpf("$(PREFIX)Proc1:EnableFilter", "Enable")
+dbpf("$(PREFIX)Proc1:FilterType", "Sum")
+dbpf("$(PREFIX)Proc1:EnableCallbacks", "Enable")
 iocshLoad("xsp3-$(XSP3CHANS)ch-batch.cmd", "TASK=postinit")
 dbpf("$(PREFIX)cam1:ArrayCallbacks", 1)
+
 dbpf("$(PREFIX)cam1:CONNECT", 1)
+dbpf("$(PREFIX)cam1:CTRL_DTC", "Disable")
+dbpf("$(PREFIX)cam1:TriggerMode", "Internal")
+epicsThreadSleep 2
 

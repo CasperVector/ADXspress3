@@ -191,7 +191,7 @@ DT_Percent = 100 * (N_Resets + N_AllEvents * EventWidth) / ClockTicks
 <p>From this, the only real adjustable parameter for controlling the deadtime correction is the Event Width, which will be an integer value between about 4 (50 nsec) and 12 (150 nsec), depending on the detector type. This value should be set individually for each detector element in the Xspress3 calibration procedure. But, you may want to measure deadtime curves and tweak these values yourself.</p>
 
 <h3>PV Comparison between Branches</h3>
-<p>This branch of the Xspress3 EPICS support module differs greatly from the QD and CARS branches in PV names, but the underlying features are quite similar. The naming convention here mimics the areaDetector convention if applicable, and resorts to the convention of the CARS branch if not. Some features missing in this branch now may also be added in the future.</p>
+<p>This branch of the Xspress3 EPICS support module differs greatly from the QD and CARS branches in PV names, but the underlying features are quite similar. The naming convention here mimics the areaDetector convention if applicable, and resorts to the convention of the CARS branch if not.</p>
 <table>
 <tr>
 <th>ADXspress3</th>
@@ -214,19 +214,14 @@ DT_Percent = 100 * (N_Resets + N_AllEvents * EventWidth) / ClockTicks
 <td><code>${P}C${CHAN}_SCA${SCA}:Value_RBV</code><br><code>${P}C${CHAN}_SCA${SCA}:ArrayData_RBV</code></td>
 </tr>
 <tr>
-<td><code>${P}MCA${CHAN}:${POSTFIX}</code><br><code>${P}ROIStat${CHAN}:${ROI}:${POSTFIX}</code></td>
-<td><code>${P}MCA${CHAN}:${POSTFIX}</code><br><code>${P}MCA${CHAN}ROI:${ROI}:${POSTFIX}</code></td>
-<td><code>${P}ARR${CHAN}:${POSTFIX}</code><br>N/A</td>
+<td><code>${P}ROIStat${CHAN}:${ROI}:${POSTFIX}</code><br><code>${P}ROIStat${CHAN}:${ROI}:MinX(_RBV)</code><br><code>${P}ROIStat${CHAN}:${ROI}:SizeX(_RBV)</code><br><code>${P}ROIStat${CHAN}:${ROI}:Total_RBV</code><br><code>${P}ROIStat${CHAN}:${ROI}:TSTotal</code></td>
+<td><code>${P}MCA${CHAN}ROI:${ROI}:${POSTFIX}</code><br><code>${P}MCA${CHAN}ROI:${ROI}:MinX(_RBV)</code><br><code>${P}MCA${CHAN}ROI:${ROI}:SizeX(_RBV)</code><br><code>${P}MCA${CHAN}ROI:${ROI}:Total_RBV</code><br><code>${P}MCA${CHAN}ROI:${ROI}:TSTotal</code></td>
+<td>N/A<br><code>${P}C${CHAN}_MCA_ROI${ROI}_LLM(_RBV)</code><br><code>${P}C${CHAN}_MCA_ROI${ROI}_HLM(_RBV)</code><br><code>${P}C${CHAN}_ROI${ROI}:Value_RBV</code><br><code>${P}C${CHAN}_ROI${ROI}:ArrayData_RBV</code></td>
 </tr>
 <tr>
-<td><code>${P}ROIStat${CHAN}:${ROI}:MinX(_RBV)</code><br><code>${P}ROIStat${CHAN}:${ROI}:SizeX(_RBV)</code></td>
-<td><code>${P}MCA${CHAN}ROI:${ROI}:MinX(_RBV)</code><br><code>${P}MCA${CHAN}ROI:${ROI}:SizeX(_RBV)</code></td>
-<td><code>${P}C${CHAN}_MCA_ROI${ROI}_LLM(_RBV)</code><br><code>${P}C${CHAN}_MCA_ROI${ROI}_HLM(_RBV)</code></td>
-</tr>
-<tr>
-<td><code>${P}ROIStat${CHAN}:${ROI}:Total_RBV</code><br><code>${P}ROIStat${CHAN}:${ROI}:TSTotal</code></td>
-<td><code>${P}MCA${CHAN}ROI:${ROI}:Total_RBV</code><br><code>${P}MCA${CHAN}ROI:${ROI}:TSTotal</code></td>
-<td><code>${P}C${CHAN}_ROI${ROI}:Value_RBV</code><br><code>${P}C${CHAN}_ROI${ROI}:ArrayData_RBV</code></td>
+<td><code>${P}ROI${CHAN}:${POSTFIX}</code><br><code>${P}MCA${CHAN}:${POSTFIX}</code><br><code>${P}ROISUM${CHAN}:${POSTFIX}</code><br><code>${P}MCASUM${CHAN}:${POSTFIX}</code></td>
+<td><code>${P}ROI${CHAN}:${POSTFIX}</code><br><code>${P}MCA${CHAN}:${POSTFIX}</code><br><code>${P}ROISUM${CHAN}:${POSTFIX}</code><br><code>${P}MCASUM${CHAN}:${POSTFIX}</code></td>
+<td><code>${P}ROI${CHAN}:${POSTFIX}</code><br><code>${P}ARR${CHAN}:${POSTFIX}</code><br><code>${P}ROISUM${CHAN}:${POSTFIX}</code><br><code>${P}ARRSUM${CHAN}:${POSTFIX}</code></td>
 </tr>
 </table>
 <p>Due to the replacement of spectraPlugins by its successor NDPluginAttribute, any reference to <code>...:ArrayData_RBV</code> should be substituted with reference to the corresponding <code>...:TSArrayValue</code> when using the <code>iocBoot/iocQD*</code> directories in this branch.</p>
