@@ -26,10 +26,10 @@ and then run the IOC:
 Backward compatibility for the CARS and QD branches are provided by separate
 `iocBoot` subdirectories.  Previous users of them, after putting the calibration
 files into locations they previously use, should first change into the `ioc*`
-directory they need (see also the other directories in `iocBoot`), and then use
-the suitable script (adapt as needed) to start the IOC in the mode they want
-(if `iocQD*` directories is used, the `xspress3App` below must be replaced with
-`xspress3AppQD`):
+directory they need (see also other directories in `iocBoot`), and then use the
+suitable script (adapt as needed) to start the IOC in the mode they want (if
+the `iocXsp3QD*` directories are used, the `xspress3App` below must be replaced
+with `xspress3AppQD`):
 
     cd /path/to/ADXspress3
     cd iocs/xspress3IOC/iocBoot/iocXsp3CARS
@@ -37,7 +37,7 @@ the suitable script (adapt as needed) to start the IOC in the mode they want
 
 Due to the replacement of spectraPlugins by its successor NDPluginAttribute,
 any reference to `...:ArrayData_RBV` should be substituted with reference to
-the corresponding `...:TSArrayValue` when using the `iocQD*` directories.
+the corresponding `...:TSArrayValue` when using the `iocXsp3QD*` directories.
 Other features should work like before, as long as the corresponding scripts
 are preserved, like `use_allrois.cmd`.  Feel free to report compatibility bugs,
 and meanwhile you are also encouraged to try `iocXspress3` directly.
