@@ -1,80 +1,80 @@
 file "xsp3_chan.db"
 {
-pattern { P, R, PORT, ADDR, TIMEOUT }
-{ "$(P_)", "ch$(CHAN):", "$(PORT_)", "$(ADDR_)", 1 }
+pattern { R, TIMEOUT }
+{ "ch$(CHAN):", 1 }
 }
 
 file "xsp3_chan_plugins.template"
 {
-pattern { P, R, CH, ATTR, ROISTAT }
-{ "$(P_)", "cam1:", "ch$(CHAN):", "SCA$(CHAN):", "ROIStat$(CHAN):" }
+pattern { R, CH, ATTR, ROISTAT }
+{ "cam1:", "ch$(CHAN):", "SCA$(CHAN):", "ROIStat$(CHAN):" }
 }
 
 file "NDROI.template"
 {
-pattern { P, R, PORT, ADDR, TIMEOUT, NDARRAY_PORT }
-{ "$(P_)", "ROI$(CHAN):", "ROI$(CHAN)", 0, 1, "$(PORT_)" }
-{ "$(P_)", "ROISUM$(CHAN):", "ROISUM$(CHAN)", 0, 1, "PROC1" }
+pattern { R, PORT, ADDR, TIMEOUT, NDARRAY_PORT }
+{ "ROI$(CHAN):", "ROI$(CHAN)", 0, 1, "$(PORT)" }
+{ "ROISUM$(CHAN):", "ROISUM$(CHAN)", 0, 1, "PROC1" }
 }
 
 file "NDStdArrays.template"
 {
-pattern { P, R, PORT, ADDR, TIMEOUT, NDARRAY_PORT, TYPE, FTVL, NELEMENTS }
-{ "$(P_)", "MCA$(CHAN):", "MCA$(CHAN)", 0, 1, "ROI$(CHAN)", Float64, DOUBLE, "$(NUMBINS)" }
-{ "$(P_)", "MCASUM$(CHAN):", "MCASUM$(CHAN)", 0, 1, "ROISUM$(CHAN)", Float64, DOUBLE, "$(NUMBINS)" }
+pattern { R, PORT, ADDR, TIMEOUT, NDARRAY_PORT, TYPE, FTVL, NELEMENTS }
+{ "MCA$(CHAN):", "MCA$(CHAN)", 0, 1, "ROI$(CHAN)", Float64, DOUBLE, "$(NUMBINS)" }
+{ "MCASUM$(CHAN):", "MCASUM$(CHAN)", 0, 1, "ROISUM$(CHAN)", Float64, DOUBLE, "$(NUMBINS)" }
 }
 
 file "NDAttribute.template"
 {
-pattern { P, R, PORT, ADDR, TIMEOUT, NDARRAY_PORT, NCHANS }
-{ "$(P_)", "SCA$(CHAN):", "ATTR$(CHAN)", 0, 1, "$(PORT_)", "$(MAXFRAMES)" }
+pattern { R, PORT, ADDR, TIMEOUT, NDARRAY_PORT, NCHANS }
+{ "SCA$(CHAN):", "ATTR$(CHAN)", 0, 1, "$(PORT)", "$(MAXFRAMES)" }
 }
 
 file "NDAttributeN.template"
 {
-pattern { P, R, PORT, ADDR, TIMEOUT, NCHANS }
-{ "$(P_)", "SCA$(CHAN):0:", "ATTR$(CHAN)", 0, 1, "$(MAXFRAMES)" }
-{ "$(P_)", "SCA$(CHAN):1:", "ATTR$(CHAN)", 1, 1, "$(MAXFRAMES)" }
-{ "$(P_)", "SCA$(CHAN):2:", "ATTR$(CHAN)", 2, 1, "$(MAXFRAMES)" }
-{ "$(P_)", "SCA$(CHAN):3:", "ATTR$(CHAN)", 3, 1, "$(MAXFRAMES)" }
-{ "$(P_)", "SCA$(CHAN):4:", "ATTR$(CHAN)", 4, 1, "$(MAXFRAMES)" }
-{ "$(P_)", "SCA$(CHAN):5:", "ATTR$(CHAN)", 5, 1, "$(MAXFRAMES)" }
-{ "$(P_)", "SCA$(CHAN):6:", "ATTR$(CHAN)", 6, 1, "$(MAXFRAMES)" }
-{ "$(P_)", "SCA$(CHAN):7:", "ATTR$(CHAN)", 7, 1, "$(MAXFRAMES)" }
-{ "$(P_)", "SCA$(CHAN):8:", "ATTR$(CHAN)", 8, 1, "$(MAXFRAMES)" }
-{ "$(P_)", "SCA$(CHAN):9:", "ATTR$(CHAN)", 9, 1, "$(MAXFRAMES)" }
+pattern { R, PORT, ADDR, TIMEOUT, NCHANS }
+{ "SCA$(CHAN):0:", "ATTR$(CHAN)", 0, 1, "$(MAXFRAMES)" }
+{ "SCA$(CHAN):1:", "ATTR$(CHAN)", 1, 1, "$(MAXFRAMES)" }
+{ "SCA$(CHAN):2:", "ATTR$(CHAN)", 2, 1, "$(MAXFRAMES)" }
+{ "SCA$(CHAN):3:", "ATTR$(CHAN)", 3, 1, "$(MAXFRAMES)" }
+{ "SCA$(CHAN):4:", "ATTR$(CHAN)", 4, 1, "$(MAXFRAMES)" }
+{ "SCA$(CHAN):5:", "ATTR$(CHAN)", 5, 1, "$(MAXFRAMES)" }
+{ "SCA$(CHAN):6:", "ATTR$(CHAN)", 6, 1, "$(MAXFRAMES)" }
+{ "SCA$(CHAN):7:", "ATTR$(CHAN)", 7, 1, "$(MAXFRAMES)" }
+{ "SCA$(CHAN):8:", "ATTR$(CHAN)", 8, 1, "$(MAXFRAMES)" }
+{ "SCA$(CHAN):9:", "ATTR$(CHAN)", 9, 1, "$(MAXFRAMES)" }
 }
 
 file "NDTimeSeries.template"
 {
-pattern { P, R, PORT, ADDR, TIMEOUT, NDARRAY_PORT, NDARRAY_ADDR, NCHANS }
-{ "$(P_)", "SCA$(CHAN):TS:", "ATTR$(CHAN)_TS", 0, 1, "ATTR$(CHAN)", 1, "$(MAXFRAMES)" }
+pattern { R, PORT, ADDR, TIMEOUT, NDARRAY_PORT, NDARRAY_ADDR, NCHANS }
+{ "SCA$(CHAN):TS:", "ATTR$(CHAN)_TS", 0, 1, "ATTR$(CHAN)", 1, "$(MAXFRAMES)" }
 }
 
 file "NDROIStat.template"
 {
-pattern { P, R, PORT, ADDR, TIMEOUT, NDARRAY_PORT, NCHANS }
-{ "$(P_)", "ROIStat$(CHAN):", "ROISTAT$(CHAN)", 0, 1, "ROI$(CHAN)", "$(MAXFRAMES)" }
+pattern { R, PORT, ADDR, TIMEOUT, NDARRAY_PORT, NCHANS }
+{ "ROIStat$(CHAN):", "ROISTAT$(CHAN)", 0, 1, "ROI$(CHAN)", "$(MAXFRAMES)" }
 }
 
 file "NDROIStatN.template"
 {
-pattern { P, R, PORT, ADDR, TIMEOUT, NCHANS }
-{ "$(P_)", "ROIStat$(CHAN):1:", "ROISTAT$(CHAN)", 0, 1, "$(MAXFRAMES)" }
-{ "$(P_)", "ROIStat$(CHAN):2:", "ROISTAT$(CHAN)", 1, 1, "$(MAXFRAMES)" }
-{ "$(P_)", "ROIStat$(CHAN):3:", "ROISTAT$(CHAN)", 2, 1, "$(MAXFRAMES)" }
-{ "$(P_)", "ROIStat$(CHAN):4:", "ROISTAT$(CHAN)", 3, 1, "$(MAXFRAMES)" }
-{ "$(P_)", "ROIStat$(CHAN):5:", "ROISTAT$(CHAN)", 4, 1, "$(MAXFRAMES)" }
-{ "$(P_)", "ROIStat$(CHAN):6:", "ROISTAT$(CHAN)", 5, 1, "$(MAXFRAMES)" }
-{ "$(P_)", "ROIStat$(CHAN):7:", "ROISTAT$(CHAN)", 6, 1, "$(MAXFRAMES)" }
-{ "$(P_)", "ROIStat$(CHAN):8:", "ROISTAT$(CHAN)", 7, 1, "$(MAXFRAMES)" }
-{ "$(P_)", "ROIStat$(CHAN):9:", "ROISTAT$(CHAN)", 8, 1, "$(MAXFRAMES)" }
-{ "$(P_)", "ROIStat$(CHAN):10:", "ROISTAT$(CHAN)", 9, 1, "$(MAXFRAMES)" }
-{ "$(P_)", "ROIStat$(CHAN):11:", "ROISTAT$(CHAN)", 10, 1, "$(MAXFRAMES)" }
-{ "$(P_)", "ROIStat$(CHAN):12:", "ROISTAT$(CHAN)", 11, 1, "$(MAXFRAMES)" }
-{ "$(P_)", "ROIStat$(CHAN):13:", "ROISTAT$(CHAN)", 12, 1, "$(MAXFRAMES)" }
-{ "$(P_)", "ROIStat$(CHAN):14:", "ROISTAT$(CHAN)", 13, 1, "$(MAXFRAMES)" }
-{ "$(P_)", "ROIStat$(CHAN):15:", "ROISTAT$(CHAN)", 14, 1, "$(MAXFRAMES)" }
-{ "$(P_)", "ROIStat$(CHAN):16:", "ROISTAT$(CHAN)", 15, 1, "$(MAXFRAMES)" }
+pattern { R, PORT, ADDR, TIMEOUT, NCHANS }
+{ "ROIStat$(CHAN):1:", "ROISTAT$(CHAN)", 0, 1, "$(MAXFRAMES)" }
+{ "ROIStat$(CHAN):2:", "ROISTAT$(CHAN)", 1, 1, "$(MAXFRAMES)" }
+{ "ROIStat$(CHAN):3:", "ROISTAT$(CHAN)", 2, 1, "$(MAXFRAMES)" }
+{ "ROIStat$(CHAN):4:", "ROISTAT$(CHAN)", 3, 1, "$(MAXFRAMES)" }
+{ "ROIStat$(CHAN):5:", "ROISTAT$(CHAN)", 4, 1, "$(MAXFRAMES)" }
+{ "ROIStat$(CHAN):6:", "ROISTAT$(CHAN)", 5, 1, "$(MAXFRAMES)" }
+{ "ROIStat$(CHAN):7:", "ROISTAT$(CHAN)", 6, 1, "$(MAXFRAMES)" }
+{ "ROIStat$(CHAN):8:", "ROISTAT$(CHAN)", 7, 1, "$(MAXFRAMES)" }
+{ "ROIStat$(CHAN):9:", "ROISTAT$(CHAN)", 8, 1, "$(MAXFRAMES)" }
+{ "ROIStat$(CHAN):10:", "ROISTAT$(CHAN)", 9, 1, "$(MAXFRAMES)" }
+{ "ROIStat$(CHAN):11:", "ROISTAT$(CHAN)", 10, 1, "$(MAXFRAMES)" }
+{ "ROIStat$(CHAN):12:", "ROISTAT$(CHAN)", 11, 1, "$(MAXFRAMES)" }
+{ "ROIStat$(CHAN):13:", "ROISTAT$(CHAN)", 12, 1, "$(MAXFRAMES)" }
+{ "ROIStat$(CHAN):14:", "ROISTAT$(CHAN)", 13, 1, "$(MAXFRAMES)" }
+{ "ROIStat$(CHAN):15:", "ROISTAT$(CHAN)", 14, 1, "$(MAXFRAMES)" }
+{ "ROIStat$(CHAN):16:", "ROISTAT$(CHAN)", 15, 1, "$(MAXFRAMES)" }
 }
 
