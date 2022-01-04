@@ -38,6 +38,17 @@ record(bo,"$(P)$(R)ERASE")
 }
 
 # ///
+# /// Set whether Acquire erases first.
+# ///
+record(bo, "$(P)$(R)EraseOnStart") {
+   field(DTYP, "asynInt32")
+   field(OUT, "@asyn($(PORT),$(ADDR=0),$(TIMEOUT=1))XSP3_ERASESTART")
+   field(ZNAM, "No")
+   field(ONAM, "Yes")
+   field(VAL,  "1")
+}
+
+# ///
 # /// Set the numer of channels to read out.
 # ///
 record(longout, "$(P)$(R)NUM_CHANNELS")

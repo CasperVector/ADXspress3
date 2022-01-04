@@ -46,6 +46,7 @@ dbpf("$(PREFIX)cam1:ArrayCallbacks", 1)
 
 dbpf("$(PREFIX)cam1:CONNECT", 1)
 dbpf("$(PREFIX)cam1:CTRL_DTC", "Disable")
+dbpf("$(PREFIX)cam1:EraseOnStart", "Yes")
 dbpf("$(PREFIX)cam1:TriggerMode", "Internal")
 epicsThreadSleep 2
 
