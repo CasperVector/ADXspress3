@@ -224,7 +224,7 @@ DT_Percent = 100 * (N_Resets + N_AllEvents * EventWidth) / ClockTicks
 <td><code>${P}ROI${CHAN}:${POSTFIX}</code><br><code>${P}ARR${CHAN}:${POSTFIX}</code><br><code>${P}ROISUM${CHAN}:${POSTFIX}</code><br><code>${P}ARRSUM${CHAN}:${POSTFIX}</code></td>
 </tr>
 </table>
-<p>Due to the replacement of spectraPlugins by its successor NDPluginAttribute, any reference to <code>...:ArrayData_RBV</code> should be substituted with reference to the corresponding <code>...:TSArrayValue</code> when using the <code>iocBoot/iocXsp3QD*</code> directories in this branch (even those which seemingly should be substituted with <code>...:TSTotal</code> in the table above, as they are not implemented with NDPluginROIStat in the QD branch).</p>
+<p>Due to the replacement of spectraPlugins by its successor NDPluginAttribute, any reference to <code>...:ArrayData_RBV</code> should be substituted with reference to the corresponding <code>...:TSArrayValue</code> when using the <code>iocBoot/iocXsp3QD*</code> directories in this branch (even those which seemingly should be substituted with <code>...:TSTotal</code> in the table above, as they are not implemented with NDPluginROIStat in the QD branch); NDPluginAttribute does not provide (or need) the <code>...:Update</code> PV, so <code>...:UPDATE</code>, <code>...:UPDATE_AttrUpdate</code> etc are also no longer provided.</p>
 </body>
 </html>
 
