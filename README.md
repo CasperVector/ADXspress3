@@ -7,8 +7,8 @@ An EPICS driver based on [areaDetector](https://github.com/areaDetector) for
 
 Change into the `iocXspress3` directory:
 
-    cd /path/to/ADXspress3
-    cd iocs/xspress3IOC/iocBoot/iocXspress3
+    cd /path/to/ADXspress3/iocs
+    cd xspress3IOC/iocBoot/iocXspress3
 
 Adapt `st.cmd` as necessary, and note the number of channels `${XSP3CHANS}`.
 If the corresponding files, eg. `xsp3-${XSP3CHANS}ch.req`, have not been
@@ -31,8 +31,8 @@ suitable script (adapt as needed) to start the IOC in the mode they want (if
 the `iocXsp3QD*` directories are used, the `xspress3App` below must be replaced
 with `xspress3AppQD`):
 
-    cd /path/to/ADXspress3
-    cd iocs/xspress3IOC/iocBoot/iocXsp3CARS
+    cd /path/to/ADXspress3/iocs
+    cd xspress3IOC/iocBoot/iocXsp3CARS
     ../../bin/linux-x86_64/xspress3App ./4Channel.cmd
 
 Due to the replacement of spectraPlugins by its successor NDPluginAttribute,
