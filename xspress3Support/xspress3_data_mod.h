@@ -288,7 +288,7 @@ int xsp3_scope_calc_num_t(XSP3ScopeModule *mod);
 
 #define XSP3M_SCOPE_NUM_SRC0  	16
 #define XSP3M_SCOPE_NUM_SRC1 	16
-#define XSP3M_SCOPE_NUM_SRC2TO4  11
+#define XSP3M_SCOPE_NUM_SRC2TO4 12
 #define XSP3M_SCOPE_NUM_SRC5	16
 
 /**
