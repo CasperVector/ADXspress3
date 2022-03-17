@@ -31,8 +31,6 @@ DB += xsp3_chan.template
 DB += xsp3_chan_scaparam.template
 DB += xsp3_chan_plugins.template
 DB += xsp3_chan.db
-REQ += xsp3.req
-REQ += xsp3_chan.req
 
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add
