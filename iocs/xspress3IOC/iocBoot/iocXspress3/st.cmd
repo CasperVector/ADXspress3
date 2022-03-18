@@ -24,13 +24,13 @@ dbLoadRecords("NDProcess.template", "P=$(PREFIX),R=Proc1:,PORT=PROC1,ADDR=0,TIME
 dbLoadRecords("xsp3_plugins.template", "P=$(PREFIX),R=cam1:,PROC=Proc1:")
 
 set_requestfile_path("./")
-set_requestfile_path("$(ADCORE)/ADApp/Db")
-set_requestfile_path("$(ADXSPRESS3)/xspress3App/Db")
+set_requestfile_path("$(ADCORE)/db")
+set_requestfile_path("$(ADXSPRESS3)/db")
 set_savefile_path("./autosave")
 set_pass0_restoreFile("auto_settings.sav")
 set_pass1_restoreFile("auto_settings.sav")
 save_restoreSet_status_prefix("$(PREFIX)")
-dbLoadRecords("$(AUTOSAVE)/asApp/Db/save_restoreStatus.db", "P=$(PREFIX)")
+dbLoadRecords("$(AUTOSAVE)/db/save_restoreStatus.db", "P=$(PREFIX)")
 
 cd "$(TOP)/iocBoot/$(IOC)"
 iocshLoad("xsp3-$(XSP3CHANS)ch-batch.cmd", "TASK=preinit")
