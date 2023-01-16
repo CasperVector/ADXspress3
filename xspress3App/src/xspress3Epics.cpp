@@ -1604,6 +1604,7 @@ bool Xspress3::readFrame(double* pSCA, double* pMCAData, int frameOffset, int ma
 //    xsp3_histogram_circ_ack(this->xsp3_handle_, 0, frameOffset, this->numChannels_, 1);
     if (circBuffer_ == 1) {
     	xsp3_histogram_circ_ack(this->xsp3_handle_, 0, frameOffset, this->numChannels_, framesRemaining);
+		std::cout<<"Using CB mode";
     }
     return error;
 }
@@ -1634,6 +1635,7 @@ bool Xspress3::readFrame(u_int32_t* pSCA, u_int32_t* pMCAData, int frameOffset, 
 //    xsp3_histogram_circ_ack(this->xsp3_handle_, 0, frameOffset, this->numChannels_, 1);
     if (circBuffer_ == 1) {
     	xsp3_histogram_circ_ack(this->xsp3_handle_, 0, frameOffset, this->numChannels_, framesRemaining);
+		std::cout<<"Using CB mode";
     }
     return error;
 }
