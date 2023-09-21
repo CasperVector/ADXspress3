@@ -984,7 +984,7 @@ asynStatus Xspress3::setupITFG(void)
 {
     asynStatus status = asynSuccess;
     const char *functionName = "Xspress3::setupITFG";
-    int num_frames, trigger_mode, ppt, test;
+    int num_frames, trigger_mode, ppt;
     double exposureTime;
     int xsp3_status=XSP3_OK;
 
@@ -1086,9 +1086,6 @@ asynStatus Xspress3::setTriggerMode(int mode, int invert_f0, int invert_veto, in
     asynStatus status = asynSuccess;
     int xsp3_num_cards;
     int xsp3_trigger_mode = 0;
-    int num_frames;
-    double exposureTime;
-    int xsp3_status=XSP3_OK;
 
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set Trigger Mode.\n", functionName);
     getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
@@ -1131,7 +1128,6 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   asynStatus status = asynSuccess;
   int xsp3_num_channels = 0;
   int xsp3_erasestart = 1;
-  int xsp3_frame_advance =0;
   const char *functionName = "Xspress3::writeInt32";
 
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calling writeInt32.\n", functionName);
@@ -1177,7 +1173,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	  xsp3_status = xsp3->histogram_stop(xsp3_handle_, -1);
 	  // MNewville Sept 2021, use EraseOnStart to control whether to Erase before Acquire
 	  getIntegerParam(xsp3EraseStartParam, &xsp3_erasestart);
-	  // printf(" erase on start %d\n " , xsp3_erasestart);
+	  // printf(" erase on start %d\n", xsp3_erasestart);
 	  if (xsp3_erasestart) {
 	    erase();
 	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Erased Before Data Collection\n", functionName);
@@ -1189,7 +1185,6 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	  if (xsp3_status != XSP3_OK) {
 	    checkStatus(xsp3_status, "xsp3_histogram_start", functionName);
 	    status = asynError;
-
 	  } else {
 	    setupITFG(); 
 	    xsp3_status = xsp3->histogram_start(xsp3_handle_, -1 );
@@ -1204,11 +1199,9 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	    } else {
 	      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Start Data Collection, failed.\n", functionName);
 	    }
-
-			}
-	  	}	
-		}
-
+	  }
+	}
+      }
     } else {
       if (adStatus == ADStatusAcquire) {
 	  if ((status = checkConnected()) == asynSuccess) {
@@ -1755,7 +1748,7 @@ void Xspress3::writeOutScas(void *&pSCA, int numChannels, NDDataType_t dataType)
           allevt = pScaData[3];
           dtperc = 100.0*(allevt*(evtwidth+1) + resets)/ctime;
           dtfact = ctime/(ctime - (allevt*(evtwidth+1) + resets));
-	  // printf(":D> chan=%i, event_width=%.1f DTpercent=%.3f, DTfactor=%.6f", chan, evtwidth, dtperc, dtfact);
+	  //printf(":D> chan=%i, event_width=%.1f DTpercent=%.3f, DTfactor=%.6f", chan, evtwidth, dtperc, dtfact);
 	  setDoubleParam(chan, xsp3ChanDTPercentParam, static_cast<epicsFloat64>(dtperc));
 	  setDoubleParam(chan, xsp3ChanDTFactorParam, static_cast<epicsFloat64>(dtfact));
         }
@@ -1784,8 +1777,10 @@ void Xspress3::writeOutScas(void *&pSCA, int numChannels, NDDataType_t dataType)
           dtperc = 100.0*(allevt*(evtwidth+1) + resets)/ctime;
           dtfact = ctime/(ctime - (allevt*(evtwidth+1) + resets));
 	  // printf(":I> chan=%i, event_width=%.1f DTpercent=%.3f, DTfactor=%.6f\n", chan, evtwidth, dtperc, dtfact);
-	  setDoubleParam(chan, xsp3ChanDTPercentParam, static_cast<epicsFloat64>(dtperc));
-	  setDoubleParam(chan, xsp3ChanDTFactorParam, static_cast<epicsFloat64>(dtfact));
+	  // setDoubleParam(chan, xsp3ChanDTPercentParam, static_cast<epicsFloat64>(dtperc));
+	  // setDoubleParam(chan, xsp3ChanDTFactorParam, static_cast<epicsFloat64>(dtfact));
+	  setDoubleParam(chan, xsp3ChanDTPercentParam, dtperc);
+	  setDoubleParam(chan, xsp3ChanDTFactorParam, dtfact);
         }
         pScaData += XSP3_SW_NUM_SCALERS;
       }
@@ -1979,6 +1974,7 @@ static void xsp3DataTaskC(void *xspAD)
         numChannels = dims[1];
         numFrames = pXspAD->getNumFramesToAcquire();
         pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "Collect %d frames\n", numFrames);
+	// printf("data task acquire=%d, numframes=%d  / frameNumber=%d\n", (int)acquire, numFrames, frameNumber);
         while (acquire && (frameNumber < numFrames)) {
             acquired = pXspAD->getNumFramesRead();
             if (frameNumber < acquired) {
