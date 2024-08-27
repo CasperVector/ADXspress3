@@ -183,7 +183,7 @@ tr, th, td { border: 1px solid; padding: 6px; }
 <pre>
 DeadTime = N_Resets + N_AllEvents * EventWidth
 </pre>
-<p>where <code>N_Resets</code> is the number of reset events in the time of that spectrum, <code>N_AllEvents</code> is the number of events processed (the "input counts") and <code>Eventwidth</code> is the time to process each event. The "live time" will be <code>ClockTicks - DeadTime</code>, so the deadtime correction factor and the <em>Percent Deadtime</em> will be</p>
+<p>where <code>N_Resets</code> is the number of reset events in the time of that spectrum, <code>N_AllEvents</code> is the number of events processed (the "input counts") and <code>Eventwidth</code> is the time to process each event. The "live time" will be <code>ClockTicks - DeadTime</code>, so the <em>Deadtime Correction Factor</em> and the <em>Percent Deadtime</em> will be</p>
 <pre>
 DT_Factor = ClockTicks / (ClockTicks - N_Resets - N_AllEvents * EventWidth)
 DT_Percent = 100 * (N_Resets + N_AllEvents * EventWidth) / ClockTicks
