@@ -13,7 +13,7 @@ pattern { R, CH, ATTR, ROISTAT }
 file "NDROI.template"
 {
 pattern { R, PORT, ADDR, TIMEOUT, NDARRAY_PORT }
-{ "ROI$(CHAN):", "ROI$(CHAN)", 0, 1, "$(PORT)" }
+{ "ROI$(CHAN):", "ROI$(CHAN)", 0, 1, "$(PORT_)" }
 { "ROISUM$(CHAN):", "ROISUM$(CHAN)", 0, 1, "PROC1" }
 }
 
@@ -27,7 +27,7 @@ pattern { R, PORT, ADDR, TIMEOUT, NDARRAY_PORT, TYPE, FTVL, NELEMENTS }
 file "NDAttribute.template"
 {
 pattern { R, PORT, ADDR, TIMEOUT, NDARRAY_PORT, NCHANS }
-{ "SCA$(CHAN):", "ATTR$(CHAN)", 0, 1, "$(PORT)", "$(MAXFRAMES)" }
+{ "SCA$(CHAN):", "ATTR$(CHAN)", 0, 1, "$(PORT_)", "$(MAXFRAMES)" }
 }
 
 file "NDAttributeN.template"
