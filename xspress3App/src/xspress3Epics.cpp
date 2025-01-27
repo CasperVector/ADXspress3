@@ -122,7 +122,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   //Initialize non static, non const, data members
   xsp3_handle_ = 0;
   bool paramStatus = this->setInitialParameters(maxFrames, maxDriverFrames, numCards, maxSpectra);
-  paramStatus = ((eraseSCA() == asynSuccess) && paramStatus);
+  paramStatus = ((eraseSCAMCAROI() == asynSuccess) && paramStatus);
   //Create the thread that readouts the data
   status = (epicsThreadCreate("GeDataTask",
                               epicsThreadPriorityHigh,
@@ -175,7 +175,7 @@ Xspress3::Xspress3(const char *portName, int numChannels) : ADDriver(portName, n
     //Initialize non static, non const, data members
     xsp3_handle_ = 0;
     bool paramStatus = this->setInitialParameters(maxFrames, maxDriverFrames, numCards, maxSpectra);
-    paramStatus = ((eraseSCA() == asynSuccess) && paramStatus);
+    paramStatus = ((eraseSCAMCAROI() == asynSuccess) && paramStatus);
     if (simTest) {
         paramStatus = ((setStringParam(ADStatusMessage, "Init. Simulation Mode.") == asynSuccess) && paramStatus);
         xsp3 = new xsp3Simulator(this->pasynUserSelf,numChannels,maxSpectra);
@@ -832,7 +832,7 @@ asynStatus Xspress3::erase(void)
   if ((status = checkConnected()) == asynSuccess) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Erase data.\n", functionName);
 
-    status = eraseSCA();
+    status = eraseSCAMCAROI();
 
     getIntegerParam(xsp3NumFramesDriverParam, &xsp3_time_frames);
     getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
@@ -858,12 +858,12 @@ asynStatus Xspress3::erase(void)
 /**
  * Function to clear the data.
  */
-asynStatus Xspress3::eraseSCA(void)
+asynStatus Xspress3::eraseSCAMCAROI(void)
 {
   int status = asynSuccess;
   int xsp3_num_channels = 0;
   int maxNumFrames = 0;
-  const char *functionName = "Xspress3::eraseSCA";
+  const char *functionName = "Xspress3::eraseSCAMCAROI";
 
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Clear SCA data and all arrays.\n", functionName);
 

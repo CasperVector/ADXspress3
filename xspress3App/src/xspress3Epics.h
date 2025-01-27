@@ -165,7 +165,7 @@ class Xspress3 : public ADDriver {
   asynStatus checkConnected(void);
   asynStatus setWindow(int channel, int sca, int llm, int hlm);
   asynStatus erase(void);
-  asynStatus eraseSCA(void);
+  asynStatus eraseSCAMCAROI(void);
   asynStatus checkSaveDir(const char *dirName);
   asynStatus readSCAParams(void);
   asynStatus readDTCParams(void);
