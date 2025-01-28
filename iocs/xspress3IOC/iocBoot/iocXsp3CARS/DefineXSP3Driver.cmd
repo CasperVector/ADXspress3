@@ -8,11 +8,11 @@ callbackSetQueueSize(8000)
 xspress3App_registerRecordDeviceDriver(pdbbase) 
 
 epicsEnvSet("PORT",   "XSP3")
-epicsEnvSet("QSIZE",  "128")
+epicsEnvSet("QSIZE",  "512")
 epicsEnvSet("XSIZE",  "$(NUM_BINS)")
 
 # The maximum number of frames buffered in the NDPluginCircularBuff plugin
-epicsEnvSet("CBUFFS", "4096")
+epicsEnvSet("CBUFFS", "8192")
 
 # The search path for database files
 epicsEnvSet("EPICS_DB_INCLUDE_PATH", "$(ADCORE)/db:$(ADXSPRESS3)/db:$(TOP)/db:.")
@@ -32,7 +32,8 @@ epicsEnvSet("EPICS_DB_INCLUDE_PATH", "$(ADCORE)/db:$(ADXSPRESS3)/db:$(TOP)/db:."
 # maxMemory Used by asynPortDriver (set to 0 for unlimited)
 # debug This debug flag is passed to xsp3_config in the Xspress API (0 or 1)
 # simTest 0 or 1. Set to 1 to run up this driver in simulation mode. 
-xspress3Config("$(PORT)", "$(NUM_CHANNELS)", "$(XSP3CARDS)", "$(XSP3ADDR)", "$(MAXFRAMES)", 16384, "$(NUM_BINS)", 0, 0, 0, 0)
+# circBuffer 0 or 1. set to 1 if more than 12216 frames required
+xspress3Config("$(PORT)", "$(NUM_CHANNELS)", "$(XSP3CARDS)", "$(XSP3ADDR)", "$(MAXFRAMES)", "$(MAXDRIVERFRAMES)", "$(NUM_BINS)", 0, 0, 0, 0, "$(CIRC_BUFFER)")
 
 #
 # Create a processing plugin
@@ -46,4 +47,7 @@ dbLoadRecords("NDFileHDF5.template",  "P=$(PREFIX),R=HDF1:,PORT=FileHDF1,ADDR=0,
 
 # load main template
 dbLoadRecords("xspress3.template","P=$(PREFIX),R=det1:,PORT=$(PORT), ADDR=0, TIMEOUT=5, MAX_SPECTRA=$(XSIZE), MAX_FRAMES=$(MAXFRAMES), HDF=$(PREFIX)HDF1:, PROC=$(PREFIX)Proc1:")
+
+# Optional: load devIocStats records (default config includes DEVIOCSTATS module), must define IOC_PREFIX in st.cmd
+dbLoadRecords("$(DEVIOCSTATS)/db/iocAdminSoft.db", "IOC=$(IOC_PREFIX)")
 

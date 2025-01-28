@@ -69,6 +69,7 @@
 #define xsp3MaxFramesParamString     "XSP3_MAX_FRAMES"
 #define xsp3FrameCountParamString     "XSP3_FRAME_COUNT"
 #define xsp3TriggerModeParamString        "XSP3_TRIGGER_MODE"
+#define xsp3SoftTriggerParamString       "XSP3_SOFT_TRIGGER"
 #define xsp3FixedTimeParamString        "XSP3_FIXED_TIME"
 #define xsp3NumFramesConfigParamString          "XSP3_NUM_FRAMES_CONFIG"
 #define xsp3NumFramesDriverParamString          "XSP3_NUM_FRAMES_DRIVER"
@@ -115,14 +116,14 @@
 
 
 extern "C" {
-  int xspress3Config(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest);
+  int xspress3Config(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest, int circBuffer);
 }
 
 
 class Xspress3 : public ADDriver {
 
  public:
-  Xspress3(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest);
+  Xspress3(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest, int circBuffer);
   Xspress3(const char *portName, int numChannels);
   virtual ~Xspress3();
 
@@ -150,6 +151,8 @@ class Xspress3 : public ADDriver {
   void setNDArrayAttributes(NDArray *&pMCA, int frameNumber);
   void setAcqStopParameters(bool aborted);
   int getNumFramesToAcquire();
+  int getMaxNumFrames();
+  int getFrameCounter();
   void doNDCallbacksIfRequired(NDArray *pMCA);
   int getNumFramesRead();
   void xspAsynPrint(int asynPrintType, const char *format, ...);
@@ -165,7 +168,7 @@ class Xspress3 : public ADDriver {
   asynStatus checkConnected(void);
   asynStatus setWindow(int channel, int sca, int llm, int hlm);
   asynStatus erase(void);
-  asynStatus eraseSCA(void);
+  asynStatus eraseSCAMCAROI(void);
   asynStatus checkSaveDir(const char *dirName);
   asynStatus readSCAParams(void);
   asynStatus readDTCParams(void);
@@ -203,6 +206,7 @@ class Xspress3 : public ADDriver {
   const epicsInt32 numChannels_; //The number of channels
   const epicsUInt32 simTest_; //Run in sim mode
   const std::string baseIP_; //Constructor param - IP address of host system
+  const int circBuffer_; //Circular buffer flag to turn on
 
   epicsEventId statusEvent_;
   epicsEventId startEvent_;
@@ -217,6 +221,7 @@ class Xspress3 : public ADDriver {
   int xsp3NumChannelsParam;
   int xsp3MaxNumChannelsParam;
   int xsp3MaxSpectraParam;
+  int xsp3SoftTriggerParam;
   int xsp3MaxFramesParam;
   int xsp3FrameCountParam;
   int xsp3TriggerModeParam;

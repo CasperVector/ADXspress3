@@ -1,8 +1,10 @@
 bin
 lib
 include
-db
+/db/
 dbd
+documentation/source/_build/*
+_doc.tgz
 *_BAK.adl
 documentation.html
 envPaths*

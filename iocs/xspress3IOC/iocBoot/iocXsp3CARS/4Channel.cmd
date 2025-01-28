@@ -12,7 +12,10 @@ epicsEnvSet("XSP3CARDS", "1")
 epicsEnvSet("XSP3ADDR",  "192.168.0.1")
 
 # Max Number of Frames for data collection
+# Use CIRC_BUFFER as 1 for more than 12216 frames
+epicsEnvSet("CIRC_BUFFER", "1")
 epicsEnvSet("MAXFRAMES", "16384")
+epicsEnvSet("MAXDRIVERFRAMES", "16384")
 
 # Number of Energy bins
 epicsEnvSet("NUM_BINS",  "4096")
@@ -53,8 +56,11 @@ iocInit
 
 # setup startup values
 
-#Configure and connect to Xspress3
-dbpf("$(PREFIX)det1:CONFIG_PATH", "/home/xspress3/xspress3_settings/current/")
+# Configure Xspress3:
+# The "CONFIG_PATH" value points to the calibration folder with files:
+#     card0_clocks.dat, chan1_reion0.dat, etc
+# dbpf("$(PREFIX)det1:CONFIG_PATH", "/etc/xspress3/calibration/initial")
+dbpf("$(PREFIX)det1:CONFIG_PATH", "$(SUPPORT)/../xspress3_settings/current/")
 
 < SetMainValues.cmd
 dbpf("$(PREFIX)det1:NDAttributesFile", "XSP3-4Channel.xml")

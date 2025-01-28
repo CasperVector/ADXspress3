@@ -12,7 +12,8 @@ ifeq (vxWorks,$(findstring vxWorks, $(T_A)))
 CODE_CXXFLAGS=
 endif
 
-ifeq (linux-x86_64, $(findstring linux-x86_64, $(T_A)))
+ifeq (Linux, $(OS_CLASS))
+ifeq (x86_64, $(ARCH_CLASS))
 LIBRARY_IOC_Linux += xspress3Epics
 xspress3Epics_SRCS += xspress3Epics.cpp
 xspress3Epics_SRCS += xsp3Api.cpp
@@ -27,6 +28,7 @@ xspress3EpicsQD_SRCS += xsp3Detector.cpp
 xspress3EpicsQD_SRCS += xsp3Simulator.cpp
 xspress3EpicsQD_SRCS += xsp3SimElement.cpp
 xspress3EpicsQD_SRCS += xsp3TimeRegister.cpp
+endif
 endif
 
 DBD += xspress3Support.dbd

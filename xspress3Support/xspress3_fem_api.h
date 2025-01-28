@@ -60,7 +60,7 @@ int xspress3FemReadFanControl(void* femHandle, u_int32_t offset, size_t size, u_
 int xspress3FemConfigWrite(void* femHandle, u_int32_t address, size_t size, u_int8_t *value);
 int xspress3FemConfigRead(void* femHandle, u_int32_t address, size_t size, u_int8_t *value);
 
-int32_t xspress3FemSetFarmLUT(void* femHandle, int index, char* hostIPaddress, int hostPort);
+int32_t xspress3FemSetFarmLUT(void* femHandle, int index, unsigned char* hostMAC, char* hostIPaddress, int hostPort);
 int xspress3FemRMW(void* femHandle, int chan, int region, int offset, u_int32_t and_mask, u_int32_t or_mask, u_int32_t *ret_value);
 int xspress3FemRDMARMW(void* femHandle, int address, u_int32_t and_mask, u_int32_t or_mask, u_int32_t *ret_value);
 
