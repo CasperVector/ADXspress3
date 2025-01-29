@@ -43,7 +43,11 @@ tr, th, td { border: 1px solid; padding: 6px; }
 </tr>
 <tr>
 <td><code>${P}cam1:ERASE</code></td>
-<td>This will call the Xspress3 API <code>xsp3_histogram_clear</code> function. It will also clear any data held by EPICS PVs, including the array PVs. Do this before starting a new data collection.</td>
+<td>This will call the Xspress3 API function <code>xsp3_histogram_clear</code>. It will also clear any data held by EPICS PVs, including the array PVs. Do this before starting a new data collection.</td>
+</tr>
+<tr>
+<td><code>${P}cam1:EraseOnStart</code></td>
+<td>When set to 1, <code>xsp3_histogram_clear</code> is called automatically before each acquisition session, costing a noticeable amount of time. When set to 0, <code>${P}cam1:ERASE</code> is need.</td>
 </tr>
 <tr>
 <td><code>${P}cam1:NumImages(_RBV)</code></td>
@@ -57,13 +61,14 @@ tr, th, td { border: 1px solid; padding: 6px; }
 <td><code>${P}cam1:TriggerMode(_RBV)</code></td>
 <td>Set and read the triggering mode. This PV maps directly on to the API function <code>xsp3_set_glob_timeA</code>. In simulation mode any mode can be selected. Options are:
 <ul>
-<li>Fixed - Corresponds to API option <code>XSP3_GTIMA_SRC_FIXED.</code> Timing controlled by software, incrementing on each subsequent continue.</li>
-<li>Internal - Corresponds to API option <code>XSP3_GTIMA_SRC_INTERNAL.</code> Time frame from internal timing generator (for future expansion).</li>
-<li>IDC - Corresponds to API option <code>XSP3_GTIMA_SRC_IDC.</code> Time frame incremented and rest by signals from IDC expansion connector.</li>
-<li>TTL Veto Only - Use this for external triggering using a gate signal. Corresponds to API option <code>XSP3_GTIMA_SRC_TTL_VETO_ONLY.</code> Use TTL input 1 as Veto. Signal is active low and will to count if high and veto if low.</li>
-<li>TTL Both - Corresponds to API option <code>XSP3_GTIMA_SRC_TTL_BOTH.</code> Use TTL inputs 0 and 1 as Frame Zero and Veto respectively.</li>
-<li>LVDS Veto Only - Corresponds to API option <code>XSP3_GTIMA_SRC_LVDS_VETO_ONLY.</code> Use 4 Pin LEMO00 LVDS input for veto only.</li>
-<li>LVDS Both - Corresponds to API option <code>XSP3_GTIMA_SRC_LVDS_BOTH.</code> Use 4 Pin LEMO00 LVDS input for Veto and Frame 0.</li>
+<li>Fixed - Corresponds to API <code>XSP3_GTIMA_SRC_FIXED</code> without <code>XSP3_ITFG_TRIG_MODE_SOFTWARE</code>. Software Trigger with variable acquisition time. The frame is advanced by setting <code>${P}cam1:SoftTrigger</code> to 1 and stopped after this is set to 0.</li>
+<li>Internal - Corresponds to API option <code>XSP3_GTIMA_SRC_INTERNAL</code>. Time frame from internal timing generator (for future expansion).</li>
+<li>IDC - Corresponds to API option <code>XSP3_GTIMA_SRC_IDC</code>. Time frame incremented and rest by signals from IDC expansion connector.</li>
+<li>TTL Veto Only - Use this for external triggering using a gate signal. Corresponds to API option <code>XSP3_GTIMA_SRC_TTL_VETO_ONLY</code>. Use TTL input 1 as Veto. Signal is active low and will to count if high and veto if low.</li>
+<li>TTL Both - Corresponds to API option <code>XSP3_GTIMA_SRC_TTL_BOTH</code>. Use TTL inputs 0 and 1 as Frame Zero and Veto respectively.</li>
+<li>LVDS Veto Only - Corresponds to API option <code>XSP3_GTIMA_SRC_LVDS_VETO_ONLY</code>. Use 4 Pin LEMO00 LVDS input for veto only.</li>
+<li>LVDS Both - Corresponds to API option <code>XSP3_GTIMA_SRC_LVDS_BOTH</code>. Use 4 Pin LEMO00 LVDS input for Veto and Frame 0.</li>
+<li>Software + Internal - Corresponds to API <code>XSP3_GTIMA_SRC_FIXED</code> with <code>XSP3_ITFG_TRIG_MODE_SOFTWARE</code>. Acquisition time set by <code>${P}cam1:AcquireTime</code>. The frame is advanced by setting <code>${P}cam1:SoftTrigger</code> to 1 and stopped after the dwell time is reached. Setting the soft trigger PV to 0 will ready the system to recieve the next trigger.</li>
 </ul>
 </td>
 </tr>
