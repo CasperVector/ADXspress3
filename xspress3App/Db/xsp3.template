@@ -15,7 +15,7 @@
 
 include "ADBase.template"
 
-# /// 
+# ///
 # /// Reset the device.
 # ///
 record(bo, "$(P)$(R)RESET")
@@ -26,10 +26,10 @@ record(bo, "$(P)$(R)RESET")
     field(ONAM,"Reset")
 }
 
-# /// 
+# ///
 # /// Erase MCA data.
 # ///
-record(bo,"$(P)$(R)ERASE") 
+record(bo,"$(P)$(R)ERASE")
 {
     field(DTYP, "asynInt32")
     field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_ERASE")
@@ -295,8 +295,8 @@ record(longin, "$(P)$(R)NUM_FRAMES_CONFIG_RBV")
 }
 
 # ///
-# /// Get the number of xspress3 cards to set up. 
-# /// This is used in the xsp3_config function. It is passed into the 
+# /// Get the number of xspress3 cards to set up.
+# /// This is used in the xsp3_config function. It is passed into the
 # /// driver config function at IOC startup.
 # ///
 record(longin, "$(P)$(R)NUM_CARDS_RBV")
@@ -308,7 +308,7 @@ record(longin, "$(P)$(R)NUM_CARDS_RBV")
 }
 
 # ///
-# /// Set the path used for the file configuration. 
+# /// Set the path used for the file configuration.
 # /// This is used in the xsp3_restore_settings function.
 # ///
 record(waveform, "$(P)$(R)CONFIG_PATH")
@@ -321,7 +321,7 @@ record(waveform, "$(P)$(R)CONFIG_PATH")
 }
 
 # ///
-# /// Get the path used for the file configuration. 
+# /// Get the path used for the file configuration.
 # /// This is used in the xsp3_restore_settings function.
 # ///
 record(waveform, "$(P)$(R)CONFIG_PATH_RBV")
@@ -370,7 +370,7 @@ record(bo, "$(P)$(R)CONNECT")
    field(ONAM,"Connect")	
 }
 
-# /// 
+# ///
 # /// Show the connected status.
 # ///
 record(bi,"$(P)$(R)CONNECTED") {
@@ -395,8 +395,8 @@ record(bo, "$(P)$(R)DISCONNECT")
 }
 
 # ///
-# /// Save the current xspress3 settings to a file. This makes use of the 
-# /// API function xsp3_save_settings(). This does nothing if we are not 
+# /// Save the current xspress3 settings to a file. This makes use of the
+# /// API function xsp3_save_settings(). This does nothing if we are not
 # /// connected or CONFIG_PATH is not set.
 # ///
 record(bo, "$(P)$(R)SAVE_SETTINGS")
@@ -408,8 +408,8 @@ record(bo, "$(P)$(R)SAVE_SETTINGS")
 }
 
 # ///
-# /// Restore the xspress3 settings from a file. This makes use of the 
-# /// API function xsp3_save_settings(). This does nothing if we are not 
+# /// Restore the xspress3 settings from a file. This makes use of the
+# /// API function xsp3_save_settings(). This does nothing if we are not
 # /// connected or CONFIG_PATH is not set.
 # ///
 record(bo, "$(P)$(R)RESTORE_SETTINGS")
@@ -456,7 +456,7 @@ record(longin, "$(P)$(R)FRAME_COUNT_RBV")
 
 # ///
 # /// Set the run flags. This can be used to readout playback data
-# /// instead of normal data. 
+# /// instead of normal data.
 # /// This has to be done at connect time.
 # ///
 record(mbbo, "$(P)$(R)RUN_FLAGS")
@@ -472,7 +472,7 @@ record(mbbo, "$(P)$(R)RUN_FLAGS")
 
 # ///
 # /// Read the run flags. This can be used to readout playback data
-# /// instead of normal data. 
+# /// instead of normal data.
 # /// This has to be done at connect time.
 # ///
 record(mbbi, "$(P)$(R)RUN_FLAGS_RBV")
@@ -488,7 +488,7 @@ record(mbbi, "$(P)$(R)RUN_FLAGS_RBV")
 
 # ///
 # /// Disable or enable DTC calculations.
-# /// These corrections are done by the Xspress3 API in the detector 
+# /// These corrections are done by the Xspress3 API in the detector
 # /// thread. So they slow down acqusition.
 # ///
 record(bo,"$(P)$(R)CTRL_DTC") {
@@ -500,9 +500,9 @@ record(bo,"$(P)$(R)CTRL_DTC") {
     field(VAL, "1")
 }
 
-# /// 
+# ///
 # /// Readback disable or enable DTC calculations.
-# /// These corrections are done by the Xspress3 API in the detector 
+# /// These corrections are done by the Xspress3 API in the detector
 # /// thread. So they slow down acqusition.
 # ///
 record(bi, "$(P)$(R)CTRL_DTC_RBV")
