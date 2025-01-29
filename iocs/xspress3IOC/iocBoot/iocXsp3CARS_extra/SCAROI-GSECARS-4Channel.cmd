@@ -25,7 +25,7 @@ dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA:8:,  PORT=$(PO
 dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA:9:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=9,TIMEOUT=1,NCHANS=$(NCHANS)")
 dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA:10:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=10,TIMEOUT=1,NCHANS=$(NCHANS)")
 
-NDTimeSeriesConfigure("$(PORT).C$(CHAN)SCA_TS", 256, 0, "$(PORT)", 0, 12)
+NDTimeSeriesConfigure("$(PORT).C$(CHAN)SCA_TS", 256, 0, "$(PORT)", 1, 12)
 dbLoadRecords("$(ADCORE)/db/NDTimeSeries.template", "P=$(PREFIX),R=C$(CHAN)SCA:TS:, PORT=$(PORT).C$(CHAN)SCA_TS, ADDR=0,TIMEOUT=1,NDARRAY_PORT=$(PORT).C$(CHAN)SCA,NDARRAY_ADDR=1,NCHANS=$(NCHANS),ENABLED=1")
 
 dbLoadRecords("NDTimeSeriesN.template", "P=$(PREFIX),R=C$(CHAN)SCA:TS:0:, NAME='CHAN$(CHAN)SCA0', PORT=$(PORT).C$(CHAN)SCA_TS, ADDR=0,TIMEOUT=1,NCHANS=$(NCHANS)")

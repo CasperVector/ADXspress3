@@ -20,7 +20,7 @@ cd "$(INSTALL)"
 dbLoadDatabase "dbd/xspress3App.dbd"
 xspress3App_registerRecordDeviceDriver(pdbbase)
 
-callbackSetQueueSize(4000)
+callbackSetQueueSize(16000)
 
 
 ##################################################
@@ -41,76 +41,76 @@ callbackSetQueueSize(4000)
 xspress3Config("XSP3", 2, 1, "192.168.0.1", 16384, 16384, 4096, 16384, 0, 0, 1 )
 
 NDAttrConfigure("XSP3.C1_SCA0", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C1_SCA0_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C1_SCA0_TS", 4096, 0, "XSP3.C1_SCA0", 1, 1)
 
 NDAttrConfigure("XSP3.C1_SCA1", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C1_SCA1_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C1_SCA1_TS", 4096, 0, "XSP3.C1_SCA1", 1, 1)
 
 NDAttrConfigure("XSP3.C1_SCA2", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C1_SCA2_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C1_SCA2_TS", 4096, 0, "XSP3.C1_SCA2", 1, 1)
 
 NDAttrConfigure("XSP3.C1_SCA3", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C1_SCA3_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C1_SCA3_TS", 4096, 0, "XSP3.C1_SCA3", 1, 1)
 
 NDAttrConfigure("XSP3.C1_SCA4", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C1_SCA4_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C1_SCA4_TS", 4096, 0, "XSP3.C1_SCA4", 1, 1)
 
 NDAttrConfigure("XSP3.C1_SCA5", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C1_SCA5_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C1_SCA5_TS", 4096, 0, "XSP3.C1_SCA5", 1, 1)
 
 NDAttrConfigure("XSP3.C1_SCA6", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C1_SCA6_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C1_SCA6_TS", 4096, 0, "XSP3.C1_SCA6", 1, 1)
 
 NDAttrConfigure("XSP3.C1_SCA7", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C1_SCA7_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C1_SCA7_TS", 4096, 0, "XSP3.C1_SCA7", 1, 1)
 
 NDAttrConfigure("XSP3.C1_ROI1", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C1_ROI1_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C1_ROI1_TS", 4096, 0, "XSP3.C1_ROI1", 1, 1)
 
 NDAttrConfigure("XSP3.C1_ROI2", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C1_ROI2_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C1_ROI2_TS", 4096, 0, "XSP3.C1_ROI2", 1, 1)
 
 NDAttrConfigure("XSP3.C1_ROI3", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C1_ROI3_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C1_ROI3_TS", 4096, 0, "XSP3.C1_ROI3", 1, 1)
 
 NDAttrConfigure("XSP3.C1_ROI4", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C1_ROI4_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C1_ROI4_TS", 4096, 0, "XSP3.C1_ROI4", 1, 1)
 
 NDAttrConfigure("XSP3.C1_ROI5", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C1_ROI5_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C1_ROI5_TS", 4096, 0, "XSP3.C1_ROI5", 1, 1)
 
 NDAttrConfigure("XSP3.C1_ROI6", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C1_ROI6_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C1_ROI6_TS", 4096, 0, "XSP3.C1_ROI6", 1, 1)
 
 NDAttrConfigure("XSP3.C1_ROI7", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C1_ROI7_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C1_ROI7_TS", 4096, 0, "XSP3.C1_ROI7", 1, 1)
 
 NDAttrConfigure("XSP3.C1_ROI8", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C1_ROI8_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C1_ROI8_TS", 4096, 0, "XSP3.C1_ROI8", 1, 1)
 
 NDAttrConfigure("XSP3.C1_ROI9", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C1_ROI9_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C1_ROI9_TS", 4096, 0, "XSP3.C1_ROI9", 1, 1)
 
 NDAttrConfigure("XSP3.C1_ROI10", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C1_ROI10_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C1_ROI10_TS", 4096, 0, "XSP3.C1_ROI10", 1, 1)
 
 NDAttrConfigure("XSP3.C1_ROI11", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C1_ROI11_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C1_ROI11_TS", 4096, 0, "XSP3.C1_ROI11", 1, 1)
 
 NDAttrConfigure("XSP3.C1_ROI12", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C1_ROI12_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C1_ROI12_TS", 4096, 0, "XSP3.C1_ROI12", 1, 1)
 
 NDAttrConfigure("XSP3.C1_ROI13", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C1_ROI13_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C1_ROI13_TS", 4096, 0, "XSP3.C1_ROI13", 1, 1)
 
 NDAttrConfigure("XSP3.C1_ROI14", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C1_ROI14_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C1_ROI14_TS", 4096, 0, "XSP3.C1_ROI14", 1, 1)
 
 NDAttrConfigure("XSP3.C1_ROI15", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C1_ROI15_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C1_ROI15_TS", 4096, 0, "XSP3.C1_ROI15", 1, 1)
 
 NDAttrConfigure("XSP3.C1_ROI16", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C1_ROI16_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C1_ROI16_TS", 4096, 0, "XSP3.C1_ROI16", 1, 1)
 
 # NDProcessConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory)
 NDProcessConfigure("XSP3.PROC", 16, 0, "XSP3", 0, 50, 0)
@@ -128,76 +128,76 @@ NDStdArraysConfigure("XSP3.ARR1", 4096, 0, "XSP3.ROI1", 0, -1)
 NDStdArraysConfigure("XSP3.ARRSUM1", 4096, 0, "XSP3.ROISUM1", 0, -1)
 
 NDAttrConfigure("XSP3.C2_SCA0", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C2_SCA0_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C2_SCA0_TS", 4096, 0, "XSP3.C2_SCA0", 1, 1)
 
 NDAttrConfigure("XSP3.C2_SCA1", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C2_SCA1_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C2_SCA1_TS", 4096, 0, "XSP3.C2_SCA1", 1, 1)
 
 NDAttrConfigure("XSP3.C2_SCA2", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C2_SCA2_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C2_SCA2_TS", 4096, 0, "XSP3.C2_SCA2", 1, 1)
 
 NDAttrConfigure("XSP3.C2_SCA3", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C2_SCA3_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C2_SCA3_TS", 4096, 0, "XSP3.C2_SCA3", 1, 1)
 
 NDAttrConfigure("XSP3.C2_SCA4", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C2_SCA4_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C2_SCA4_TS", 4096, 0, "XSP3.C2_SCA4", 1, 1)
 
 NDAttrConfigure("XSP3.C2_SCA5", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C2_SCA5_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C2_SCA5_TS", 4096, 0, "XSP3.C2_SCA5", 1, 1)
 
 NDAttrConfigure("XSP3.C2_SCA6", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C2_SCA6_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C2_SCA6_TS", 4096, 0, "XSP3.C2_SCA6", 1, 1)
 
 NDAttrConfigure("XSP3.C2_SCA7", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C2_SCA7_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C2_SCA7_TS", 4096, 0, "XSP3.C2_SCA7", 1, 1)
 
 NDAttrConfigure("XSP3.C2_ROI1", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C2_ROI1_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C2_ROI1_TS", 4096, 0, "XSP3.C2_ROI1", 1, 1)
 
 NDAttrConfigure("XSP3.C2_ROI2", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C2_ROI2_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C2_ROI2_TS", 4096, 0, "XSP3.C2_ROI2", 1, 1)
 
 NDAttrConfigure("XSP3.C2_ROI3", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C2_ROI3_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C2_ROI3_TS", 4096, 0, "XSP3.C2_ROI3", 1, 1)
 
 NDAttrConfigure("XSP3.C2_ROI4", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C2_ROI4_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C2_ROI4_TS", 4096, 0, "XSP3.C2_ROI4", 1, 1)
 
 NDAttrConfigure("XSP3.C2_ROI5", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C2_ROI5_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C2_ROI5_TS", 4096, 0, "XSP3.C2_ROI5", 1, 1)
 
 NDAttrConfigure("XSP3.C2_ROI6", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C2_ROI6_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C2_ROI6_TS", 4096, 0, "XSP3.C2_ROI6", 1, 1)
 
 NDAttrConfigure("XSP3.C2_ROI7", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C2_ROI7_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C2_ROI7_TS", 4096, 0, "XSP3.C2_ROI7", 1, 1)
 
 NDAttrConfigure("XSP3.C2_ROI8", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C2_ROI8_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C2_ROI8_TS", 4096, 0, "XSP3.C2_ROI8", 1, 1)
 
 NDAttrConfigure("XSP3.C2_ROI9", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C2_ROI9_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C2_ROI9_TS", 4096, 0, "XSP3.C2_ROI9", 1, 1)
 
 NDAttrConfigure("XSP3.C2_ROI10", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C2_ROI10_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C2_ROI10_TS", 4096, 0, "XSP3.C2_ROI10", 1, 1)
 
 NDAttrConfigure("XSP3.C2_ROI11", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C2_ROI11_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C2_ROI11_TS", 4096, 0, "XSP3.C2_ROI11", 1, 1)
 
 NDAttrConfigure("XSP3.C2_ROI12", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C2_ROI12_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C2_ROI12_TS", 4096, 0, "XSP3.C2_ROI12", 1, 1)
 
 NDAttrConfigure("XSP3.C2_ROI13", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C2_ROI13_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C2_ROI13_TS", 4096, 0, "XSP3.C2_ROI13", 1, 1)
 
 NDAttrConfigure("XSP3.C2_ROI14", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C2_ROI14_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C2_ROI14_TS", 4096, 0, "XSP3.C2_ROI14", 1, 1)
 
 NDAttrConfigure("XSP3.C2_ROI15", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C2_ROI15_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C2_ROI15_TS", 4096, 0, "XSP3.C2_ROI15", 1, 1)
 
 NDAttrConfigure("XSP3.C2_ROI16", 4096, 0, "XSP3", 0, 1)
-NDTimeSeriesConfigure("XSP3.C2_ROI16_TS", 4096, 0, "XSP3", 0, 1)
+NDTimeSeriesConfigure("XSP3.C2_ROI16_TS", 4096, 0, "XSP3.C2_ROI16", 1, 1)
 
 # NDROIConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory)
 NDROIConfigure("XSP3.ROI2", 4096, 0, "XSP3", 0, -1, -1)
