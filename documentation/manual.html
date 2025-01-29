@@ -18,15 +18,15 @@ tr, th, td { border: 1px solid; padding: 6px; }
 <p>Once the EPICS IOC is running it is necessary to connect to the Xspress3 system. This can be done by setting the following PVs. The <code>${P}</code> is the base part of the PV name, and is by default set to <code>13XSP3:</code>. PVs with an <code>_RBV</code> on the end are readback PVs that can be used to confirm that a parameter has successfully been changed.</p>
 <table>
 <tr>
-<td><code>${P}cam1:NUM_CHANNELS</code></td>
+<td><code>${P}cam1:NUM_CHANNELS(_RBV)</code></td>
 <td>The number of channels this system is configured for. Must be less than or equal to <code>${P}cam1:MAX_NUM_CHANNELS_RBV</code>, which is the value passed into <code>xspress3Config</code> (a function used at IOC initilization by the IOC developer).</td>
 </tr>
 <tr>
-<td><code>${P}cam1:NUM_FRAMES_CONFIG</code></td>
+<td><code>${P}cam1:NUM_FRAMES_CONFIG(_RBV)</code></td>
 <td>The number of frames to configure the system with. This must be less than or equal to <code>${P}cam1:MAX_FRAMES_RBV</code>, which is the value passed into <code>xspress3Config</code>. Normally this should be set equal to <code>${P}cam1:MAX_FRAMES_RBV</code>.</td>
 </tr>
 <tr>
-<td><code>${P}cam1:CONFIG_PATH</code></td>
+<td><code>${P}cam1:CONFIG_PATH(_RBV)</code></td>
 <td>This is the path to the Xspress3 configuration files. These files should have been provided with the system.</td>
 </tr>
 </table>
@@ -199,14 +199,14 @@ DT_Percent = 100 * (N_Resets + N_AllEvents * EventWidth) / ClockTicks
 <th>QD</th>
 </tr>
 <tr>
-<td><code>${P}cam1:${POSTFIX}</code><br><code>${P}HDF1:${POSTFIX}</code></td>
-<td><code>${P}det1:${POSTFIX}</code><br><code>${P}HDF1:${POSTFIX}</code></td>
-<td><code>${P}${POSTFIX}</code><br><code>${P}HDF5:${POSTFIX}</code></td>
+<td><code>${P}cam1:${SUFFIX}</code><br><code>${P}HDF1:${SUFFIX}</code></td>
+<td><code>${P}det1:${SUFFIX}</code><br><code>${P}HDF1:${SUFFIX}</code></td>
+<td><code>${P}${SUFFIX}</code><br><code>${P}HDF5:${SUFFIX}</code></td>
 </tr>
 <tr>
-<td><code>${P}ch${CHAN}:${POSTFIX}</code><br><code>${P}ch${CHAN}:${POSTFIX}</code></td>
-<td><code>${P}det1:C${CHAN}_${POSTFIX}</code><br><code>${P}C${CHAN}:${POSTFIX}</code></td>
-<td><code>${P}C${CHAN}_${POSTFIX}</code><br><code>${P}C${CHAN}_${POSTFIX}</code></td>
+<td><code>${P}ch${CHAN}:${SUFFIX}</code><br><code>${P}ch${CHAN}:${SUFFIX}</code></td>
+<td><code>${P}det1:C${CHAN}_${SUFFIX}</code><br><code>${P}C${CHAN}:${SUFFIX}</code></td>
+<td><code>${P}C${CHAN}_${SUFFIX}</code><br><code>${P}C${CHAN}_${SUFFIX}</code></td>
 </tr>
 <tr>
 <td><code>${P}SCA${CHAN}:${SCA}:Value_RBV</code><br><code>${P}SCA${CHAN}:${SCA}:TSArrayValue</code></td>
@@ -214,14 +214,14 @@ DT_Percent = 100 * (N_Resets + N_AllEvents * EventWidth) / ClockTicks
 <td><code>${P}C${CHAN}_SCA${SCA}:Value_RBV</code><br><code>${P}C${CHAN}_SCA${SCA}:ArrayData_RBV</code></td>
 </tr>
 <tr>
-<td><code>${P}ROIStat${CHAN}:${ROI}:${POSTFIX}</code><br><code>${P}ROIStat${CHAN}:${ROI}:MinX(_RBV)</code><br><code>${P}ROIStat${CHAN}:${ROI}:SizeX(_RBV)</code><br><code>${P}ROIStat${CHAN}:${ROI}:Total_RBV</code><br><code>${P}ROIStat${CHAN}:${ROI}:TSTotal</code></td>
-<td><code>${P}MCA${CHAN}ROI:${ROI}:${POSTFIX}</code><br><code>${P}MCA${CHAN}ROI:${ROI}:MinX(_RBV)</code><br><code>${P}MCA${CHAN}ROI:${ROI}:SizeX(_RBV)</code><br><code>${P}MCA${CHAN}ROI:${ROI}:Total_RBV</code><br><code>${P}MCA${CHAN}ROI:${ROI}:TSTotal</code></td>
+<td><code>${P}ROIStat${CHAN}:${ROI}:${SUFFIX}</code><br><code>${P}ROIStat${CHAN}:${ROI}:MinX(_RBV)</code><br><code>${P}ROIStat${CHAN}:${ROI}:SizeX(_RBV)</code><br><code>${P}ROIStat${CHAN}:${ROI}:Total_RBV</code><br><code>${P}ROIStat${CHAN}:${ROI}:TSTotal</code></td>
+<td><code>${P}MCA${CHAN}ROI:${ROI}:${SUFFIX}</code><br><code>${P}MCA${CHAN}ROI:${ROI}:MinX(_RBV)</code><br><code>${P}MCA${CHAN}ROI:${ROI}:SizeX(_RBV)</code><br><code>${P}MCA${CHAN}ROI:${ROI}:Total_RBV</code><br><code>${P}MCA${CHAN}ROI:${ROI}:TSTotal</code></td>
 <td>N/A<br><code>${P}C${CHAN}_MCA_ROI${ROI}_LLM(_RBV)</code><br><code>${P}C${CHAN}_MCA_ROI${ROI}_HLM(_RBV)</code><br><code>${P}C${CHAN}_ROI${ROI}:Value_RBV</code><br><code>${P}C${CHAN}_ROI${ROI}:ArrayData_RBV</code></td>
 </tr>
 <tr>
-<td><code>${P}ROI${CHAN}:${POSTFIX}</code><br><code>${P}MCA${CHAN}:${POSTFIX}</code><br><code>${P}ROISUM${CHAN}:${POSTFIX}</code><br><code>${P}MCASUM${CHAN}:${POSTFIX}</code></td>
-<td><code>${P}ROI${CHAN}:${POSTFIX}</code><br><code>${P}MCA${CHAN}:${POSTFIX}</code><br><code>${P}ROISUM${CHAN}:${POSTFIX}</code><br><code>${P}MCASUM${CHAN}:${POSTFIX}</code></td>
-<td><code>${P}ROI${CHAN}:${POSTFIX}</code><br><code>${P}ARR${CHAN}:${POSTFIX}</code><br><code>${P}ROISUM${CHAN}:${POSTFIX}</code><br><code>${P}ARRSUM${CHAN}:${POSTFIX}</code></td>
+<td><code>${P}ROI${CHAN}:${SUFFIX}</code><br><code>${P}MCA${CHAN}:${SUFFIX}</code><br><code>${P}ROISUM${CHAN}:${SUFFIX}</code><br><code>${P}MCASUM${CHAN}:${SUFFIX}</code></td>
+<td><code>${P}ROI${CHAN}:${SUFFIX}</code><br><code>${P}MCA${CHAN}:${SUFFIX}</code><br><code>${P}ROISUM${CHAN}:${SUFFIX}</code><br><code>${P}MCASUM${CHAN}:${SUFFIX}</code></td>
+<td><code>${P}ROI${CHAN}:${SUFFIX}</code><br><code>${P}ARR${CHAN}:${SUFFIX}</code><br><code>${P}ROISUM${CHAN}:${SUFFIX}</code><br><code>${P}ARRSUM${CHAN}:${SUFFIX}</code></td>
 </tr>
 </table>
 <p>Due to the replacement of spectraPlugins by its successor NDPluginAttribute, any reference to <code>...:ArrayData_RBV</code> should be substituted with reference to the corresponding <code>...:TSArrayValue</code> when using the <code>iocBoot/iocXsp3QD*</code> directories in this branch (even those which seemingly should be substituted with <code>...:TSTotal</code> in the table above, as they are not implemented with NDPluginROIStat in the QD branch); NDPluginAttribute does not provide (or need) the <code>...:Update</code> PV, so <code>...:UPDATE</code>, <code>...:UPDATE_AttrUpdate</code> etc are also no longer provided.</p>

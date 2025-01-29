@@ -64,7 +64,7 @@ record(longout, "$(P)$(R)NUM_CHANNELS")
 # ///
 record(longin, "$(P)$(R)NUM_CHANNELS_RBV")
 {
-   field(PINI, "1")
+   field(PINI, "YES")
    field(DTYP, "asynInt32")
    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_NUM_CHANNELS")
    field(SCAN, "I/O Intr")
@@ -75,7 +75,7 @@ record(longin, "$(P)$(R)NUM_CHANNELS_RBV")
 # ///
 record(longin, "$(P)$(R)MAX_NUM_CHANNELS_RBV")
 {
-   field(PINI, "1")
+   field(PINI, "YES")
    field(DTYP, "asynInt32")
    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_MAX_NUM_CHANNELS")
    field(SCAN, "I/O Intr")
@@ -439,6 +439,19 @@ record(longin, "$(P)$(R)MAX_FRAMES_RBV")
 {
    field(DTYP, "asynInt32")
    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_MAX_FRAMES")
+   field(SCAN, "I/O Intr")
+   field(PINI, "YES")
+}
+
+# ///
+# /// This is the maximum number of frames allowed for a single acqusition. This is set in the
+# /// database when building the IOC, and also set in the driver IOC config function. This determins
+# /// how big the driver and waveform arrays are.
+# ///
+record(longin, "$(P)$(R)MAX_FRAMES_DRIVER_RBV")
+{
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_NUM_FRAMES_DRIVER")
    field(SCAN, "I/O Intr")
    field(PINI, "YES")
 }
