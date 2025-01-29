@@ -131,8 +131,8 @@
 #ifndef XSP3_MAX_MODNAME
 #define XSP3_MAX_MODNAME 100
 #endif
-#define XSP_MAX_MAC_ADDR 18
-#define XSP_MAX_IP_ADDR  16
+#define XSP_MAX_MAC_ADDR 50
+#define XSP_MAX_IP_ADDR  19
 #define XSP3_MAX_PLAYBACK_FILES 10				//!< Maximum number of files to be used in one call to load playback data
 
 #define XSP3_PB_MAX_VALUE		0xFFFB
