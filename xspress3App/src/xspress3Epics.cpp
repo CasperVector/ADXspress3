@@ -88,8 +88,9 @@ static void xsp3DataTaskC(void *drvPvt);
  * @param debug This debug flag is passed to xsp3_config in the Xspress API (0 or 1)
  * @param simTest 0 or 1. Set to 1 to run up this driver in simulation mode.
  * @param circBuffer 0 or 1. Set to run with cirular buffer enabled. Required when more than 12216 frames per acquisition 
+ * @param manualSoftStart 0 or 1. Set to disable automatic start of the first frame upon caput ${P}${R}Acquire 1 with ${P}${R}TriggerMode 7
  */
-Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest, int circBuffer)
+Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest, int circBuffer, int manualSoftStart)
   : ADDriver(portName,
 	     numChannels, /* maxAddr - channels use different param lists*/
 	     NUM_DRIVER_PARAMS,
@@ -101,7 +102,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
 	     1, /* Autoconnect */
 	     0, /* default priority */
 	     0), /* Default stack size*/
-    debug_(debug), numChannels_(numChannels), simTest_(simTest), baseIP_(baseIP), circBuffer_(circBuffer)
+    debug_(debug), numChannels_(numChannels), simTest_(simTest), baseIP_(baseIP), circBuffer_(circBuffer), manualSoftStart_(manualSoftStart)
 {
   int status = asynSuccess;
   const char *functionName = "Xspress3::Xspress3";
@@ -165,7 +166,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
  * @param numChannels The number of channels to simulate.
  *
  */
-Xspress3::Xspress3(const char *portName, int numChannels) : ADDriver(portName, numChannels, NUM_DRIVER_PARAMS, -1, -1, INTERFACE_MASK, INTERRUPT_MASK, ASYN_CANBLOCK | ASYN_MULTIDEVICE, 1, 0, 0), debug_(1), numChannels_(numChannels), simTest_(1), baseIP_("127.0.0.1"), circBuffer_(0)
+Xspress3::Xspress3(const char *portName, int numChannels) : ADDriver(portName, numChannels, NUM_DRIVER_PARAMS, -1, -1, INTERFACE_MASK, INTERRUPT_MASK, ASYN_CANBLOCK | ASYN_MULTIDEVICE, 1, 0, 0), debug_(1), numChannels_(numChannels), simTest_(1), baseIP_("127.0.0.1"), circBuffer_(0), manualSoftStart_(0)
 {
     const char *functionName = "Xspress3::Xspress3";
     const int maxFrames = 1000;
@@ -1018,6 +1019,9 @@ asynStatus Xspress3::setupITFG(void)
                                        XSP3_ITFG_GAP_MODE_1US, XSP3_ITFG_TRIG_ACQ_PAUSED_ALL, 0, 0 );
     }
 
+    if (!(trigger_mode == 7 && manualSoftStart_)) {
+        xsp3_status = xsp3->histogram_start(xsp3_handle_, -1);
+    }
     if (xsp3_status != XSP3_OK) {
         checkStatus(xsp3_status, " xsp3_itfg_setup", functionName);
         status = asynError;
@@ -1180,15 +1184,12 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	  } else {
 	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s No Erase Before Data Collection\n", functionName);
 	  }
-	  setupITFG();
-	  xsp3_status = xsp3->histogram_start(xsp3_handle_, -1 );
+	  xsp3_status = setupITFG();
 	  if (xsp3_status != XSP3_OK) {
 	    checkStatus(xsp3_status, "xsp3_histogram_start", functionName);
 	    status = asynError;
 	  } else {
-	    setupITFG(); 
-	    xsp3_status = xsp3->histogram_start(xsp3_handle_, -1 );
-		
+	    xsp3_status = setupITFG();
 	    if (xsp3_status != XSP3_OK) {
 	      checkStatus(xsp3_status, "xsp3_histogram_start", functionName);
 	      status = asynError;
@@ -2044,13 +2045,13 @@ extern "C" {
  * @param debug This debug flag is passed to xsp3_config in the Xspress API (0 or 1)
  * @param simTest 0 or 1. Set to 1 to run up this driver in simulation mode.
  */
-  int xspress3Config(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest, int circBuffer)
+  int xspress3Config(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest, int circBuffer, int manualSoftStart)
   {
     asynStatus status = asynSuccess;
 
     /*Instantiate class.*/
     try {
-      new Xspress3(portName, numChannels, numCards, baseIP, maxFrames, maxDriverFrames, maxSpectra, maxBuffers, maxMemory, debug, simTest, circBuffer);
+      new Xspress3(portName, numChannels, numCards, baseIP, maxFrames, maxDriverFrames, maxSpectra, maxBuffers, maxMemory, debug, simTest, circBuffer, manualSoftStart);
     } catch (...) {
       cout << "Unknown exception caught when trying to construct Xspress3." << endl;
       status = asynError;
@@ -2074,6 +2075,7 @@ extern "C" {
   static const iocshArg xspress3ConfigArg9 = {"Debug", iocshArgInt};
   static const iocshArg xspress3ConfigArg10 = {"Sim Test", iocshArgInt};
   static const iocshArg xspress3ConfigArg11 = {"Circular Buffer", iocshArgInt};
+  static const iocshArg xspress3ConfigArg12 = {"Manual Soft Start", iocshArgInt};
   static const iocshArg * const xspress3ConfigArgs[] =  {&xspress3ConfigArg0,
 							 &xspress3ConfigArg1,
 							 &xspress3ConfigArg2,
@@ -2085,13 +2087,14 @@ extern "C" {
 							 &xspress3ConfigArg8,
 							 &xspress3ConfigArg9,
 							 &xspress3ConfigArg10,
-               				 &xspress3ConfigArg11};
+							 &xspress3ConfigArg11,
+							 &xspress3ConfigArg12};
 
 
-  static const iocshFuncDef configXspress3 = {"xspress3Config", 12, xspress3ConfigArgs};
+  static const iocshFuncDef configXspress3 = {"xspress3Config", 13, xspress3ConfigArgs};
   static void configXspress3CallFunc(const iocshArgBuf *args)
   {
-    xspress3Config(args[0].sval, args[1].ival, args[2].ival, args[3].sval, args[4].ival, args[5].ival, args[6].ival, args[7].ival, args[8].ival, args[9].ival, args[10].ival, args[11].ival);
+    xspress3Config(args[0].sval, args[1].ival, args[2].ival, args[3].sval, args[4].ival, args[5].ival, args[6].ival, args[7].ival, args[8].ival, args[9].ival, args[10].ival, args[11].ival, args[12].ival);
   }
 
   static void xspress3Register(void)

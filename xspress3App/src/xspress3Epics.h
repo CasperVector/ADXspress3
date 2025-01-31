@@ -116,14 +116,14 @@
 
 
 extern "C" {
-  int xspress3Config(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest, int circBuffer);
+  int xspress3Config(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest, int circBuffer, int manualSoftStart);
 }
 
 
 class Xspress3 : public ADDriver {
 
  public:
-  Xspress3(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest, int circBuffer);
+  Xspress3(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest, int circBuffer, int manualSoftStart);
   Xspress3(const char *portName, int numChannels);
   virtual ~Xspress3();
 
@@ -207,6 +207,7 @@ class Xspress3 : public ADDriver {
   const epicsUInt32 simTest_; //Run in sim mode
   const std::string baseIP_; //Constructor param - IP address of host system
   const int circBuffer_; //Circular buffer flag to turn on
+  const int manualSoftStart_; //Regular (instead of Falcon-like) SoftTrigger behaviour
 
   epicsEventId statusEvent_;
   epicsEventId startEvent_;
