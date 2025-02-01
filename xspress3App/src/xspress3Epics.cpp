@@ -841,7 +841,7 @@ asynStatus Xspress3::setWindow(int channel, int sca, int llm, int hlm)
  * Call xsp3_histogram_clear, and clear scalar data.
  * @return asynStatus
  */
-asynStatus Xspress3::erase(void)
+asynStatus Xspress3::erase(bool acquire)
 {
   asynStatus status = asynSuccess;
   int xsp3_status = 0;
@@ -868,7 +868,7 @@ asynStatus Xspress3::erase(void)
       setIntegerParam(ADStatus, ADStatusError);
       status = asynError;
     } else {
-      status = eraseSCAMCAROI();
+      status = eraseSCAMCAROI(acquire);
       if (status == asynSuccess) {
 	setStringParam(ADStatusMessage, "Erased Data");
       } else {
@@ -886,7 +886,7 @@ asynStatus Xspress3::erase(void)
 /**
  * Function to clear the data.
  */
-asynStatus Xspress3::eraseSCAMCAROI(void)
+asynStatus Xspress3::eraseSCAMCAROI(bool acquire)
 {
   int status = asynSuccess;
   int xsp3_num_channels = 0;
@@ -917,31 +917,33 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
     //callParamCallbacks(chan);
   }
 
-  // Send a blank frame
-  NDArray *pMCA;
-  int xsp3_max_spectra=0;
-  getIntegerParam(xsp3MaxSpectraParam, &xsp3_max_spectra);
+  if (!acquire) {
+    // Send a blank frame
+    NDArray *pMCA;
+    int xsp3_max_spectra=0;
+    getIntegerParam(xsp3MaxSpectraParam, &xsp3_max_spectra);
 
-  NDDataType_t dataType= this->getDataType();
+    NDDataType_t dataType= this->getDataType();
 
 
-  size_t dims[2];
-  this->getDims(dims);
+    size_t dims[2];
+    this->getDims(dims);
 
-  pMCA= this->pNDArrayPool->alloc(2, dims, dataType, 0, NULL);
+    pMCA= this->pNDArrayPool->alloc(2, dims, dataType, 0, NULL);
 
-  if (pMCA !=NULL) {
-    memset(pMCA->pData,0,pMCA->dataSize);
-    this->setNDArrayAttributes(pMCA, -1);
+    if (pMCA !=NULL) {
+      memset(pMCA->pData,0,pMCA->dataSize);
+      this->setNDArrayAttributes(pMCA, -1);
 
-    this->lock();
+      this->lock();
 
-    this->callParamCallbacks();
-    this->unlock();
-    this->doNDCallbacksIfRequired(pMCA);
+      this->callParamCallbacks();
+      this->unlock();
+      this->doNDCallbacksIfRequired(pMCA);
 
-    pMCA->release();
+      pMCA->release();
 
+    }
   }
 
   if (!paramStatus) {
@@ -1179,7 +1181,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	  getIntegerParam(xsp3EraseStartParam, &xsp3_erasestart);
 	  // printf(" erase on start %d\n", xsp3_erasestart);
 	  if (xsp3_erasestart) {
-	    erase();
+	    erase(true);
 	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Erased Before Data Collection\n", functionName);
 	  } else {
 	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s No Erase Before Data Collection\n", functionName);
