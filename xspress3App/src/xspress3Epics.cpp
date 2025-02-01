@@ -917,33 +917,6 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
     //callParamCallbacks(chan);
   }
 
-  // Send a blank frame
-  NDArray *pMCA;
-  int xsp3_max_spectra=0;
-  getIntegerParam(xsp3MaxSpectraParam, &xsp3_max_spectra);
-
-  NDDataType_t dataType= this->getDataType();
-
-
-  size_t dims[2];
-  this->getDims(dims);
-
-  pMCA= this->pNDArrayPool->alloc(2, dims, dataType, 0, NULL);
-
-  if (pMCA !=NULL) {
-    memset(pMCA->pData,0,pMCA->dataSize);
-    this->setNDArrayAttributes(pMCA, -1);
-
-    this->lock();
-
-    this->callParamCallbacks();
-    this->unlock();
-    this->doNDCallbacksIfRequired(pMCA);
-
-    pMCA->release();
-
-  }
-
   if (!paramStatus) {
     status = asynError;
   }
