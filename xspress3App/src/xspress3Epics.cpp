@@ -914,7 +914,7 @@ asynStatus Xspress3::eraseSCAMCAROI(bool acquire)
     paramStatus = ((setDoubleParam(chan, xsp3ChanDTPercentParam, 0.0) == asynSuccess) && paramStatus);
     paramStatus = ((setDoubleParam(chan, xsp3ChanDTFactorParam, 1.0) == asynSuccess) && paramStatus);
 
-    //callParamCallbacks(chan);
+    callParamCallbacks(chan);
   }
 
   if (!acquire) {
@@ -1999,7 +1999,9 @@ static void xsp3DataTaskC(void *xspAD)
                     frameNumber++;
                     pXspAD->setNDArrayAttributes(pMCA, frameNumber);
                     pXspAD->lock();
-                    pXspAD->callParamCallbacks();
+                    for (int addr=0; addr<numChannels; addr++) {
+                        pXspAD->callParamCallbacks(addr);
+                    }
                     pXspAD->unlock();
                     pXspAD->doNDCallbacksIfRequired(pMCA);
                     pMCA->release();
