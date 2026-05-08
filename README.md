@@ -44,5 +44,6 @@ and meanwhile you are also encouraged to try `iocXspress3` directly.
 
 # Manual
 
-See the `documentation` directory.
+See the `documentation` directory.  It is especially advised to read the notes
+about `/dev/shm` and `XSP3READOUT` therein.
 
