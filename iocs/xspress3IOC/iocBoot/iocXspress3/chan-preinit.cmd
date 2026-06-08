@@ -5,5 +5,5 @@ NDStdArraysConfigure("MCASUM$(CHAN)", 20, 0, "ROISUM$(CHAN)", 0, 0)
 NDAttrConfigure("ATTR$(CHAN)", $(QSIZE), 0, "$(PORT)", 0, 10)
 NDTimeSeriesConfigure("ATTR$(CHAN)_TS", $(QSIZE), 0, "ATTR$(CHAN)", 1, 10)
 NDROIStatConfigure("ROISTAT$(CHAN)", $(QSIZE), 0, "ROI$(CHAN)", 0, 16)
-dbLoadTemplate("$(TOP)/iocBoot/$(IOC)/xsp3-chan.substitutions", "P=$(PREFIX),PORT=$(PORT),PORT_=$(PORT),ADDR=$(ADDR),MAXFRAMES=$(MAXFRAMES),NUMBINS=$(NUMBINS),CHAN=$(CHAN)")
+dbLoadTemplate("$(TOP)/iocBoot/$(IOC)/xsp3-chan.substitutions", "P=$(PREFIX),PORT_=$(PORT),ADDR_=$(ADDR),MAXFRAMES=$(MAXFRAMES),NUMBINS=$(NUMBINS),CHAN=$(CHAN)")
 

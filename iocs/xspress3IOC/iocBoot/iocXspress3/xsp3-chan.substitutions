@@ -1,7 +1,7 @@
 file "xsp3_chan.db"
 {
-pattern { R, TIMEOUT }
-{ "ch$(CHAN):", 1 }
+pattern { R, PORT, ADDR, TIMEOUT }
+{ "ch$(CHAN):", "$(PORT_)", "$(ADDR_)", 1 }
 }
 
 file "xsp3_chan_plugins.template"
@@ -49,6 +49,21 @@ file "NDTimeSeries.template"
 {
 pattern { R, PORT, ADDR, TIMEOUT, NDARRAY_PORT, NDARRAY_ADDR, NCHANS }
 { "SCA$(CHAN):TS:", "ATTR$(CHAN)_TS", 0, 1, "ATTR$(CHAN)", 1, "$(MAXFRAMES)" }
+}
+
+file "NDTimeSeriesN.template"
+{
+pattern { R, PORT, ADDR, TIMEOUT, NCHANS, NAME }
+{ "SCA$(CHAN):TS:0:", "ATTR$(CHAN)_TS", 0, 1, "$(MAXFRAMES)", "CHAN$(CHAN)SCA0" }
+{ "SCA$(CHAN):TS:1:", "ATTR$(CHAN)_TS", 1, 1, "$(MAXFRAMES)", "CHAN$(CHAN)SCA1" }
+{ "SCA$(CHAN):TS:2:", "ATTR$(CHAN)_TS", 2, 1, "$(MAXFRAMES)", "CHAN$(CHAN)SCA2" }
+{ "SCA$(CHAN):TS:3:", "ATTR$(CHAN)_TS", 3, 1, "$(MAXFRAMES)", "CHAN$(CHAN)SCA3" }
+{ "SCA$(CHAN):TS:4:", "ATTR$(CHAN)_TS", 4, 1, "$(MAXFRAMES)", "CHAN$(CHAN)SCA4" }
+{ "SCA$(CHAN):TS:5:", "ATTR$(CHAN)_TS", 5, 1, "$(MAXFRAMES)", "CHAN$(CHAN)SCA5" }
+{ "SCA$(CHAN):TS:6:", "ATTR$(CHAN)_TS", 6, 1, "$(MAXFRAMES)", "CHAN$(CHAN)SCA6" }
+{ "SCA$(CHAN):TS:7:", "ATTR$(CHAN)_TS", 7, 1, "$(MAXFRAMES)", "CHAN$(CHAN)SCA7" }
+{ "SCA$(CHAN):TS:8:", "ATTR$(CHAN)_TS", 8, 1, "$(MAXFRAMES)", "CHAN$(CHAN)DTFactor" }
+{ "SCA$(CHAN):TS:9:", "ATTR$(CHAN)_TS", 9, 1, "$(MAXFRAMES)", "CHAN$(CHAN)DTPercent" }
 }
 
 file "NDROIStat.template"
