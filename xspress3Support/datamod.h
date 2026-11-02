@@ -163,29 +163,46 @@ typedef struct
 extern "C" {
 #endif
 
+typedef enum {ImgModUnlinkNone=0, ImgModUnlinkCreated=1, ImgModUnlinkAll=2} ImgModUnlink;
+
 #if defined(__LINUX__) || defined(linux)
-int _os_datmod (char *name, off_t s, u_int16 *attr_rev, u_int16 *type_lang, u_int32 perm, void **mod, void **mod_head);
-int _os_link(char **namep, void **mod_head, void **mod, u_int16 *type_lang, u_int16 *att_rev);
-int _os_link(char **namep, void **mod_head, void **mod, u_int16 *type_lang, u_int16 *att_rev);
+
+
+int _os_datmod (const char *name, size_t s, u_int16 *attr_rev, u_int16 *type_lang, u_int32 perm, void **mod, void **mod_head);
+int _os_link(const char **namep, void **mod_head, void **mod, u_int16 *type_lang, u_int16 *att_rev);
+int _os_link2(const char *namep, void **mod_head, void **mod, u_int16 *type_lang, u_int16 *att_rev);
 int munlink(void *mod_head);
 int _os_unlink(void *mod_head);
-int datamod_size(void *mod_head);
+size_t datamod_size(void *mod_head);
+int munlink_linux(void *mod_head, ImgModUnlink what);
 
-MOD_IMAGE *id_mkmod ( char *name, int num_x, int num_y, char *x_lab, char *y_lab,  int data_type, void **mod_head);
-MOD_IMAGE3D *id_mkmod3d ( char *name, int num_x, int num_y, int num_t, char *x_lab, char *y_lab, char *t_lab, char ** labels, int data_type, mh_com **mod_head);
-off_t datamod_mod_size(void *mod);
+MOD_IMAGE *id_mkmod (const char *name, int num_x, int num_y, const char *x_lab, const char *y_lab,  int data_type, void **mod_head);
+MOD_IMAGE3D *id_mkmod3d (const char *name, int num_x, int num_y, int num_t, const char *x_lab, const char *y_lab, const char *t_lab, char ** labels, int data_type, mh_com **mod_head);
+size_t datamod_mod_size(void *mod);
+MOD_IMAGE *id_mkmod_err_msg (const char *name, int num_x, int num_y, const char *x_lab, const char *y_lab, int data_type, mh_com **mod_head, char *err_msg, int max_err_msg);
+MOD_IMAGE3D *id_mkmod3d_err_msg (const char *name, int num_x, int num_y, int num_t, const char *x_lab, const char *y_lab, const char *t_lab, char ** labels, int data_type, mh_com **mod_head, char *err_msg, int max_err_msg);
 
 #else
-MOD_IMAGE *id_mkmod ( char *name, int num_x, int num_y, char *x_lab, char *y_lab, int data_type, mh_com **mod_head);
+MOD_IMAGE *id_mkmod (const char *name, int num_x, int num_y, const char *x_lab, const char *y_lab, int data_type, mh_com **mod_head);
+MOD_IMAGE *id_mkmod_err_msg (const char *name, int num_x, int num_y, const char *x_lab, const char *y_lab, int data_type, mh_com **mod_head, char *err_msg, int max_err_msg);
 
-MOD_IMAGE3D *id_mkmod3d ( char *name, int num_x, int num_y, int num_t, char *x_lab, char *y_lab, char *t_lab, char ** labels, int data_type, mh_com **mod_head);
+MOD_IMAGE3D *id_mkmod3d (const char *name, int num_x, int num_y, int num_t, const char *x_lab, const char *y_lab, const char *t_lab, char ** labels, int data_type, mh_com **mod_head);
+MOD_IMAGE3D *id_mkmod3d_err_msg (const char *name, int num_x, int num_y, int num_t, const char *x_lab, const char *y_lab, const char *t_lab, char ** labels, int data_type, mh_com **mod_head, char *err_msg, int max_err_msg);
 
 #endif
 u_int32 *id_get_ptr(void *mod, int x, int y, int t);
+u_int32 *id_get_ptr_safe(void *p, int x, int y, int t);
+
 int id_clear_mod(void *p);
 int id_copy_mod(void *s, void *d);
 char *id_get_label(void *p, int row);
 int id_mod_get_shape(void *m, int *num_x, int *num_y, int *num_t);
+int id_get_num_x(void *p);
+int id_get_num_y(void *p);
+int id_get_num_t(void *p);
+int id_get_data_type(void *p);
+
+char ** mdir_list();
 
 #ifdef __cplusplus
 }

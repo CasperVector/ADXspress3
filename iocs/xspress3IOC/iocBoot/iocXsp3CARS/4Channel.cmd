@@ -8,7 +8,7 @@ epicsEnvSet("PREFIX", "XSP3_4Chan:")
 epicsEnvSet("NUM_CHANNELS",  "4")            
 
 # Number of xspress3 cards and IP ADDR
-epicsEnvSet("XSP3CARDS", "1")
+epicsEnvSet("XSP3CARDS", "2")
 epicsEnvSet("XSP3ADDR",  "192.168.0.1")
 
 # Max Number of Frames for data collection
@@ -64,6 +64,11 @@ dbpf("$(PREFIX)det1:CONFIG_PATH", "$(SUPPORT)/../xspress3_settings/current/")
 
 < SetMainValues.cmd
 dbpf("$(PREFIX)det1:NDAttributesFile", "XSP3-4Channel.xml")
+
+
+# Uncomment for debug tracing
+# asynSetTraceMask("XSP3",-1, 0x100)
+# asynSetTraceIOMask("XSP3",-1, 0x100)
 
 ###############################
 # SET UP CHANNELS

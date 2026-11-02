@@ -16,10 +16,6 @@ file "NDROIStatN_settings.req",  P=$(P), R=MCA1ROI:10:
 file "NDROIStatN_settings.req",  P=$(P), R=MCA1ROI:11:
 file "NDROIStatN_settings.req",  P=$(P), R=MCA1ROI:12:
 file "NDROIStatN_settings.req",  P=$(P), R=MCA1ROI:13:
-file "NDROIStatN_settings.req",  P=$(P), R=MCA1ROI:10:
-file "NDROIStatN_settings.req",  P=$(P), R=MCA1ROI:11:
-file "NDROIStatN_settings.req",  P=$(P), R=MCA1ROI:12:
-file "NDROIStatN_settings.req",  P=$(P), R=MCA1ROI:13:
 file "NDROIStatN_settings.req",  P=$(P), R=MCA1ROI:14:
 file "NDROIStatN_settings.req",  P=$(P), R=MCA1ROI:15:
 file "NDROIStatN_settings.req",  P=$(P), R=MCA1ROI:16:
@@ -66,10 +62,6 @@ file "NDROIStatN_settings.req",  P=$(P), R=MCA2ROI:6:
 file "NDROIStatN_settings.req",  P=$(P), R=MCA2ROI:7:
 file "NDROIStatN_settings.req",  P=$(P), R=MCA2ROI:8:
 file "NDROIStatN_settings.req",  P=$(P), R=MCA2ROI:9:
-file "NDROIStatN_settings.req",  P=$(P), R=MCA2ROI:10:
-file "NDROIStatN_settings.req",  P=$(P), R=MCA2ROI:11:
-file "NDROIStatN_settings.req",  P=$(P), R=MCA2ROI:12:
-file "NDROIStatN_settings.req",  P=$(P), R=MCA2ROI:13:
 file "NDROIStatN_settings.req",  P=$(P), R=MCA2ROI:10:
 file "NDROIStatN_settings.req",  P=$(P), R=MCA2ROI:11:
 file "NDROIStatN_settings.req",  P=$(P), R=MCA2ROI:12:

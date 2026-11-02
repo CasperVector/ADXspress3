@@ -104,7 +104,7 @@ display {
 	style="line"
 	erase_oldest="plot last n pts"
 	trace[0] {
-		ydata="$(P):MCASUM3:ArrayData"
+		ydata="$(P):$(R)3:ArrayData"
 		data_clr=27
 		yaxis=0
 	}
@@ -136,7 +136,7 @@ display {
 	style="line"
 	erase_oldest="plot last n pts"
 	trace[0] {
-		ydata="$(P):MCASUM1:ArrayData"
+		ydata="$(P):$(R)1:ArrayData"
 		data_clr=27
 		yaxis=0
 	}
@@ -168,7 +168,7 @@ display {
 	style="line"
 	erase_oldest="plot last n pts"
 	trace[0] {
-		ydata="$(P):MCASUM2:ArrayData"
+		ydata="$(P):$(R)2:ArrayData"
 		data_clr=27
 		yaxis=0
 	}
@@ -200,7 +200,7 @@ display {
 	style="line"
 	erase_oldest="plot last n pts"
 	trace[0] {
-		ydata="$(P):MCASUM4:ArrayData"
+		ydata="$(P):$(R)4:ArrayData"
 		data_clr=27
 		yaxis=0
 	}
