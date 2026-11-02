@@ -92,7 +92,7 @@
 #define XSP3_HW_DEFINED_SCALERS 8
 
 #define XSP3_ENERGIES 4096
-#define XSP3_MAX_CARDS 16			//!< Maximum number of cards in a logical system
+#define XSP3_MAX_CARDS 18			//!< Maximum number of cards in a logical system
 #define XSP3_MAX_CARD_INDEX 62		//!< Maximum card index across all systems
 #define XSP3_MAX_PATH 34
 #define XSP3_MAX_IP_CHARS 16
@@ -139,8 +139,8 @@
 #ifndef XSP3_MAX_MODNAME
 #define XSP3_MAX_MODNAME 100
 #endif
-#define XSP_MAX_MAC_ADDR 18
-#define XSP_MAX_IP_ADDR  16
+#define XSP_MAX_MAC_ADDR 50
+#define XSP_MAX_IP_ADDR  19
 #define XSP3_MAX_PLAYBACK_FILES 10				//!< Maximum number of files to be used in one call to load playback data
 
 #define XSP3_PB_MAX_VALUE		0xFFFB

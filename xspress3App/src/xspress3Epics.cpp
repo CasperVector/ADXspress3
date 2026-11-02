@@ -403,9 +403,11 @@ asynStatus Xspress3::connect(void)
         int generation = xsp3->get_generation(xsp3_handle_, 0);
         int mark = 1;
 
+#ifdef XSP3_REVISION_MAJOR_X3MP_MIN
         if (xsp3_is_xsp3m_plus(0) == 1) {
             mark = 2;
         }
+#endif
         // Select clock source based on generation/mark
         int clock_src = XSP3_CLK_SRC_XTAL; // default
 
@@ -1253,9 +1255,11 @@ asynStatus Xspress3::setTriggerMode(int mode, int invert_f0, int invert_veto, in
             // status = mapTriggerMode(mode, invert_f0, 0, debounce, &xsp3_trigger_mode);
             // xsp3_trigger_mode = 0;
         }
+#ifdef XSP3_REVISION_MAJOR_X3MP_MIN
         if (xsp3_is_xsp3m_plus(0) == 1) {
             xsp3_trigger_mode = xsp3_trigger_mode | XSP3_GLOB_TIMA_FROM_RADIAL;
         }
+#endif
         int xsp3_status = xsp3->set_glob_timeA(xsp3_handle_, card, xsp3_trigger_mode);
         if (xsp3_status != XSP3_OK) {
             checkStatus(xsp3_status, "xsp3_set_glob_timeA", functionName);
