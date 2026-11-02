@@ -158,7 +158,10 @@
 #define XSP3_DMA_DEBUG_DESC_SHORT_BURSTS	0x20000
 
 #define XSP3_DMA_START_CIRCULAR				1		// Set Tail descriptor so DMA will try to cycle the buffers.
-#define XSP3_DMA_INIT_CAPTURE_NO_RETRY		1		//!< Disable retry of ADC timing calibration
+
+#define XSP3_DMA_INIT_CAPTURE_NO_RETRY			1		//!< Disable retry of ADC timing calibration
+#define XSP3_DMA_INIT_CAPTURE_ENB_ALT_BIT_POL	2		//!< Enable Alternate bit polarity mode of the ADC.
+#define XSP3_DMA_INIT_CAPTURE_DIS_RANDOMISE		4		//!< Disable Randomiser in ADC output.
 
 /*! @defgroup XSP3_DMA_LAYOUT MACROS to interpret the layout option when configuring memory, currently on XSPRESS3-mini only.
     @ingroup XSP3_DMA

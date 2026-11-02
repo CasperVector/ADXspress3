@@ -458,3 +458,39 @@ int xsp3Api::get_generation(int path, int card)
     return status;
 
 }
+
+int xsp3Api::get_chan_cont(int path, int chan, u_int32_t *chan_cont)
+{
+    int status;
+    asynPrint(this->pasynUser, XSP3IF_DEBUG, "xsp3_get_chan_cont( %i, %i, %i ) = ", path, chan, *(chan_cont) );
+
+    status = xsp3Api_get_chan_cont(path, chan, chan_cont);
+
+    asynPrint(this->pasynUser, XSP3IF_DEBUG, "%d\n", status );
+
+    return status;
+}
+
+int xsp3Api::set_chan_cont(int path, int chan, u_int32_t chan_cont)
+{
+    int status;
+    asynPrint(this->pasynUser, XSP3IF_DEBUG, "xsp3_set_chan_cont( %i, %i, %i ) = ", path, chan, chan_cont );
+
+    status = xsp3Api_set_chan_cont(path, chan, chan_cont);
+
+    asynPrint(this->pasynUser, XSP3IF_DEBUG, "%d\n", status );
+
+    return status;
+}
+
+int xsp3Api::set_chan_cont2(int path, int chan, u_int32_t chan_cont2)
+{
+    int status;
+    asynPrint(this->pasynUser, XSP3IF_DEBUG, "xsp3_set_chan_cont2( %i, %i, %i ) = ", path, chan, chan_cont2 );
+
+    status = xsp3Api_set_chan_cont2(path, chan, chan_cont2);
+
+    asynPrint(this->pasynUser, XSP3IF_DEBUG, "%d\n", status );
+
+    return status;
+}

@@ -92,7 +92,7 @@
 #define XSP3_HW_DEFINED_SCALERS 8
 
 #define XSP3_ENERGIES 4096
-#define XSP3_MAX_CARDS 18			//!< Maximum number of cards in a logical system
+#define XSP3_MAX_CARDS 16			//!< Maximum number of cards in a logical system
 #define XSP3_MAX_CARD_INDEX 62		//!< Maximum card index across all systems
 #define XSP3_MAX_PATH 34
 #define XSP3_MAX_IP_CHARS 16
@@ -185,7 +185,7 @@ typedef struct _xsp3_feature
 	char lead_tail_corr, output_format, format_details_a, format_details_b, global_reset, timing_source, timing_generator, scope_mode;
 	char farm_mode, soft_scalers, ack_eof;
 	XspressGeneration generation;
-	int xsp3m_plus;		// Modifies XspressGen3Minito support x3mini+ ADC board with SPI ADC control serdes control and mid-plane.
+	int xsp3m_plus;		// Modifies XspressGen3Mini to support x3mini+ ADC board with SPI ADC control serdes control and mid-plane.
 						// Note that data output histogramming threads are determined from output_format to allow possible back port to Xspress3mini
 	int num_scope_dma, num_playback_streams;
 	int max_real_dma_stream;
@@ -437,9 +437,10 @@ typedef enum
 	Xsp3Init_Normal	= 1,
 	
 	Xsp3InitUDP_DisUDPRegs	= 0x10000,		//!< Disable setup of UDP registers in UDP core.
-	Xsp3InitUDP_DisScopeSocket = 0x20000,	//!< Disable creation of socket for sending playack and receiving scope mode data
+	Xsp3InitUDP_DisScopeSocket = 0x20000,	//!< Disable creation of socket for sending playback and receiving scope mode data
 	Xsp3InitUDP_DisHistLUT	= 0x40000,		//!< Disable writing of Lookup table for farm mode destination sockets.
-	Xsp3InitUDP_DisHistThreads= 0x80000		//!< Disable creation of histogram RX sockets and threads.
+	Xsp3InitUDP_DisHistThreads= 0x80000,		//!< Disable creation of histogram RX sockets and threads.  Also used to disable creating TCP sockets and threads for Xspress2 mini Active readout
+	Xsp3InitUDP_DisMakeModules= 0x100000		//!< Disable creation of histogram data modules in XSPRESS3, 3 and XSPRESS3 mini active readout
 } Xsp3Init;
 
 typedef struct _XSP3Path {
@@ -624,7 +625,7 @@ int     xsp3_set_debug(int path, int level, int burst_len);
 int 	xsp3_do_config(int ncards, int num_tf, char* baseIPaddress, int basePort, char* baseMACaddress, int num_chan, int create_module, char* modname, int debug, int card_index, 
 			Xsp3Init do_init, Xsp3Init disable_udp_init, Xsp3mReadoutMode xsp3m_readout, XspressDummy dummy_system);
 int		xsp3_config_tcp(char femHostName[][XSP3_MAX_IP_CHARS], int femPort, int card, int chan, int debug, XspressDummy dummy_system);
-int 	xsp3_close(int path);
+int 	xsp3_close(int path, Xsp3Unlink unlink_what);
 char* 	xsp3_get_error_message();
 int		xsp3_get_revision(int path);
 int 	xsp3_get_features(int path, int card, Xspress3_features * features);
@@ -962,6 +963,7 @@ int 	xsp3_hist_cpu_set(int path, int chan, cpu_set_t *cpu_set);
 int 	xsp3_hist_cpu_set_update(int path, int chan);
 int 	xsp3_adc_mmcm_reset(int path, int card);
 int 	xsp3_glob_register_init(int path, int card);
+int 	xsp3_get_num_mid_plane_temp(int path);
 int 	xsp3_i2c_read_mid_plane_temp(int path, float *temp);
 int 	xsp3_set_sync_mode(int path, int sync_mode, int enb_global_reset, int gr_card);
 int 	xsp3_get_sync_mode(int path, int *sync_mode, int *enb_global_reset, int *gr_card);
@@ -1038,7 +1040,7 @@ int xsp3m_scalar_mkmod(int path, char * mod_name, int num_tf);
 int xsp3m_scaler_mod_clear(int path, int first_chan, int first_frame, int num_chan, int num_frames);
 int xsp3m_scaler_read_mod(int path, u_int32_t *dest, unsigned first_scaler, unsigned first_chan, unsigned first_t, unsigned n_scalers, unsigned n_chan, unsigned dt);
 int xsp3m_config_readout_tcp(int path, int card, const char* hostname, int tcp_port);
-int xsp3m_restart_readout_tcp(int path, int card);
+int xsp3m_restart_readout_tcp(int path, int card, Xsp3Init disable_udp_init);
 int xsp3m_set_readout_mode(int path, int card, u_int32_t readout_mode);
 int xsp3m_get_readout_mode(int path,  int card, u_int32_t *readout_mode);
 volatile Histogram * xsp3_get_histogram_ptr(int path, int card, int chan_of_card);
@@ -1064,6 +1066,7 @@ int xsp3_config_udp_chan(int path, int chan, Xsp3ChanType chan_type, unsigned ch
 int xsp3_set_glob_trigger_select(int path, int card, Xsp3TriggerMux *trig_mux);
 int xsp3_get_glob_trigger_select(int path, int card, Xsp3TriggerMux *trig_mux);
 int xsp3_shm_unlink(int startingCard);
+int xsp3_sum_num_marker_chan(int path);
 int xsp3_resolve_path_marker_chan_card(int path, int chan, int *thisPath, int *chanIdx, int *cardP);
 int xsp3_write_marker_chan(int path, int chan, int offset, int size, u_int32_t* value);
 int xsp3_read_marker_chan(int path, int chan, int offset, int size, u_int32_t *value);
@@ -1074,9 +1077,12 @@ int xsp3_get_marker_chan(int path, int chan, u_int32_t *chan_contP, int *enb_ris
 int xs3mp_set_adc_serdes(int path, int card, u_int32_t adc_cont);
 int xs3mp_get_adc_serdes(int path, int card, u_int32_t *adc_cont);
 int xsp3_set_adc_reg(int path, int first, int num, int reg_addr, u_int16_t value);
+int xsp3_read_adc_reg(int path, int first, int num, int reg_addr, u_int16_t *value); 
+int xsp3m_init_adc_clk(int path);
 int xsp3m_init_adc(int path, int card, u_int32_t options);
 int xsp3_is_xsp3m_plus(int path);
 int xsp3mp_read_adc_capture_status(int path, int first_chan, int num, Xsp3mpAdcCapture *status);
+int xsp3_system_stop(int path, int card);
 
 #ifdef __cplusplus
 }
@@ -1797,7 +1803,7 @@ int xsp3mp_read_adc_capture_status(int path, int first_chan, int num, Xsp3mpAdcC
 #define XSP3_GLOB_GLOB_RST_GEN_A	13
 #define XSP3_GLOB_GLOB_RST_GEN_B	14
 
-#define XSP3_GLOB_ITFG_MARKER		15	// Not included in save restroe of global registers.
+#define XSP3_GLOB_ITFG_MARKER		15	// Not included in save restore of global registers.
 
 #define XSP3_GLOB_FAN_SPEED 		31
 
@@ -1812,12 +1818,12 @@ int xsp3mp_read_adc_capture_status(int path, int first_chan, int num, Xsp3mpAdcC
  */
 
 //! [XSP3_GLOBAL_CLOCK]
-#define XSP3_GLOB_CLK_FROM_ADC			(1<<0)			 // Enable Clock from Spartans (from ADC) for Virtex 5 (0 at reset, write 1 for normal operation after setting up ADC board Clocks).
-#define XSP3_GLOB_CLK_SP_RESET			(1<<1)			 // Software reset of Spartan DCMs after setting up ADC board Clocks.
-#define XSP3_GLOB_CLK_IDC_TIMING_DRIVER	(1<<2)			 // 
-#define XSP4_GLOB_CLK_MMCM_RESET		(1<<3)			// Software Reset of the MMCM in XSPRESS4, needed only with DRP actions?
-#define XSP3M2_GLOB_CLK_ENB				(1<<4)			//!< Xspress3mini Mk2 Enable clock on backplane
-#define XSP3M2_GLOB_EXT_CLK_SEL			(1<<5)			//!< Xspress3Mini Mk2 Select external clock input on secondary X3X Mk2 backplanes.
+#define XSP3_GLOB_CLK_FROM_ADC			(1<<0)			//!< Enable Clock from Spartans (from ADC) for Virtex 5 (0 at reset, write 1 for normal operation after setting up ADC board Clocks).
+#define XSP3_GLOB_CLK_SP_RESET			(1<<1)			//!< Software reset of Spartan DCMs after setting up ADC board Clocks.
+#define XSP3_GLOB_CLK_IDC_TIMING_DRIVER	(1<<2)		 	//!< 
+#define XSP4_GLOB_CLK_MMCM_RESET		(1<<3)			//!< Software Reset of the MMCM in XSPRESS4, needed only with DRP actions?
+#define XSP3M2_GLOB_CLK_BKPL_ENB		(1<<4)			//!< Xspress3mini Mk2 Enable clock on backplane
+#define XSP3M2_GLOB_CLK_BKPL_EXT_SEL	(1<<5)			//!< Xspress3Mini Mk2 Select external clock input on secondary X3X Mk2 backplanes.
 
 #define XSP4_GLOB_CLK_TSYNC_MODE(x)	(((x)&3)<<6)	// Time Stamp synchronisation mode.
 #define XSP4_TSYNC_MODE_ASYNC			0			// Time Stamp is reset by run on each card, so NOT locked.
@@ -1835,7 +1841,8 @@ int xsp3mp_read_adc_capture_status(int path, int first_chan, int num, Xsp3mpAdcC
 #define XSP3_USER_TSYNC_TEST_GLOB_RST0 	5			//!< User time stamp Sync in test mode reuses Global reset extracted from playback data of channel 0 for all channels
 #define XSP3_USER_TSYNC_TEST_STANDALONE 6			//!< User time stamp Sync in test mode uses repeating sync signal within each box to reset user (output) time stamp.
 
-#define XSP3_GLOB_CLK_RS232_SEL		(1<<31) 		 // Select for RS232 control (temporary).
+#define XSP3M2_GLOB_CLK_OP_CLKDIV4		(1<<30) 	//!< output Clkd
+#define XSP3_GLOB_CLK_RS232_SEL			(1<<31) 	//!< Select for RS232 control (temporary).
 //! [XSP3_GLOBAL_CLOCK]
 
 //! [XSP3_GLOBAL_TIMEA_SOURCE]
@@ -1848,10 +1855,6 @@ int xsp3mp_read_adc_capture_status(int path, int first_chan, int num, Xsp3mpAdcC
 #define XSP3_GTIMA_SRC_TTL_BOTH			5		//!< Time frame incremented by TTL Input 1 and reset to Fixed register by TTL Input 0.
 #define XSP3_GTIMA_SRC_LVDS_VETO_ONLY	6		//!< Time frame incremented by LVDS Input.
 #define XSP3_GTIMA_SRC_LVDS_BOTH		7		//!< Time frame incremented and reset by LVDS Inputs.
-// #define XSP3_GTIMA_SRC_SOFT_INT			8		//!< Time frame incremented by software and reset by internal timeframe.
-// #define XSP3_GTIMA_SRC_TTL_INT			9		//!< Time frame incremented by TTL and reset by internal timeframe.
-
-
 //! [XSP3_GLOBAL_TIMEA_SOURCE]
 
 //! [XSP3_GLOBAL_TIMEA_REGISTER]
@@ -1986,6 +1989,9 @@ int xsp3mp_read_adc_capture_status(int path, int first_chan, int num, Xsp3mpAdcC
 #define XSP3_GLOB_STAT_SCALERS_OR	(1<<3)   	//!< Over Run of Frames into Scaler DMA
 #define XSP3_GLOB_STAT_HIST_FRAMES_OR (1<<4)   	//!< Over Run of Frames in BRAM Histogrammer (XSpress3 Mini only so far)
 #define XSP3_GLOB_STAT_HIST_LIST_OR (1<<5)   	//!< Over Run of Events into software Histogrammer (XSpress3 Mini only so far)
+
+#define XSP3M_GLOB_STAT_SCOPE_TRIG_A	(1<<6)		//!< TrigA signal in scope mode of Xspress3mini
+#define XSP3M_GLOB_STAT_SCOPE_RUNNING	(1<<7)		//!< Running signal in scope mode of Xspress3mini
 /** @} */
 
 /** @defgroup XSP3_XLLDMA_STATUS	Xilinx Local Link DMA Status Register A layout
@@ -2221,7 +2227,8 @@ extern char *xsp4_aurora_names[];
 #define XSP3M_CLK_SRC_LMK61E2			0x11	//!< Xspress3Mini or Xspress4 Clock Source LMK61E2 on ADC board
 
 #define XSP4_CLK_SRC_MIDPLN_CDCM61004	0x20	//!< Xspress4 Clock Source CDCM61004 on Mid plane board
-#define XSP4_CLK_SRC_MIDPLN_LMK61E2		0x21	//!< Xspress4 Clock Source LMK61E2 on Mid Plane board
+#define XSP4_CLK_SRC_MIDPLN_LMK61E2		0x21	//!< Xspress4 and Xspress3MiniMk2 Clock Source LMK61E2 on Mid Plane board
+
 //! [XSP3_CLOCK_SRC]
 
 //! [XSP3_CLOCK_FLAGS]
@@ -2244,6 +2251,9 @@ extern char *xsp4_aurora_names[];
 #define XSP3_CLK_FLAGS_SHUTDOWN8 	(1<<16)		// Shutdown ADC channel 8  XSPRESS4 only
 #define XSP3_CLK_FLAGS_SHUTDOWN9 	(1<<17)		// Shutdown ADC channel 9  XSPRESS4 only
 
+#define XSP3_CLK_FLAGS_DIS_RAND 	(1<<27)		// Disable ADC randomiser (usign LSB)  in Xspress3mini2
+#define XSP3_CLK_FLAGS_ENB_ABP 		(1<<28)		// Enable ADC Alternate Bit polarity in Xspress3mini2
+#define XSP3_CLK_FLAGS_ENB_DCS 		(1<<29)		// Enable ADC DCS in Xspress3mini2
 #define XSP3_CLK_FLAGS_TS_SYNC 		(1<<30)		// Restart time stamp on Run on card 0
 //! [XSP3_CLOCK_FLAGS]
 
@@ -2836,28 +2846,46 @@ typedef struct _x3m_fan_cont
 @{
 */
 //! [XSP3M_ADC_CONTROL_CODE]
-#define XSP3M_ADC_CONT_CLK_SEL  	(1<<7)			//!< Select LMK61E2 Clock generator.
-	
-
+#define XSP3M_ADC_CONT_CLK_SEL_LMK61E2  (1<<7)			//!< Select LMK61E2 Clock generator fro LMK61E2 rather than CDCM61004
+// (1<<8) unused in mk1
+#define XSP3M_ADC_CONT_DITHER 			(1<<9)
+// Bits 11:10 unused in mk1, but XSP3M_ADC_CONT_USER_TERM would set bits for future expansion.
 #define XSP3M_ADC_CONT_USER_NOE(x)	(((x)&0xF)<<12)	//!< Output Disable for full strength output drive, leave 50 ohm terminated drivers enables. 2 bit is X3m, 4 in X3X+.
+// Bits 15:14 are unused in both, potentially reserved for nOE for 4 TTL OUT
 #define XSP3M_ADC_CONT_SHUTDOWN(x)	(((x)&3)<<16)	//!< Shutdown signals for ADC channels 0 and 1
+// Bits   27:18  Unused in Mk1
+#define XSP3M1_ADC_CONT_USER_TERM(x) (((x)&3)<<28)	//!< Enable 50 ohm termination on User Inputs 0 and 1
+#define XSP3M1_ADC_CONT_GET_USER_TERM(x) (((x)>>28)&3)	//!< Enable 50 ohm termination on User Inputs 0 and 1
 
-#define XSP3M_ADC_CONT_USER_TERM(x) ((((x)&3)<<28)|(((x)&0xC)<<(10-2)))	//!< Enable 50 ohm termination on User Inputs 0 and 1, Extra 2 bit in 10 and 11 for X3X+
+#define XSP3M_ADC_CONT_IGNORE_OVER_TEMP	(1<<30)		//!< Ignore over temperature shutdown of ADCs, X3M Mk1 and Mk2
+#define XSP3M_ADC_CONT_PSU_ENB			(1<<31)		//!< PSU Enable	Enable PSU to ADC board, X3M Mk1 and Mk2
 
-#define XSP3M_ADC_CONT_RESET_BUFR		(1<<20)		//!< Hold BUFR in reset, current plan is to do this with clock stopped.
-#define XSP3M_ADC_CONT_RESET			(1<<21)		//!< Force reset of ADC capture circuit.
-#define XSP3M_ADC_CONT_ENB_BIT_SLIP		(1<<22)		//!< Enable the bit slip adjustment, ADC must be send test pattern to do this.
-#define XSP3M_ADC_CONT_ENB_EYE_MONITOR	(1<<23)		//!< Enable eye monitor test feature  - exclusive with phase detection and correction.
-#define XSP3M_ADC_CONT_DIS_PHASE_DETECTOR (1<<24)	//!< Disable phase detector to allow eye monitor to be used. Normally = 0 = enabled.
-#define XSP3M_ADC_CONT_DIS_DERANDOMIZE	(1<<25)		//!< Disable derandomizing of ADC data for Xspress3mini+ ADC test patterns.
-#define XSP3M_ADC_CONT_SERDES_MASK		0x03F00000	//!< Mask of all x3p+ serdes bits
+
+#define XSP3M2_ADC_CONT_CLK_SEL_BKPLN  	(1<<7)		//!< Select clock from backplane (usually LMK61E2) rather than on board LMK61E2 Clock generator
+													//!< Also select FIFO enb to start channels together
+// (1<<8) unused in mk2
+// (1<<9) unused in mk2	
+#define XSP3M2_ADC_CONT_CLK_ENB			(1<<10)		//!< Enable the ADC board Clock either on board or from backplane.
+// bit 11 Part of 	XSP3M_ADC_CONT_USER_TERM
+// Bit[15:12] see XSP3M_ADC_CONT_USER_NOE also in mk2
+// Bit 17:16 See XSP3M_ADC_CONT_SHUTDOWN
+// Bit 19:18  Unused
+
+#define XSP3M2_ADC_CONT_RESET_BUFR		(1<<20)		//!< Hold BUFR in reset, current plan is to do this with clock stopped.
+#define XSP3M2_ADC_CONT_RESET			(1<<21)		//!< Force reset of ADC capture circuit.
+#define XSP3M2_ADC_CONT_ENB_BIT_SLIP	(1<<22)		//!< Enable the bit slip adjustment, ADC must be send test pattern to do this.
+#define XSP3M2_ADC_CONT_ENB_EYE_MONITOR	(1<<23)		//!< Enable eye monitor test feature  - exclusive with phase detection and correction.
+#define XSP3M2_ADC_CONT_DIS_PHASE_DETECTOR (1<<24)	//!< Disable phase detector to allow eye monitor to be used. Normally = 0 = enabled.
+#define XSP3M2_ADC_CONT_DIS_DERANDOMIZE	(1<<25)		//!< Disable derandomizing of ADC data for Xspress3mini+ ADC test patterns.
+#define XSP3M2_ADC_CONT_ENB_ADC_FIFO	(1<<26)		//!< Enable ADC Data FIFO, set after serde and bitslip finished.
+#define XSP3M2_ADC_CONT_ENB_ALT_BIT_POL	(1<<27)		//!< Enable ADC Alternate bit polarity.
+#define XSP3M2_ADC_CONT_SERDES_MASK		0x0FF00000	//!< Mask of all x3m2 serdes bits
+#define XSP3M2_ADC_CONT_USER_TERM(x) ((((x)&3)<<28)|(((x)&0xC)<<(8-2)))	//!< Enable 50 ohm termination on User Inputs 0 and 1, Extra 2 bit in 9:8 for X3M mk2
  		
 #define XSP3M_ADC_CONT_GET_USER_NOE(x)	(((x)>>12)&0xF)	//!< Output Disable for full strength output drive, leave 50 ohm terminated drivers enables
-#define XSP3M_ADC_CONT_GET_USER_TERM(x) ((((x)>>28)&3)|(((x)>>8)&0xC))	//!< Enable 50 ohm termination on User Inputs 0 and 1
+#define XSP3M2_ADC_CONT_GET_USER_TERM(x) ((((x)>>28)&3)|(((x)>>6)&0xC))	//!< Enable 50 ohm termination on User Inputs 0 and 1 and 2 and 3
+//Bits 31:30 as mk1
 
-
-#define XSP3M_ADC_CONT_IGNORE_OVER_TEMP	(1<<30)		//!< Ignore over temperature shutdown of ADCs
-#define XSP3M_ADC_CONT_PSU_ENB		(1<<31)			//!< PSU Enable	Enable PSU to ADC board.
 //! [XSP3M_ADC_CONTROL_CODE]
 
 /**
@@ -3163,7 +3191,6 @@ This data is assembled nibble at a time into the 32 bit hardware registers XSP4_
 #define XSP3MP_SPI_ADC_REG_OP_FORMAT	5					//!< ADC output format register
 
 #define XSP3MP_SPI_ADC_RESET			0x80				//!< Value to write to force reset.
-#define XSP3MP_SPI_ADC_REG_CONT			1					//!< ADC control register
 #define XSP3MP_SPI_ADC_CONT_SHDN		(1<<1)				//!< Shutdown ADC
 #define XSP3MP_SPI_ADC_CONT_NDITH		(1<<2)				//!< Set high to disable dither.
 #define XSP3MP_SPI_ADC_CONT_PGA			(1<<3)				//!< Set high to Increase ADC gain * 1.5

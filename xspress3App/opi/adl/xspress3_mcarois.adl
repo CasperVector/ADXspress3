@@ -134,7 +134,7 @@ text {
 		height=280
 	}
 	plotcom {
-		title="Last Fram"
+		title="Last Frame"
 		clr=14
 		bclr=0
 	}

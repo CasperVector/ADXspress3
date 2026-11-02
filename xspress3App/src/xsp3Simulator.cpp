@@ -254,3 +254,15 @@ int xsp3Simulator::xsp3Api_set_sync_mode(int path, int sync_mode, int enb_global
 {
     return XSP3_OK;
 }
+int xsp3Simulator::xsp3Api_get_chan_cont(int path, int chan, u_int32_t *chan_cont)
+{
+    return XSP3_OK;
+}
+int xsp3Simulator::xsp3Api_set_chan_cont(int path, int chan, u_int32_t chan_cont)
+{
+    return XSP3_OK;
+}
+int xsp3Simulator::xsp3Api_set_chan_cont2(int path, int chan, u_int32_t chan_cont2)
+{
+    return XSP3_OK;
+}

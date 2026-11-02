@@ -191,6 +191,8 @@ MOD_IMAGE3D *id_mkmod3d_err_msg (const char *name, int num_x, int num_y, int num
 
 #endif
 u_int32 *id_get_ptr(void *mod, int x, int y, int t);
+u_int32 *id_get_ptr_safe(void *p, int x, int y, int t);
+
 int id_clear_mod(void *p);
 int id_copy_mod(void *s, void *d);
 char *id_get_label(void *p, int row);

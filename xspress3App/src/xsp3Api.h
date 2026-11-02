@@ -73,6 +73,9 @@ protected:
     virtual int xsp3Api_get_dtcfactor(int path, u_int32_t *scaData, double *dtcFactor, double *dtcAllEvent, unsigned chan) = 0;
     virtual int xsp3Api_get_generation(int path, int card) = 0;
     virtual int xsp3Api_set_sync_mode(int path, int sync_mode, int enb_global_reset, int gr_card) = 0;
+    virtual int xsp3Api_get_chan_cont(int path, int chan, u_int32_t *chan_cont) = 0;
+    virtual int xsp3Api_set_chan_cont(int path, int chan, u_int32_t chan_cont) = 0;
+    virtual int xsp3Api_set_chan_cont2(int path, int chan, u_int32_t chan_cont2) = 0;
 
 public:
     int clocks_setup(int path, int card, int clk_src, int flags, int tp_type);
@@ -112,6 +115,9 @@ public:
     int get_dtcfactor(int path, u_int32_t *scaData, double *dtcFactor, double *dtcAllEvent, unsigned chan);
     int get_generation(int path, int card);
     int set_sync_mode(int path, int sync_mode, int enb_global_reset, int gr_card);
+    int get_chan_cont(int path, int chan, u_int32_t *chan_cont);
+    int set_chan_cont(int path, int chan, u_int32_t chan_cont);
+    int set_chan_cont2(int path, int chan, u_int32_t chan_cont2);
 
 private:
     asynUser * pasynUser;

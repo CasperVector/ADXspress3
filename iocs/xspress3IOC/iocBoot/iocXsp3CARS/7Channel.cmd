@@ -8,7 +8,7 @@ epicsEnvSet("PREFIX", "XSP3_7Chan:")
 epicsEnvSet("NUM_CHANNELS",  "7")            
 
 # Number of xspress3 cards and IP ADDR
-epicsEnvSet("XSP3CARDS", "1")
+epicsEnvSet("XSP3CARDS", "4")
 epicsEnvSet("XSP3ADDR",  "192.168.0.1")
 
 # Max Number of Frames for data collection
