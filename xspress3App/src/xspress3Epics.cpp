@@ -61,6 +61,7 @@ using std::endl;
 #endif
 
 // Definitions of static class data members
+const epicsInt32 Xspress3::maxBlockSize_ = 100;
 const epicsInt32 Xspress3::ctrlDisable_ = 0;
 const epicsInt32 Xspress3::ctrlEnable_ = 1;
 const epicsInt32 Xspress3::runFlag_MCA_SPECTRA_ = 0;
@@ -1719,57 +1720,57 @@ bool Xspress3::createMCAArray(size_t dims[2], NDArray *&pMCA, NDDataType_t dataT
 }
 
 /**
- * Read a frame, of dead-time corrected data, from the hardware into
+ * Read frames, of dead-time corrected data, from the hardware into
  * MCAData
  *
- * @param pSCA A pointer to the array to hold the SCAs
- * @param pMCAData A pointer to the array to hold the MCA
+ * @param pSCAs A pointer to the array to hold the SCAs
+ * @param pMCAs A pointer to the array to hold the MCAs
  * @param frameNumber The frame to read from the current capture
+ * @param blockSize The number of frames to read
  * @param maxSpectra The maximum number of spectral bins in the MCA array
  *
  * @return true if an allocation error occurs otherwise false
  */
-bool Xspress3::readFrame(double *pSCA, double *pMCAData, int frameNumber, int maxSpectra)
+bool Xspress3::readBlock(double *pSCAs, double *pMCAs, int frameNumber, int blockSize, int maxSpectra)
 {
     bool error = false;
     int xsp3Status = 0;
-    const char *functionName = "Xspress3::readFrame";
-    xsp3Status = xsp3->hist_dtc_read4d(this->xsp3_handle_, pMCAData, pSCA, 0, 0, 0, frameNumber, maxSpectra, 1, this->numChannels_, 1);
+    const char *functionName = "Xspress3::readBlock";
+    xsp3Status = xsp3->hist_dtc_read4d(this->xsp3_handle_, pMCAs, pSCAs, 0, 0, 0, frameNumber, maxSpectra, 1, this->numChannels_, blockSize);
 
     if (xsp3Status != XSP3_OK) {
         checkStatus(xsp3Status, "xsp3_hist_dtc_read4d", functionName);
         error = true;
     } else {
-        setIntegerParam(NDArrayCounter, frameNumber + 1);
+        setIntegerParam(NDArrayCounter, frameNumber + blockSize);
     }
     if (circBuffer_ == 1) {
-        xsp3_histogram_circ_ack(this->xsp3_handle_, 0, frameNumber, this->numChannels_, 1);
+        xsp3_histogram_circ_ack(this->xsp3_handle_, 0, frameNumber, this->numChannels_, blockSize);
     }
     return error;
 }
 
-bool Xspress3::readFrame(u_int32_t *pSCA, u_int32_t *pMCAData, int frameNumber, int maxSpectra)
+bool Xspress3::readBlock(u_int32_t *pSCAs, u_int32_t *pMCAs, int frameNumber, int blockSize, int maxSpectra)
 {
     bool error = false;
     int xsp3Status = 0;
-    const char *functionName = "Xspress3::readFrame";
-    xsp3Status = xsp3->histogram_read4d(this->xsp3_handle_, pMCAData, 0, 0, 0, frameNumber, maxSpectra, 1, this->numChannels_, 1);
+    const char *functionName = "Xspress3::readBlock";
+    xsp3Status = xsp3->histogram_read4d(this->xsp3_handle_, pMCAs, 0, 0, 0, frameNumber, maxSpectra, 1, this->numChannels_, blockSize);
     if (xsp3Status != XSP3_OK) {
         checkStatus(xsp3Status, "xsp3_histogram_read4d", functionName);
         error = true;
     } else {
         setIntegerParam(NDArrayCounter, frameNumber);
-        xsp3Status = xsp3->scaler_read(this->xsp3_handle_, pSCA, 0, 0, frameNumber, XSP3_SW_NUM_SCALERS, this->numChannels_, 1);
+        xsp3Status = xsp3->scaler_read(this->xsp3_handle_, pSCAs, 0, 0, frameNumber, XSP3_SW_NUM_SCALERS, this->numChannels_, blockSize);
         if (xsp3Status != XSP3_OK) {
             checkStatus(xsp3Status, "xsp3_scaler_read", functionName);
             error = true;
         } else {
-            setIntegerParam(NDArrayCounter, frameNumber + 1);
+            setIntegerParam(NDArrayCounter, frameNumber + blockSize);
         }
     }
-    //    xsp3_histogram_circ_ack(this->xsp3_handle_, 0, frameOffset, this->numChannels_, 1);
     if (circBuffer_ == 1) {
-        xsp3_histogram_circ_ack(this->xsp3_handle_, 0, frameNumber, this->numChannels_, 1);
+        xsp3_histogram_circ_ack(this->xsp3_handle_, 0, frameNumber, this->numChannels_, blockSize);
     }
     return error;
 }
@@ -1815,7 +1816,7 @@ const int Xspress3::waitForStartEvent(const char *message)
  * @param pSCA A pointer to an array of SCAs from the hardware
  * @param numChannels The number of xspress3 channels in the SCA array
  */
-void Xspress3::writeOutScas(void *&pSCA, int numChannels, NDDataType_t dataType)
+void Xspress3::writeOutScas(void *pSCA, int numChannels, NDDataType_t dataType)
 {
     double allevt, resets, evtwidth, ctime;
     double dtperc = 0.0;
@@ -1930,7 +1931,7 @@ void Xspress3::getDims(size_t (&dims)[2])
  * @param pMCA A reference to a pointer to an NDArray
  * @param frameNumber The number of the frame to be written to pMCA->uniqueId
  */
-void Xspress3::setNDArrayAttributes(NDArray *&pMCA, int frameNumber)
+void Xspress3::setNDArrayAttributes(NDArray *pMCA, int frameNumber)
 {
     int arrayCallbacks = 0;
     epicsTimeStamp currentTime;
@@ -2085,15 +2086,24 @@ static void xsp3DataTaskC(void *xspAD)
             }
         }
         while (acquire && (frameNumber < numFrames)) {
+            if (pXspAD->checkForStopEvent(timeout, "Got stop event.\n") == epicsEventWaitOK) {
+                acquire = false;
+                aborted = true;
+                pXspAD->checkHistBusy(checkTimes);
+                pXspAD->lock();
+                pXspAD->setAcqStopParameters(true);
+                pXspAD->unlock();
+                continue;
+            }
             usleep(2);
             acquired = pXspAD->getNumFramesRead();
             if (frameNumber < acquired) {
                 lastAcquired = acquired;
                 if (!pXspAD->createMCAArray(dims, pMCA, dataType)) {
                     if (dataType == NDFloat64) {
-                        error = pXspAD->readFrame(static_cast<double *>(pSCA), static_cast<double *>(pMCA->pData), frameNumber, maxSpectra);
+                        error = pXspAD->readBlock(static_cast<double *>(pSCA), static_cast<double *>(pMCA->pData), frameNumber, 1, maxSpectra);
                     } else {
-                        error = pXspAD->readFrame(static_cast<u_int32_t *>(pSCA), static_cast<u_int32_t *>(pMCA->pData), frameNumber, maxSpectra);
+                        error = pXspAD->readBlock(static_cast<u_int32_t *>(pSCA), static_cast<u_int32_t *>(pMCA->pData), frameNumber, 1, maxSpectra);
                     }
                     if (error) {
                         pXspAD->xspAsynPrint(ASYN_TRACE_ERROR, "There was an error during read out %d\n", error);
@@ -2114,14 +2124,6 @@ static void xsp3DataTaskC(void *xspAD)
                 } else {
                     pXspAD->xspAsynPrint(ASYN_TRACE_ERROR, "Did not create a new array!\n");
                 }
-            }
-            if (pXspAD->checkForStopEvent(timeout, "Got stop event.\n") == epicsEventWaitOK) {
-                acquire = false;
-                aborted = true;
-                pXspAD->checkHistBusy(checkTimes);
-                pXspAD->lock();
-                pXspAD->setAcqStopParameters(true);
-                pXspAD->unlock();
             }
         }
         if (!aborted) {

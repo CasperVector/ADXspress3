@@ -132,21 +132,22 @@ public:
         size_t nChars, size_t *nActual);
     virtual void report(FILE *fp, int details);
 
+    static const epicsInt32 maxBlockSize_;
     const int checkForStopEvent(double timeout, const char *message);
     const int waitForStartEvent(const char *message);
     void adReportError(const char *message);
     bool createMCAArray(size_t dims[2], NDArray *&pMCA, NDDataType_t dataType);
     bool createSCAArray(void *&pSCA);
-    bool readFrame(double *pSCA, double *pMCAData, int frameNumber, int maxSpectra);
-    bool readFrame(u_int32_t *pSCA, u_int32_t *pMCAData, int frameNumber, int maxSpectra);
-    void writeOutScas(void *&pSCA, int numChannels, NDDataType_t dataType);
+    bool readBlock(double *pSCAs, double *pMCAs, int frameNumber, int blockSize, int maxSpectra);
+    bool readBlock(u_int32_t *pSCAs, u_int32_t *pMCAs, int frameNumber, int blockSize, int maxSpectra);
+    void writeOutScas(void *pSCA, int numChannels, NDDataType_t dataType);
     void setStartingParameters();
     const NDDataType_t getDataType();
     void getDims(size_t (&dims)[2]);
     asynStatus checkHistBusy(int checkTimes);
     const int getXsp3Handle() { return this->xsp3_handle_; }
     xsp3Api *getXsp3() { return this->xsp3; }
-    void setNDArrayAttributes(NDArray *&pMCA, int frameNumber);
+    void setNDArrayAttributes(NDArray *pMCA, int frameNumber);
     void setAcqStopParameters(bool aborted);
     int getNumFramesToAcquire();
     int getMaxNumFrames();
