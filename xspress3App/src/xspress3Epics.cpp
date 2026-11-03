@@ -65,7 +65,6 @@ const epicsInt32 Xspress3::ctrlDisable_ = 0;
 const epicsInt32 Xspress3::ctrlEnable_ = 1;
 const epicsInt32 Xspress3::runFlag_MCA_SPECTRA_ = 0;
 const epicsInt32 Xspress3::runFlag_PLAYB_MCA_SPECTRA_ = 1;
-const epicsInt32 Xspress3::maxNumRoi_ = 16;
 const epicsInt32 Xspress3::maxStringSize_ = 256;
 const epicsInt32 Xspress3::maxCheckHistPolls_ = 20;
 const epicsInt32 Xspress3::mbboTriggerFIXED_ = 0;
@@ -100,8 +99,9 @@ static void xsp3DataTaskC(void *drvPvt);
  * @param debug This debug flag is passed to xsp3_config in the Xspress API (0 or 1)
  * @param simTest 0 or 1. Set to 1 to run up this driver in simulation mode.
  * @param circBuffer 0 or 1. Set to run with cirular buffer enabled. Required when more than 12216 frames per acquisition
+ * @param manualSoftStart 0 or 1. Set to disable automatic start of the first frame upon caput ${P}${R}Acquire 1 with ${P}${R}TriggerMode 7
  */
-Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest, int circBuffer)
+Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest, int circBuffer, int manualSoftStart)
     : ADDriver(portName,
           numChannels, /* maxAddr - channels use different param lists*/
           NUM_DRIVER_PARAMS,
@@ -119,6 +119,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
     , simTest_(simTest)
     , baseIP_(baseIP)
     , circBuffer_(circBuffer)
+    , manualSoftStart_(manualSoftStart)
 {
     int status = asynSuccess;
     const char *functionName = "Xspress3::Xspress3";
@@ -189,6 +190,7 @@ Xspress3::Xspress3(const char *portName, int numChannels)
     , simTest_(1)
     , baseIP_("127.0.0.1")
     , circBuffer_(0)
+    , manualSoftStart_(0)
 {
     const char *functionName = "Xspress3::Xspress3";
     const int maxFrames = 1000;
@@ -280,7 +282,6 @@ void Xspress3::createInitialParameters()
     createParam(xsp3ChanDtcIwgParamString, asynParamFloat64, &xsp3ChanDtcIwgParam);
     createParam(xsp3ChanDtcIwoParamString, asynParamFloat64, &xsp3ChanDtcIwoParam);
     // These controls calculations
-    createParam(xsp3RoiEnableParamString, asynParamInt32, &xsp3RoiEnableParam);
     createParam(xsp3DtcEnableParamString, asynParamInt32, &xsp3DtcEnableParam);
     createParam(xsp3EventWidthParamString, asynParamFloat64, &xsp3EventWidthParam);
     createParam(xsp3ChanDTPercentParamString, asynParamFloat64, &xsp3ChanDTPercentParam);
@@ -915,53 +916,6 @@ asynStatus Xspress3::setWindow(int channel, int sca, int llm, int hlm)
 }
 
 /**
- * Function to check that the ROI limits make sense.
- * @param channel The asyn address, mapping to xsp3 channel.
- * @param roi The ROI number
- * @param llm The low limit
- * @param hlm The high limit
- * @return asynStatus
- */
-asynStatus Xspress3::checkRoi(int channel, int roi, int llm, int hlm)
-{
-    asynStatus status = asynSuccess;
-    int maxSpectra = 0;
-    const char *functionName = "Xspress3::checkRoi";
-
-    getIntegerParam(xsp3MaxSpectraParam, &maxSpectra);
-
-    if ((llm < 0) || (hlm < 0)) {
-        asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Negative ROI limits not allowed.\n", functionName);
-        setStringParam(ADStatusMessage, "ERROR: Negative ROI limits not allowed.");
-        setIntegerParam(ADStatus, ADStatusError);
-        status = asynError;
-    }
-
-    if ((llm >= maxSpectra) || (hlm > maxSpectra)) {
-        asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: ROI limits set too high.\n", functionName);
-        setStringParam(ADStatusMessage, "ERROR: ROI limits set too high.");
-        setIntegerParam(ADStatus, ADStatusError);
-        status = asynError;
-    }
-
-    if (llm > hlm) {
-        asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR,
-            "%s ERROR: ROI %d low limit (%d) is higher than high limit (%d) on channel %d.\n",
-            functionName, roi, llm, hlm, channel + 1);
-        setStringParam(ADStatusMessage, "ERROR: ROI low limit is higher than high limit.");
-        setIntegerParam(ADStatus, ADStatusError);
-        status = asynError;
-    }
-
-    if (status != asynError) {
-        setStringParam(ADStatusMessage, "Successfully set ROI limit.");
-        setIntegerParam(ADStatus, ADStatusIdle);
-    }
-
-    return status;
-}
-
-/**
  * Call xsp3_histogram_clear, and clear scalar data.
  * @return asynStatus
  */
@@ -1046,7 +1000,7 @@ asynStatus Xspress3::clearDriverAndPlugins(bool sendFrame)
         paramStatus = ((setDoubleParam(chan, xsp3ChanDTPercentParam, 0.0) == asynSuccess) && paramStatus);
         paramStatus = ((setDoubleParam(chan, xsp3ChanDTFactorParam, 1.0) == asynSuccess) && paramStatus);
 
-        // callParamCallbacks(chan);
+        callParamCallbacks(chan);
     }
 
     if (sendFrame) {
@@ -1161,6 +1115,9 @@ asynStatus Xspress3::setupITFG(void)
             XSP3_ITFG_GAP_MODE_1US, XSP3_ITFG_TRIG_ACQ_PAUSED_ALL, 0, 0);
     }
 
+    if (!(trigger_mode == 7 && manualSoftStart_)) {
+        xsp3_status = xsp3->histogram_start(xsp3_handle_, -1);
+    }
     if (xsp3_status != XSP3_OK) {
         checkStatus(xsp3_status, " xsp3_itfg_setup", functionName);
         status = asynError;
@@ -1305,7 +1262,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
         }
     } else if (function == xsp3EraseParam) {
         if (adStatus != ADStatusAcquire) {
-            status = erase(true);
+            status = erase(false);
         }
     } else if (function == xsp3SoftTriggerParam) {
 
@@ -1333,8 +1290,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
                     } else {
                         asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s No Erase Before Data Collection\n", functionName);
                     }
-                    setupITFG();
-                    xsp3_status = xsp3->histogram_start(xsp3_handle_, -1);
+                    xsp3_status = setupITFG();
                     if (xsp3_status != XSP3_OK) {
                         checkStatus(xsp3_status, "xsp3_histogram_start", functionName);
                         status = asynError;
@@ -1472,14 +1428,6 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
         asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The SCA6 Low Limit.\n", functionName);
         getIntegerParam(addr, xsp3ChanSca6HlmParam, &xsp3_sca_lim);
         status = setWindow(addr, 1, value, xsp3_sca_lim);
-    }
-
-    else if (function == xsp3RoiEnableParam) {
-        if (value == ctrlDisable_) {
-            asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Disabling ROI Calculations.\n", functionName);
-        } else if (value == ctrlEnable_) {
-            asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Enabling ROI Calculations.\n", functionName);
-        }
     } else if (function == xsp3RunFlagsParam) {
         asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The Run Flags.\n", functionName);
     }
@@ -2157,7 +2105,9 @@ static void xsp3DataTaskC(void *xspAD)
                     frameNumber++;
                     pXspAD->setNDArrayAttributes(pMCA, frameNumber);
                     pXspAD->lock();
-                    pXspAD->callParamCallbacks();
+                    for (int addr=0; addr<numChannels; addr++) {
+                        pXspAD->callParamCallbacks(addr);
+                    }
                     pXspAD->unlock();
                     pXspAD->doNDCallbacksIfRequired(pMCA);
                     pMCA->release();
@@ -2201,13 +2151,13 @@ extern "C" {
  * @param debug This debug flag is passed to xsp3_config in the Xspress API (0 or 1)
  * @param simTest 0 or 1. Set to 1 to run up this driver in simulation mode.
  */
-int xspress3Config(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest, int circBuffer)
+int xspress3Config(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest, int circBuffer, int manualSoftStart)
 {
     asynStatus status = asynSuccess;
 
     /*Instantiate class.*/
     try {
-        new Xspress3(portName, numChannels, numCards, baseIP, maxFrames, maxDriverFrames, maxSpectra, maxBuffers, maxMemory, debug, simTest, circBuffer);
+        new Xspress3(portName, numChannels, numCards, baseIP, maxFrames, maxDriverFrames, maxSpectra, maxBuffers, maxMemory, debug, simTest, circBuffer, manualSoftStart);
     } catch (...) {
         cout << "Unknown exception caught when trying to construct Xspress3." << endl;
         status = asynError;
@@ -2231,6 +2181,7 @@ static const iocshArg xspress3ConfigArg8 = { "Max Memory", iocshArgInt };
 static const iocshArg xspress3ConfigArg9 = { "Debug", iocshArgInt };
 static const iocshArg xspress3ConfigArg10 = { "Sim Test", iocshArgInt };
 static const iocshArg xspress3ConfigArg11 = { "Circular Buffer", iocshArgInt };
+static const iocshArg xspress3ConfigArg12 = { "Manual Soft Start", iocshArgInt };
 static const iocshArg *const xspress3ConfigArgs[] = { &xspress3ConfigArg0,
     &xspress3ConfigArg1,
     &xspress3ConfigArg2,
@@ -2242,12 +2193,13 @@ static const iocshArg *const xspress3ConfigArgs[] = { &xspress3ConfigArg0,
     &xspress3ConfigArg8,
     &xspress3ConfigArg9,
     &xspress3ConfigArg10,
-    &xspress3ConfigArg11 };
+    &xspress3ConfigArg11,
+    &xspress3ConfigArg12 };
 
-static const iocshFuncDef configXspress3 = { "xspress3Config", 12, xspress3ConfigArgs };
+static const iocshFuncDef configXspress3 = { "xspress3Config", 13, xspress3ConfigArgs };
 static void configXspress3CallFunc(const iocshArgBuf *args)
 {
-    xspress3Config(args[0].sval, args[1].ival, args[2].ival, args[3].sval, args[4].ival, args[5].ival, args[6].ival, args[7].ival, args[8].ival, args[9].ival, args[10].ival, args[11].ival);
+    xspress3Config(args[0].sval, args[1].ival, args[2].ival, args[3].sval, args[4].ival, args[5].ival, args[6].ival, args[7].ival, args[8].ival, args[9].ival, args[10].ival, args[11].ival, args[12].ival);
 }
 
 static void xspress3Register(void)
