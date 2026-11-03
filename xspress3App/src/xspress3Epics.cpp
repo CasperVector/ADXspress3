@@ -31,6 +31,7 @@
 #include "dirent.h"
 #include <stdarg.h>
 #include <stdexcept>
+#include <string.h>
 #include <sys/types.h>
 #include <syscall.h>
 #include <unistd.h>
@@ -1680,16 +1681,38 @@ void Xspress3::adReportError(const char *message)
 /**
  * Malloc an array large enough to hold the SCAs
  *
- * @param pSCA A reference to a pointer that will point to the allocated memory
+ * @param pSCAs A reference to a pointer that will point to the allocated memory
  *
  * @return true if an allocation error occurs otherwise false
  */
-bool Xspress3::createSCAArray(void *&pSCA)
+bool Xspress3::createSCABlock(void *&pSCAs)
 {
     const char *functionName = "Xspress3::createSCAArray";
-    pSCA = malloc(XSP3_SW_NUM_SCALERS * this->numChannels_ * sizeof(double));
-    if (pSCA == NULL) {
+    pSCAs = malloc(this->maxBlockSize_ * XSP3_SW_NUM_SCALERS * this->numChannels_ * sizeof(double));
+    if (pSCAs == NULL) {
         asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s: ERROR: SCA malloc failed.\n", functionName);
+        this->adReportError("Memory Error. Check IOC Log.");
+        return true;
+    } else {
+        return false;
+    }
+}
+
+/**
+ * Malloc an array large enough to hold the MCAs
+ *
+ * @param pMCAs A reference to a pointer that will point to the allocated memory
+ *
+ * @return true if an allocation error occurs otherwise false
+ */
+bool Xspress3::createMCABlock(void *&pMCAs)
+{
+    const char *functionName = "Xspress3::createMCAArray";
+    int maxSpectra;
+    getIntegerParam(xsp3MaxSpectraParam, &maxSpectra);
+    pMCAs = malloc(this->maxBlockSize_ * maxSpectra * this->numChannels_ * sizeof(double));
+    if (pMCAs == NULL) {
+        asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s: ERROR: MCA malloc failed.\n", functionName);
         this->adReportError("Memory Error. Check IOC Log.");
         return true;
     } else {
@@ -2031,28 +2054,29 @@ void Xspress3::xspAsynPrint(int asynPrintType, const char *format, ...)
 static void xsp3DataTaskC(void *xspAD)
 {
     Xspress3 *pXspAD = (Xspress3 *)xspAD;
-    void *pSCA;
+    void *pSCAs, *pMCAs;
     NDArray *pMCA;
     NDDataType_t dataType;
     bool acquire = false;
     bool aborted = false;
     bool error = false;
     bool notready = false;
-    int notready_count;
-    int numChannels, maxSpectra, frameNumber, numFrames = 0, acquired, lastAcquired;
+    int i, notready_count, offsetUnit;
+    int numChannels, maxSpectra, frameNumber, blockSize, numFrames = 0;
     // int frame_count, last_frame_count, frame_counter, frames_remaining, frame_offset;
     size_t dims[2];
     const double timeout = 0.00001;
     const int checkTimes = 20;
     // const char* functionName = "Xspress3::xps3DataTaskC";
     // The scalar array can be reused so create it now
-    pXspAD->createSCAArray(pSCA);
+    pXspAD->createSCABlock(pSCAs);
+    pXspAD->createMCABlock(pMCAs);
     // getIntegerParam(xsp3NumFramesDriverParam, &maxNumFrames);
     // int maxNumFrames;
     // maxNumFrames = pXspAD->getMaxNumFrames();
 
     while (1) {
-        acquired = lastAcquired = frameNumber = 0;
+        frameNumber = 0;
         aborted = false;
         pXspAD->checkForStopEvent(timeout, "Got stop event before start event.\n");
         if (pXspAD->waitForStartEvent("Got start event.\n") == epicsEventWaitOK) {
@@ -2065,6 +2089,8 @@ static void xsp3DataTaskC(void *xspAD)
         pXspAD->getDims(dims);
         maxSpectra = dims[0];
         numChannels = dims[1];
+        if (dataType == NDFloat64) offsetUnit = dims[1] * sizeof(double);
+        else offsetUnit = dims[1] * sizeof(u_int32_t);
         numFrames = pXspAD->getNumFramesToAcquire();
         pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "Collect %d frames\n", numFrames);
         // printf("data task acquire=%d, numframes=%d  / frameNumber=%d\n", (int)acquire, numFrames, frameNumber);
@@ -2095,23 +2121,27 @@ static void xsp3DataTaskC(void *xspAD)
                 pXspAD->unlock();
                 continue;
             }
-            usleep(2);
-            acquired = pXspAD->getNumFramesRead();
-            if (frameNumber < acquired) {
-                lastAcquired = acquired;
+            blockSize = pXspAD->getNumFramesRead() - frameNumber;
+            if (blockSize <= 0) {
+                usleep(2);
+                continue;
+            } else if (blockSize > pXspAD->maxBlockSize_) blockSize = pXspAD->maxBlockSize_;
+            if (dataType == NDFloat64) {
+                error = pXspAD->readBlock(static_cast<double *>(pSCAs), static_cast<double *>(pMCAs), frameNumber, blockSize, maxSpectra);
+            } else {
+                error = pXspAD->readBlock(static_cast<u_int32_t *>(pSCAs), static_cast<u_int32_t *>(pMCAs), frameNumber, blockSize, maxSpectra);
+            }
+            if (error) {
+                pXspAD->xspAsynPrint(ASYN_TRACE_ERROR, "There was an error during read out %d\n", error);
+                usleep(2);
+                continue;
+            }
+            for (i = 0; i < blockSize; i++) {
                 if (!pXspAD->createMCAArray(dims, pMCA, dataType)) {
-                    if (dataType == NDFloat64) {
-                        error = pXspAD->readBlock(static_cast<double *>(pSCA), static_cast<double *>(pMCA->pData), frameNumber, 1, maxSpectra);
-                    } else {
-                        error = pXspAD->readBlock(static_cast<u_int32_t *>(pSCA), static_cast<u_int32_t *>(pMCA->pData), frameNumber, 1, maxSpectra);
-                    }
-                    if (error) {
-                        pXspAD->xspAsynPrint(ASYN_TRACE_ERROR, "There was an error during read out %d\n", error);
-                    }
-
                     pXspAD->lock();
-                    pXspAD->writeOutScas(pSCA, numChannels, dataType);
+                    pXspAD->writeOutScas(static_cast<char *>(pSCAs) + i * XSP3_SW_NUM_SCALERS * offsetUnit, numChannels, dataType);
                     pXspAD->unlock();
+                    memcpy(pMCA->pData, static_cast<char *>(pMCAs) + i * dims[0] * offsetUnit, dims[0] * offsetUnit);
                     frameNumber++;
                     pXspAD->setNDArrayAttributes(pMCA, frameNumber);
                     pXspAD->lock();

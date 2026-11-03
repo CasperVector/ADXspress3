@@ -136,8 +136,9 @@ public:
     const int checkForStopEvent(double timeout, const char *message);
     const int waitForStartEvent(const char *message);
     void adReportError(const char *message);
+    bool createSCABlock(void *&pSCAs);
+    bool createMCABlock(void *&pMCAs);
     bool createMCAArray(size_t dims[2], NDArray *&pMCA, NDDataType_t dataType);
-    bool createSCAArray(void *&pSCA);
     bool readBlock(double *pSCAs, double *pMCAs, int frameNumber, int blockSize, int maxSpectra);
     bool readBlock(u_int32_t *pSCAs, u_int32_t *pMCAs, int frameNumber, int blockSize, int maxSpectra);
     void writeOutScas(void *pSCA, int numChannels, NDDataType_t dataType);
